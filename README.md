@@ -1,5 +1,5 @@
-
-
-Please copy your starter code from this location
-https://drive.google.com/drive/folders/1Nb82OdXZbUt0fYUe84U6NjzlhUqI_Hl0?usp=drive_link 
-
+# Final Capstone
+​
+This directory contains all of the starter projects for the final capstone.
+​
+Each project contains instructions that provides information about the starting code and explains how to get started with the final capstone project.
