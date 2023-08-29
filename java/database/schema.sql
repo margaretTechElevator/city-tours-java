@@ -2,10 +2,15 @@
 -- Please log an issue at https://redmine.postgresql.org/projects/pgadmin4/issues/new if you find any bugs, including reproduction steps.
 BEGIN;
 
+DROP TABLE IF EXISTS itinerary_landmark;
+DROP TABLE IF EXISTS itinerary;
+DROP TABLE IF EXISTS landmark;
+DROP TABLE IF EXISTS users;
+
 
 CREATE TABLE IF NOT EXISTS public.users
 (
-    user_id integer NOT NULL DEFAULT nextval('users_user_id_seq'::regclass),
+    user_id SERIAL,
     username character varying(50) COLLATE pg_catalog."default" NOT NULL,
     password_hash character varying(200) COLLATE pg_catalog."default" NOT NULL,
     role character varying(50) COLLATE pg_catalog."default" NOT NULL,
