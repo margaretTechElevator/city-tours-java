@@ -50,4 +50,10 @@ public class LandmarkController {
 
         return landmark;
     }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @RequestMapping(path = "landmarks", method = RequestMethod.POST)
+    public void addLandmarkToDatabase(@RequestBody Landmark landmark) {
+        dao.addLandmarkToDatabase(landmark);
+    }
 }

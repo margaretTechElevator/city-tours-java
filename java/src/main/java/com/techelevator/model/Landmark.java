@@ -1,9 +1,14 @@
 package com.techelevator.model;
 
+import javax.validation.constraints.NotNull;
+
 public class Landmark {
     private int id;
+    @NotNull
     private String placeId;
+    @NotNull
     private String type;
+    @NotNull
     private String city;
 
     public Landmark(int id, String placeId, String type, String city) {

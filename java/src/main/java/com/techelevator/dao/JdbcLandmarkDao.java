@@ -92,9 +92,24 @@ public class JdbcLandmarkDao implements LandmarkDao {
     }
 
     @Override
-    public boolean addLandmarkToDatabase(Landmark newLandmark) {
+    public void addLandmarkToDatabase(Landmark newLandmark) {
+        try {
+            //no need to add landmark if already in database
+            Landmark checkExists = getLandmarkByPlaceId(newLandmark.getPlaceId());
+            return;
+        } catch (Exception e) {
+            //continue if landmark is not in database
+        }
 
-        return false;
+        String sql = "INSERT INTO landmark (place_id, type, city) VALUES (?,?,?) RETURNING id;";
+
+        try {
+            Integer id = jdbcTemplate.queryForObject(sql, Integer.class,
+                    newLandmark.getPlaceId(),newLandmark.getType(),newLandmark.getCity());
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
     }
 
     private Landmark mapRowToLandmark(SqlRowSet results) {

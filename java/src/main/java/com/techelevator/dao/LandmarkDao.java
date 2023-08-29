@@ -11,5 +11,5 @@ public interface LandmarkDao {
 
     Landmark getLandmarkByPlaceId(String placeId);
 
-    boolean addLandmarkToDatabase(Landmark newLandmark);
+    void addLandmarkToDatabase(Landmark newLandmark);
 }
