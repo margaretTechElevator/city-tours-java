@@ -38,16 +38,9 @@
               required
             />
           </div>
-          <div id="submit">
-            <button type="submit">log in</button>
-          </div>
+          <button type="submit">log in</button>
           <p></p>
-          <div id="submit">
-            <button @click="$router.push('/register')">
-              join us
-            </button>
-            <!-- <router-link :to="{ name: 'register' }">join</router-link> -->
-          </div>
+          <button @click="$router.push('/register')">join us</button>
         </div>
       </form>
     </div>
@@ -95,9 +88,9 @@ export default {
 
 <style scoped>
 body {
-  background-image: url();
+  background-image: url("https://i.ibb.co/svhYTX5/city.png");
 }
-button{
+button {
   background-color: rgba(255, 255, 255, 0.74);
   border: none;
   text-align: center;
@@ -134,16 +127,15 @@ button{
 .inputs {
   text-align: center;
   width: 100%;
-  border-color: transparent
+  border-color: transparent;
 }
 #login {
   text-align: center;
   height: 700px;
   /* background-image: url("https://i.ibb.co/bLCxN8R/vecteezy-young-woman-tourist-looking-at-map-planning-trip-happy-girl-13215197.jpg"); */
-  background-image: url("https://i.ibb.co/svhYTX5/city.png");
-  margin: auto;
-  width: 700px;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+
+  /* margin: auto;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif; */
 }
 
 h2 {
