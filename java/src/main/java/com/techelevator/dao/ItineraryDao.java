@@ -12,9 +12,9 @@ public interface ItineraryDao {
 
     Itinerary getItineraryByDate(String username, LocalDate date);
 
-    Itinerary getNextItineraryForUser(String username, int id);
+    Itinerary getNextItineraryForUser(String username);
 
-    void addItinerary();
+    void addItinerary(String username, Itinerary itinerary);
 
     void updateItinerary(Itinerary itinerary);
 

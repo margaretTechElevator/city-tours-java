@@ -6,7 +6,6 @@ import java.time.LocalDate;
 
 public class Itinerary {
     private int id;
-    @Min(1)
     private int user;
     @NotNull
     private LocalDate date;

@@ -1,6 +1,7 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.Itinerary;
+import com.techelevator.model.Landmark;
 import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -23,7 +24,7 @@ public class JdbcItineraryDao implements ItineraryDao {
     @Override
     public List<Itinerary> getItineraryListByUsername(String username) {
         if (username == null || username.isBlank()) {
-            throw new IllegalArgumentException("Must be registered user to store itinerary");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,"Must be registered user to store itinerary");
         }
         List<Itinerary> itineraries = new ArrayList<>();
 
@@ -41,7 +42,7 @@ public class JdbcItineraryDao implements ItineraryDao {
     @PreAuthorize("hasRole('ADMIN')") //This is probably unnecessary but since it can access anyone's itinerary it would probably be safest. Frontend can access by date
     public Itinerary getItineraryById(int id) {
         if (id <= 0) {
-            throw new IllegalArgumentException("invalid id");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"invalid id");
         }
         Itinerary itinerary;
 
@@ -60,10 +61,10 @@ public class JdbcItineraryDao implements ItineraryDao {
     @Override
     public Itinerary getItineraryByDate(String username, LocalDate date) {
         if (date == null) {
-            throw new IllegalArgumentException("Invalid date");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Invalid date");
         }
         if (username == null) {
-            throw new IllegalArgumentException("Must be logged in to see itinerary on " + date.toString());
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,"Must be logged in to see itinerary on " + date.toString());
         }
         Itinerary itinerary;
 
@@ -80,13 +81,45 @@ public class JdbcItineraryDao implements ItineraryDao {
     }
 
     @Override
-    public Itinerary getNextItineraryForUser(String username, int id) {
-        return null;
+    public Itinerary getNextItineraryForUser(String username) {
+
+        if (username == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,"Must be logged in to see itinerary");
+        }
+        Itinerary itinerary;
+
+        String sql = "SELECT id, itinerary.user_id, date, start_location, end_location FROM itinerary JOIN users ON users.user_id = itinerary.user_id WHERE username = ? AND date >= CURRENT_DATE ORDER BY date ASC;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql,username);
+
+        if (results.next()) {
+            itinerary = mapRowToItinerary(results);
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        return itinerary;
     }
 
     @Override
-    public void addItinerary() {
+    public void addItinerary(String username, Itinerary itinerary) {
+        try {
+            //only 1 itinerary per date
+            Itinerary checkExists = getItineraryByDate(username, itinerary.getDate());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Only one itinerary allowed per user in one day. Update existing itinerary.");
+        } catch (ResponseStatusException e) {
+            if (e.getStatus().equals(HttpStatus.BAD_REQUEST)) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            }
+        }
 
+        String sql = "INSERT INTO itinerary ( user_id, date, start_location, end_location) VALUES ((SELECT user_id FROM users WHERE username = ?),?,?,?) RETURNING id;";
+
+        try {
+            Integer id = jdbcTemplate.queryForObject(sql, Integer.class,
+                    username,itinerary.getDate(),itinerary.getStartLocation(),itinerary.getEndLocation());
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @Override
