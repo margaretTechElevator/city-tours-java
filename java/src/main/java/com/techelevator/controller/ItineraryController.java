@@ -49,7 +49,7 @@ public class ItineraryController {
         Itinerary itinerary = dao.getItineraryById(id);
         return itinerary;
     }
-
+    @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "/itineraries", method = RequestMethod.POST)
     public void addItinerary(@RequestBody Itinerary itinerary, Principal user) {
         dao.addItinerary(user.getName(), itinerary);
