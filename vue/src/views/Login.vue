@@ -20,15 +20,17 @@
       <p>
       <router-link :to="{ name: 'register' }">Need an account? Sign up.</router-link></p>
     </form>
+    <Map></Map>
   </div>
 </template>
 
 <script>
 import authService from "../services/AuthService";
+import Map from "../components/Map.vue";
 
 export default {
   name: "login",
-  components: {},
+  components: { Map },
   data() {
     return {
       user: {
