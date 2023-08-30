@@ -4,6 +4,7 @@ import com.techelevator.model.Itinerary;
 import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -37,13 +38,45 @@ public class JdbcItineraryDao implements ItineraryDao {
     }
 
     @Override
-    public Itinerary getItineraryById() {
-        return null;
+    @PreAuthorize("hasRole('ADMIN')") //This is probably unnecessary but since it can access anyone's itinerary it would probably be safest. Frontend can access by date
+    public Itinerary getItineraryById(int id) {
+        if (id <= 0) {
+            throw new IllegalArgumentException("invalid id");
+        }
+        Itinerary itinerary;
+
+        String sql = "SELECT id, user_id, date, start_location, end_location FROM itinerary WHERE id = ?;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql,id);
+
+        if (results.next()) {
+            itinerary = mapRowToItinerary(results);
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        return itinerary;
     }
 
     @Override
     public Itinerary getItineraryByDate(String username, LocalDate date) {
-        return null;
+        if (date == null) {
+            throw new IllegalArgumentException("Invalid date");
+        }
+        if (username == null) {
+            throw new IllegalArgumentException("Must be logged in to see itinerary on " + date.toString());
+        }
+        Itinerary itinerary;
+
+        String sql = "SELECT id, itinerary.user_id, date, start_location, end_location FROM itinerary JOIN users ON users.user_id = itinerary.user_id WHERE username = ? and date = ?;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql,username,date);
+
+        if (results.next()) {
+            itinerary = mapRowToItinerary(results);
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        return itinerary;
     }
 
     @Override

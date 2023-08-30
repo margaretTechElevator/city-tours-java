@@ -8,7 +8,7 @@ import java.util.List;
 public interface ItineraryDao {
     List<Itinerary> getItineraryListByUsername(String username);
 
-    Itinerary getItineraryById();
+    Itinerary getItineraryById(int id);
 
     Itinerary getItineraryByDate(String username, LocalDate date);
 
