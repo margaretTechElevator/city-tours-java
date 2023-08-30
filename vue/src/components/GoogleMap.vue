@@ -43,6 +43,7 @@
         // "2645 Woodward Ave, Detroit, MI 48201",
         // "2934 Russell St, Detroit, MI, 48207",
         ],
+        location: {}
       };
     },
   
@@ -97,22 +98,29 @@
           });
           try {
     const coordinates = await getCoordinates(this.currentInput);
-    this.locations.push({
+    // this.locations.push({
+    //   address: this.currentInput,
+    //   lat: coordinates.lat,
+    //   lng: coordinates.lng
+    // });
+
+    this.location = {
       address: this.currentInput,
       lat: coordinates.lat,
       lng: coordinates.lng
-    });
+    }
 
     // Set the map center to the new coordinates and zoom in
     this.map.setCenter(coordinates);
     this.map.setZoom(15);
     
-    this.currentInput = "";
+    // this.currentInput = "";
   } catch (error) {
     window.alert(error.message);
   }
 
   //until here
+          this.currentInput = this.location.address,
           this.locations.push(this.currentInput);
           this.currentInput = "";
       },

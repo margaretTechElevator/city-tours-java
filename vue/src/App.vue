@@ -4,22 +4,16 @@
       <router-link v-bind:to="{ name: 'home' }">Home</router-link>&nbsp;|&nbsp;
       <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
     </div>
-
     <router-view />
-    <map-component/>
-    
+    <google-map/>  
   </div>
-  
 </template>
 <script>
-import MapComponent from './components/MapComponent.vue';
-
-
+import GoogleMap from './components/GoogleMap.vue';
 export default {
   name: 'App',
   components: {
-    MapComponent,
-   
+    GoogleMap,  
   }
 }
 </script>
