@@ -39,9 +39,10 @@ CREATE TABLE IF NOT EXISTS public.landmark
 
 CREATE TABLE IF NOT EXISTS public.itinerary_landmark
 (
+	id serial NOT NULL,
     itinerary_id integer NOT NULL,
     landmark_id integer NOT NULL,
-    CONSTRAINT pk_itinerary_landmark PRIMARY KEY (itinerary_id, landmark_id)
+    CONSTRAINT pk_itinerary_landmark PRIMARY KEY (id)
 );
 
 ALTER TABLE IF EXISTS public.itinerary
