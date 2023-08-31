@@ -150,7 +150,7 @@ h2 {
   text-align: center;
   padding-top: 10px;
   padding-bottom: 15px;
-  color: #074444;
+  color: #6b1717;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-weight: 900;
   font-size: 1.5rem;
