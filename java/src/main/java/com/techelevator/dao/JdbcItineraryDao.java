@@ -138,10 +138,10 @@ public class JdbcItineraryDao implements ItineraryDao {
 
     @Override
     public void updateItinerary(Itinerary itinerary) {
-        String sql = "UPDATE itinerary SET date = ?, start_location = ?, end_location = ? WHERE id = ?;";
+        String sql = "UPDATE itinerary SET start_location = ?, end_location = ? WHERE id = ?;";
 
         try {
-            jdbcTemplate.update(sql, itinerary.getDate(), itinerary.getStartLocation(), itinerary.getEndLocation(), itinerary.getId());
+            jdbcTemplate.update(sql, itinerary.getStartLocation(), itinerary.getEndLocation(), itinerary.getId());
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "invalid update object or parameters");
         }
