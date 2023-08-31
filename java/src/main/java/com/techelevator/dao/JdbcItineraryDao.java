@@ -138,19 +138,15 @@ public class JdbcItineraryDao implements ItineraryDao {
             return;
         }
 
-        //ensure no duplicates
-        long count = landmarkList.stream()
-//                .map(landmark -> landmark.getId())
-                .distinct()
-                .count();
-        if(count != landmarkList.size()) {
-            //todo confirm with group that we don't want duplicates and adjust schema if we do
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"No duplicate landmarks allowed in an itinerary");
-        }
+        //check if previous entries exist
+        String sqlCheck = "SELECT COUNT(id) FROM itinerary_landmark WHERE itinerary_id = ?;";
+        Integer count = jdbcTemplate.queryForObject(sqlCheck, Integer.class, itineraryId);
 
-        //clear old entries to maintain order
-        String sqlClear = "DELETE FROM itinerary_landmark WHERE itinerary_id = ?;";
-        jdbcTemplate.queryForObject(sqlClear, Void.class, itineraryId);
+        if(count > 0) {
+            //clear old entries to maintain order
+            String sqlClear = "DELETE FROM itinerary_landmark WHERE itinerary_id = ?;";
+            jdbcTemplate.queryForObject(sqlClear, Void.class, itineraryId);
+        }
 
         //no further action needed if list is empty
         if(landmarkList.size() == 0) {
@@ -160,10 +156,10 @@ public class JdbcItineraryDao implements ItineraryDao {
         //add all entries
         //todo consider creating separate DAO for this part of the itinerary to utilize NamedParameterJdbcTemplate;
         // it looks like it could allow a generalized parameter entry to make a single connection call through a map and string building
-        String sqlAdd = "INSERT INTO itinerary_landmark (itinerary_id, landmark_id) VALUES (?,?);";
+        String sqlAdd = "INSERT INTO itinerary_landmark (itinerary_id, landmark_id) VALUES (?,?) RETURNING id;";
 
         for (Integer landmark : landmarkList) {
-            jdbcTemplate.queryForObject(sqlAdd, Void.class, itineraryId ,landmark);
+            jdbcTemplate.queryForObject(sqlAdd, Integer.class, itineraryId ,landmark);
         }
     }
 
