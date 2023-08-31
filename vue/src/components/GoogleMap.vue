@@ -6,10 +6,19 @@
 
       <!-- <div id="input-area">
   
-            <p>For best results the address should have this format: <em>2934 Russell St, Detroit, MI, 48207</em></p>
+            <!-- <p>For best results the address should have this format: <em>2934 Russell St, Detroit, MI, 48207</em></p> -->
   
-            Location to Add: <input v-model="currentInput" type="input"/>
-            <button v-on:click="addToList">Add to Route</button>
+            Location: <input v-model="currentInput" type="input"/>
+            Radius: <input v-model="radiusInput" type="input"/>
+            Attraction Type: 
+            <div v-for="type in attractionTypes" :key="type">
+            <input type="radio" :value="type" v-model="selectedTypes">
+            {{ type }} 
+            </div>
+
+            <button v-on:click="addToList">Search Attractions</button>
+          
+        
             
             <p>Current Locations:</p>
             <button v-on:click="generateRoute">Generate Route</button><br><br>
@@ -53,14 +62,17 @@ export default {
       routeService: null,
       routeRendererService: null,
       currentInput: "",
+      radiusInput: "",
+      typeInput: "",
+      userDayInput: "",
+      attractionTypes: ["museum", "cafe", "restaurant", "park"],
+      selectedTypes: [],
       roundTrip: true,
       mapCenter: { lat: 42.3327, lng: -83.0458 },
-      locations: [
-        // "5200 Woodward Ave, Detroit, MI 48202",
-        // "2645 Woodward Ave, Detroit, MI 48201",
-        // "2934 Russell St, Detroit, MI, 48207",
-      ],
+      locations: [],
       location: {},
+      //markers when user want to see the landmarks on the map
+      // markers: [],
     };
   },
 
@@ -91,6 +103,7 @@ export default {
 
     // This function is called to add a new location
     async addToList() {
+      //check the location!
       if (this.currentInput.trim().length === 0) {
         window.alert("Location cannot be empty");
         return;
@@ -114,12 +127,8 @@ export default {
         });
       try {
         const coordinates = await getCoordinates(this.currentInput);
-        // this.locations.push({
-        //   address: this.currentInput,
-        //   lat: coordinates.lat,
-        //   lng: coordinates.lng
-        // });
 
+        //get the location object if user enter location info tinto the button.
         this.location = {
           address: this.currentInput,
           lat: coordinates.lat,
@@ -135,12 +144,80 @@ export default {
         window.alert(error.message);
       }
 
-      //until here
+      //initialize places service
+      const placesService = new window.google.maps.places.PlacesService(
+        this.map
+      );
+
+      //define the location (latitude and longitude)
+      this.location = new window.google.maps.LatLng(
+        this.location.lat,
+        this.location.lng
+      );
+
+      //set up the places API request parameters
+
+      const request = {
+        location: this.location,
+        radius: this.radiusInput, //search within 50000 meters
+        type: this.selectedTypes,
+      };
+      console.log("current selected types:", this.selectedTypes);
+      console.log(request);
+
+      //to store the markers
+      // const markers = [];
+
+      //make the Places API request
+      placesService.nearbySearch(request, (results, status) => {
+        if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+          for (let i = 0; i < results.length; i++) {
+            console.log(`Landmark: ${results[i].name}`);
+            console.log(`'Place Id: ${results[i].place_id}'`);
+            const placeId = results[i].place_id;
+
+            //fetch details for each place
+            placesService.getDetails({ placeId: placeId }, (place, status) => {
+              console.log(place.current_opening_hours);
+              if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+                //check if this place is open on the user-specified day
+                // if(place.opening_hours && place.opening_hours.weekday_text){
+                //   const daysOpen = place.opening_hours.weekday_text;
+                //   const isOpenUserDay = daysOpen.some(dayInfo => dayInfo.startsWith(this.userDayInput));
+
+                //   if(isOpenUserDay) {
+                // Create a marker
+                // const marker = new window.google.maps.Marker({
+                //   position: place.geometry.location,
+                //   map: this.map,
+                //   title: place.name
+                // });
+                const marker = new window.google.maps.Marker({
+                  position: results[i].geometry.location,
+                  map: this.map,
+                  title: results[i].name,
+                });
+
+                // Create an info window
+                const infoWindow = new window.google.maps.InfoWindow({
+                  //   content: `<h3>${place.name}</h3><p>${place.formatted_address}</p>`
+                  content: `<h3>${results[i].name}</h3><p>${results[i].vicinity}</p>`,
+                });
+
+                // Add click event listener to marker to show info window
+                marker.addListener("click", () => {
+                  infoWindow.open(this.map, marker);
+                });
+              }
+            });
+          }
+        }
+      });
+      //till here
       (this.currentInput = this.location.address),
         this.locations.push(this.currentInput);
       this.currentInput = "";
     },
-
     // This function is called to remove a location
     removeFromList(index) {
       if (this.locations.length == 2) {
@@ -224,7 +301,7 @@ export default {
 
 #map {
   grid-area: map;
-  width: 500px;
+  width: 650px;
   height: 400px;
   padding: 25px;
   margin: 25px;
