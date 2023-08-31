@@ -117,9 +117,14 @@ public class JdbcItineraryDao implements ItineraryDao {
         try {
             Integer id = jdbcTemplate.queryForObject(sql, Integer.class,
                     username,itinerary.getDate(),itinerary.getStartLocation(),itinerary.getEndLocation());
+            if (id != null) {
+                itinerary.setId(id);
+            }
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
+
+        updateLandmarkList(itinerary.getId(), itinerary.getLandmarks());
     }
 
     @Override
@@ -127,7 +132,7 @@ public class JdbcItineraryDao implements ItineraryDao {
 
     }
 
-    private void updateLandmarkList(int itineraryId, List<Landmark> landmarkList) {
+    private void updateLandmarkList(int itineraryId, List<Integer> landmarkList) {
         if(landmarkList == null) {
             //don't change the list if not supplied
             return;
@@ -135,7 +140,7 @@ public class JdbcItineraryDao implements ItineraryDao {
 
         //ensure no duplicates
         long count = landmarkList.stream()
-                .map(landmark -> landmark.getId())
+//                .map(landmark -> landmark.getId())
                 .distinct()
                 .count();
         if(count != landmarkList.size()) {
@@ -157,8 +162,8 @@ public class JdbcItineraryDao implements ItineraryDao {
         // it looks like it could allow a generalized parameter entry to make a single connection call through a map and string building
         String sqlAdd = "INSERT INTO itinerary_landmark (itinerary_id, landmark_id) VALUES (?,?);";
 
-        for (Landmark landmark : landmarkList) {
-            jdbcTemplate.queryForObject(sqlAdd, Void.class, itineraryId ,landmark.getId());
+        for (Integer landmark : landmarkList) {
+            jdbcTemplate.queryForObject(sqlAdd, Void.class, itineraryId ,landmark);
         }
     }
 
