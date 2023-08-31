@@ -17,6 +17,8 @@ public class Itinerary {
     @NotNull
     private List<Integer> landmarks;
 
+    public Itinerary(){}
+
     public Itinerary(int id, int user, LocalDate date, String startLocation, String endLocation) {
         this.id = id;
         this.user = user;
