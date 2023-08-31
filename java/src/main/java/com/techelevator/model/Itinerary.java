@@ -15,7 +15,7 @@ public class Itinerary {
     @NotNull
     private String endLocation;
     @NotNull
-    private List<Landmark> landmarks;
+    private List<Integer> landmarks;
 
     public Itinerary(int id, int user, LocalDate date, String startLocation, String endLocation) {
         this.id = id;
@@ -45,8 +45,8 @@ public class Itinerary {
         return endLocation;
     }
 
-    public List<Landmark> getLandmarks() {
-        List<Landmark> readOnly = landmarks;
+    public List<Integer> getLandmarks() {
+        List<Integer> readOnly = landmarks;
         return readOnly;
     }
 
@@ -70,7 +70,7 @@ public class Itinerary {
         this.endLocation = endLocation;
     }
 
-    public void setLandmarks(List<Landmark> landmarks) {
+    public void setLandmarks(List<Integer> landmarks) {
         this.landmarks = landmarks;
     }
 }
