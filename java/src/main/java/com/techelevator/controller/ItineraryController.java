@@ -1,6 +1,7 @@
 package com.techelevator.controller;
 
 import com.techelevator.dao.ItineraryDao;
+import com.techelevator.dao.UserDao;
 import com.techelevator.model.Itinerary;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -19,9 +20,11 @@ import java.util.List;
 @PreAuthorize("hasAnyRole('USER','ADMIN')")
 public class ItineraryController {
     private final ItineraryDao dao;
+    private final UserDao userDao;
 
-    public ItineraryController(ItineraryDao dao) {
+    public ItineraryController(ItineraryDao dao, UserDao userDao) {
         this.dao = dao;
+        this.userDao = userDao;
     }
 
     @RequestMapping(path = "/itineraries/all", method = RequestMethod.GET)
@@ -53,5 +56,19 @@ public class ItineraryController {
     @RequestMapping(path = "/itineraries", method = RequestMethod.POST)
     public void addItinerary(@RequestBody Itinerary itinerary, Principal user) {
         dao.addItinerary(user.getName(), itinerary);
+    }
+
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @RequestMapping(path = "/itineraries", method = RequestMethod.PUT)
+    public void updateItinerary(@RequestBody Itinerary itinerary, Principal user) {
+        //ensure logged in user can access only their itinerary
+        int userId = userDao.findIdByUsername(user.getName());
+        if (userId != itinerary.getUser()) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "You may not update another user's itinerary");
+        }
+
+        //update
+        dao.updateItinerary(itinerary);
+
     }
 }

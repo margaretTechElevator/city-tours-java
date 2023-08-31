@@ -138,7 +138,16 @@ public class JdbcItineraryDao implements ItineraryDao {
 
     @Override
     public void updateItinerary(Itinerary itinerary) {
+        String sql = "UPDATE itinerary SET date = ?, start_location = ?, end_location = ? WHERE id = ?;";
 
+        try {
+            jdbcTemplate.update(sql, itinerary.getDate(), itinerary.getStartLocation(), itinerary.getEndLocation(), itinerary.getId());
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "invalid update object or parameters");
+        }
+
+
+        updateLandmarkList(itinerary.getId(), itinerary.getLandmarks());
     }
 
     private void updateLandmarkList(int itineraryId, List<Integer> landmarkList) {
@@ -154,7 +163,7 @@ public class JdbcItineraryDao implements ItineraryDao {
         if(count > 0) {
             //clear old entries to maintain order
             String sqlClear = "DELETE FROM itinerary_landmark WHERE itinerary_id = ?;";
-            jdbcTemplate.queryForObject(sqlClear, Void.class, itineraryId);
+            jdbcTemplate.update(sqlClear, itineraryId);
         }
 
         //no further action needed if list is empty
