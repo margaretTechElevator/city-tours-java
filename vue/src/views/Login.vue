@@ -1,7 +1,7 @@
 <template>
   <body>
     <div id="login">
-      <navigation />
+      <navigation-bar-hamburger/>
       <form @submit.prevent="login">
         <!-- <h1 >City Tours</h1>
       <h3>lets plan the perfect daytrip</h3> -->
@@ -48,12 +48,13 @@
 </template>
 
 <script>
-import Navigation from "../components/navigation.vue";
+// import Navigation from "../components/navigation.vue";
+import NavigationBarHamburger from '../components/navigationBarHamburger.vue';
 import authService from "../services/AuthService";
 
 export default {
   name: "login",
-  components: { Navigation },
+  components: { NavigationBarHamburger },
   data() {
     return {
       user: {
@@ -89,6 +90,7 @@ export default {
 <style scoped>
 body {
   background-image: url("https://i.ibb.co/svhYTX5/city.png");
+  /* background-image: url("https://images.macrumors.com/t/uqbExVV-DT2ShQO9B5ouXYw3z7c=/800x0/article-new/2016/06/thumb-1-800x264.jpeg?lossy"); */
 }
 button {
   background-color: rgba(255, 255, 255, 0.74);
@@ -133,9 +135,6 @@ button {
   text-align: center;
   height: 700px;
   /* background-image: url("https://i.ibb.co/bLCxN8R/vecteezy-young-woman-tourist-looking-at-map-planning-trip-happy-girl-13215197.jpg"); */
-
-  /* margin: auto;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif; */
 }
 
 h2 {

@@ -1,7 +1,7 @@
 <template>
   <body>
-    <div id="register" class="text-center">
-      <navigation />
+    <div id="register">
+      <navigation-bar-hamburger/>
       <form @submit.prevent="register">
         <div id="usernameAndPassword">
           <h2>create account</h2>
@@ -9,19 +9,17 @@
             {{ registrationErrorMsg }}
           </div>
           <div class="form-input-group">
-            <!-- <label for="username">Username</label> -->
             <input
               type="text"
               class="inputs"
-              placeholder="username"
-              id="username"
+              placeholder="email"
+              id="email"
               v-model="user.username"
               required
               autofocus
             />
           </div>
           <div class="form-input-group">
-            <!-- <label for="password">Password</label> -->
             <input
               type="password"
               class="inputs"
@@ -32,7 +30,6 @@
             />
           </div>
           <div class="form-input-group">
-            <!-- <label for="confirmPassword">Confirm Password</label> -->
             <input
               type="password"
               class="inputs"
@@ -42,7 +39,7 @@
               required
             />
           </div>
-          <button type="submit">join!</button>
+          <button type="submit">sign me up!</button>
           <p></p>
           <button @click="$router.push('/login')">log in</button>
         </div>
@@ -52,11 +49,12 @@
 </template>
 
 <script>
-import navigation from "../components/navigation.vue";
 import authService from "../services/AuthService";
+import NavigationBarHamburger from '../components/navigationBarHamburger.vue';
+
 
 export default {
-  components: { navigation },
+  components: { NavigationBarHamburger},
   name: "register",
   data() {
     return {
