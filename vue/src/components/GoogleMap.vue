@@ -1,40 +1,83 @@
 <template>
-    <div>  
-      <div id="grid-container">
-  
-        <!--Google Maps will render map here-->
-        <div id="map"></div>
-  
-  
-        <div id="input-area">
-  
-            <!-- <p>For best results the address should have this format: <em>2934 Russell St, Detroit, MI, 48207</em></p> -->
-  
-            Location: <input v-model="currentInput" type="input"/>
-            Radius: <input v-model="radiusInput" type="input"/>
-            Attraction Type: 
-            <div v-for="type in attractionTypes" :key="type">
-            <input type="radio" :value="type" v-model="selectedTypes">
-            {{ type }} 
-            </div>
+  <div>
+    <div id="grid-container">
+      <!--Google Maps will render map here-->
+      <div id="map"></div>
 
-            <button v-on:click="addToList">Search Attractions</button>
-          
-        
-            
-            <p>Current Locations:</p>
-            <button v-on:click="generateRoute">Generate Route</button><br><br>
-            <div id="currentList" v-for="(location, index) of locations" v-bind:key="index">
-                <input class="current-inputs" v-model="locations[index]"/> <button v-on:click="removeFromList(index)">Remove</button>
-            </div>
+      <div id="searchArea" class="grid">
+        <input
+          v-model="currentInput"
+          placeholder="starting address"
+          type="input"
+          class="inputStartingMiles"
+          id="startingAddress"
+        />
+        <input
+          v-model="radiusInput"
+          placeholder="search radius in miles"
+          type="input"
+          class="inputStartingMiles"
+          id="milesFrom"
+        />
+        <p></p>
+        <span id="whatToSearch">things to do</span>
+      
+        <div v-for="type in attractionTypes" :key="type">
+          <input type="checkbox" :value="type" v-model="selectedTypes"/>
+          {{ type }}
         </div>
-  
-        <!--Google Maps will render directions here-->
-        <div id="panel"></div>
-  
+
+        <button v-on:click="addToList" id="letsGo">let's go!</button>
       </div>
+
+      <!-- MOVED TO ROUTE.VUE -->
+
+        <!-- <div id="cityTourRoute">
+          <table>
+        <tr>
+          <th>city</th>
+          <th>date</th>
+          <th>starting location</th>
+          <th>ending location</th>
+          <th>number of stops</th>
+       
+        </tr>
+        <tr>
+          <td>first stop</td>
+          <td>3miles</td>
+        </tr>
+      </table>
+        <button v-on:click="generateRoute">show route</button><br /><br />
+        <div
+          id="currentList"
+          v-for="(location, index) of locations"
+          v-bind:key="index"
+        >
+          <input class="current-inputs" v-model="locations[index]" />
+          <button v-on:click="removeFromList(index)">Remove</button>
+        </div>
+
+        <input v-model="currentInput" type="input" placeholder="address" />
+        <button v-on:click="addToList">Add a Stop</button>
+
+        <p>Current Locations:</p>
+        <button v-on:click="generateRoute">Generate Route</button><br /><br />
+      </div> -->
+        <div
+          id="currentList"
+          v-for="(location, index) of locations"
+          v-bind:key="index"
+        >
+          <input class="current-inputs" v-model="locations[index]" />
+          <button v-on:click="removeFromList(index)">Remove</button>
+        </div>
+      
     </div>
-  </template>
+
+    <!--Google Maps will render directions here-->
+    <div id="panel"></div>
+  </div>
+</template>
   
   <script>
 export default {
@@ -88,9 +131,14 @@ export default {
       if (this.currentInput.trim().length === 0) {
         window.alert("Location cannot be empty");
         return;
+
+      //check the radius!
+      if (this.radiusInput.trim().length === 0) {
+        window.alert("Radius cannot be empty");
+        return;
       }
 
-    
+   //below code is my code to check if it works
       const geocoder = new window.google.maps.Geocoder();
 
       const getCoordinates = (address) =>
@@ -253,31 +301,126 @@ export default {
 </script>
   
   <style>
+  input{
+    width:300px;
+  margin-top:0px;
+  margin-left: auto;
+  margin-right:auto;
+  text-align: center;
+  width: 50%;
+  box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.36);
+  border:rgb(203, 203, 203) 0.5px solid;
+  background-color: rgba(158, 158, 158, 0.248);
+  }
 #grid-container {
+  padding-bottom: 20px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   grid-template-areas:
-    "map inputs"
-    "directions directions";
+    "inputs "
+    "map "
+    "directions ";
 }
+
 
 #map {
   grid-area: map;
-  width: 650px;
+  width: 500px;
   height: 400px;
   padding: 25px;
   margin: 25px;
+
 }
 
-#input-area {
-  grid-area: inputs;
-}
 
 #panel {
   grid-area: directions;
 }
 
-.current-inputs {
-  width: 350px;
+#searchArea {
+  /* border: rgb(28, 153, 11) 3px solid; */
+  margin: auto;
+  width: 50%;
+  grid-area: inputs;
+  background-color: rgb(255, 255, 255);
+  padding-bottom: 40px;;
+  
 }
+.inputStartingMiles{
+  width:300px;
+  margin-top:10px;
+  margin-left: auto;
+  margin-right:auto;
+  text-align: center;
+  width: 100%;
+  box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.36);
+  border:rgb(203, 203, 203) 0.5px solid;
+  background-color: rgba(158, 158, 158, 0.248);
+
+}
+
+/* Please help get these in a horizontal row */
+
+
+.grid{
+  display:grid;
+  grid-template-columns: 500px 100px 100px 100px ;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-areas: 
+  "startingAddress startingAddress startingAddress startingAddress",
+  "milesFrom milesFrom milesFrom milesFrom",
+  " . whatToSearch whatToSearch .",
+  "radio radio radio radio",
+  ". letsGo letsGo .";
+ 
+}
+#milesFrom{
+  grid-area: milesFrom;
+}
+#startingAddress{
+  grid-area: startingAddress;
+} 
+#whatToSearch{
+  grid-area: whatToSearch;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 15px;
+  color: #6b1717;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-weight: 900;
+  font-size: 1.5rem;
+  line-height: 0;
+  text-shadow: 1px 1px 10px rgba(130, 114, 110, 0.5);
+}
+#letsGo{
+  grid-area: letsGo;
+
+}
+button {
+  background-color: rgb(236, 191, 93);
+  border: none;
+  text-align: center;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  color: #6b1717;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-weight: 900;
+  font-size: 1rem;
+  line-height: 1;
+  box-shadow: 1px 1px 10px rgba(130, 114, 110, 0.186);
+
+}
+::placeholder {
+  color: #e0a788e0;
+  font-weight: 900;
+  letter-spacing: 0.15rem;
+  font-size: 0.75rem;
+  background: transparent;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+
+
+  
+
 </style>
