@@ -23,14 +23,14 @@ const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
-    // {
-    //   path: '/',
-    //   name: 'home',
-    //   component: Home,
-    //   meta: {
-    //     requiresAuth: true
-    //   }
-    // },
+    {
+      path: '/',
+      name: 'landing',
+      component: Landing,
+      meta: {
+        requiresAuth: true
+      }
+    },
     {
       path: "/login",
       name: "login",
@@ -51,14 +51,6 @@ const router = new Router({
       path: "/register",
       name: "register",
       component: Register,
-      meta: {
-        requiresAuth: false
-      }
-    },
-    {
-      path: "/landing",
-      name: "landing",
-      component: Landing,
       meta: {
         requiresAuth: false
       }
