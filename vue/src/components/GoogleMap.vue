@@ -135,6 +135,12 @@ export default {
         return;
       }
 
+      //check the radius!
+      if (this.radiusInput.trim().length === 0) {
+        window.alert("Radius cannot be empty");
+        return;
+      }
+
       //below code is my code to check if it works
       const geocoder = new window.google.maps.Geocoder();
 
