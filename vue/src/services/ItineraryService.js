@@ -9,7 +9,7 @@ export default {
      * @returns void action is successful or an error object if not
      */
     addItinerary(itinerary) {
-        return axios.post(`${baseURL}/itineraries`, itinerary)
+        return axios.post(`/itineraries`, itinerary)
             .then(response => {
                 if (response.status === 201) {
                     return
@@ -27,7 +27,7 @@ export default {
      * @returns void if action is successful or an error object if not
      */
     updateItinerary(itinerary) {
-        return axios.put(`${baseURL}/itineraries`, itinerary)
+        return axios.put(`/itineraries`, itinerary)
             .then(response => {
                 if (response.status === 201) {
                     return
@@ -44,7 +44,7 @@ export default {
      * @returns {} itinerary object on success or error
      */
     getNextItinerary() {
-        return axios.get(`${baseURL}/itineraries`)
+        return axios.get(`/itineraries`)
             .then(response => {
 
                 if (response.status === 200) {
@@ -81,7 +81,7 @@ export default {
         let day = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(date);
         date = `${month}${day}${year}`
 
-        return axios.get(`${baseURL}/itineraries/${date}`)
+        return axios.get(`${baseURL}/itineraries?date=${date}`)
         .then(response => {
 
             if (response.status === 200) {
