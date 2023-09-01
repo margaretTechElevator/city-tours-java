@@ -20,19 +20,34 @@
           id="milesFrom"
         />
         <p></p>
-        <label for="attractionType" id="whatToSearch">things to do</label>
-        <div id="attractionTypesRadio" v-for="type in attractionTypes" :key="type">
-          <input type="radio" :value="type" v-model="selectedTypes" />
+        <span id="whatToSearch">things to do</span>
+      
+        <div v-for="type in attractionTypes" :key="type">
+          <input type="checkbox" :value="type" v-model="selectedTypes"/>
           {{ type }}
         </div>
 
         <button v-on:click="addToList" id="letsGo">let's go!</button>
       </div>
 
+      <!-- MOVED TO ROUTE.VUE -->
 
-
-        <p>Current Locations:</p>
-        <button v-on:click="generateRoute">Generate Route</button><br /><br />
+        <!-- <div id="cityTourRoute">
+          <table>
+        <tr>
+          <th>city</th>
+          <th>date</th>
+          <th>starting location</th>
+          <th>ending location</th>
+          <th>number of stops</th>
+       
+        </tr>
+        <tr>
+          <td>first stop</td>
+          <td>3miles</td>
+        </tr>
+      </table>
+        <button v-on:click="generateRoute">show route</button><br /><br />
         <div
           id="currentList"
           v-for="(location, index) of locations"
@@ -47,6 +62,7 @@
 
         <p>Current Locations:</p>
         <button v-on:click="generateRoute">Generate Route</button><br /><br />
+      </div> -->
         <div
           id="currentList"
           v-for="(location, index) of locations"
@@ -301,14 +317,26 @@ export default {
 </script>
   
   <style>
-/* #grid-container {
+  input{
+    width:300px;
+  margin-top:0px;
+  margin-left: auto;
+  margin-right:auto;
+  text-align: center;
+  width: 50%;
+  box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.36);
+  border:rgb(203, 203, 203) 0.5px solid;
+  background-color: rgba(158, 158, 158, 0.248);
+  }
+#grid-container {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-areas:
     "inputs "
-    "directions "
-    "map ";
-} */
+    "map "
+    "directions ";
+}
+
 
 #map {
   grid-area: map;
@@ -316,20 +344,21 @@ export default {
   height: 400px;
   padding: 25px;
   margin: 25px;
+
 }
 
-#input-area {
-  grid-area: inputs;
-}
 
 #panel {
   grid-area: directions;
 }
 
 #searchArea {
-  border: rgb(28, 153, 11) 3px solid;
+  /* border: rgb(28, 153, 11) 3px solid; */
   margin: auto;
   width: 50%;
+  grid-area: inputs;
+  background-color: rgb(255, 255, 255);
+  padding-bottom: 40px;;
   
 }
 .inputStartingMiles{
@@ -344,22 +373,19 @@ export default {
   background-color: rgba(158, 158, 158, 0.248);
 
 }
-#attractionTypesRadio{
-  border: black 3px solid;
-  grid-area: radio;
-  
-  
 
-}
+/* Please help get these in a horizontal row */
+
+
 .grid{
   display:grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 500px 100px 100px 100px ;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
   grid-template-areas: 
-  "startingAddress startingAddress startingAddress startingAddress"
-  "milesFrom milesFrom milesFrom milesFrom"
-  " . whatToSearch whatToSearch ."
-  "radio radio radio radio"
+  "startingAddress startingAddress startingAddress startingAddress",
+  "milesFrom milesFrom milesFrom milesFrom",
+  " . whatToSearch whatToSearch .",
+  "radio radio radio radio",
   ". letsGo letsGo .";
  
 }
@@ -368,7 +394,7 @@ export default {
 }
 #startingAddress{
   grid-area: startingAddress;
-}
+} 
 #whatToSearch{
   grid-area: whatToSearch;
   text-align: center;
@@ -407,6 +433,7 @@ button {
   background: transparent;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
+
 
 
   

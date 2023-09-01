@@ -13,8 +13,8 @@
     <ul class="menu">
       <li><a href="login">login</a></li>
       <li><a href="landing">home</a></li>
-      <li><a href="myToursPage">my trips</a></li>
-      <li><a href="planNewTourPage">new daytrip</a></li>
+      <li><a href="myToursPage">my tours</a></li>
+      <li><a href="planNewTourPage">new tour</a></li>
       <li><a href="logout">logout</a></li>
     </ul>
   </section>
@@ -29,6 +29,19 @@ export default {
 </script>
     
     <style>
+     a{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      color:#06445b;
+      font-weight: 900;
+      text-decoration: none;
+      font-size: 1rem;
+      
+  }
+  a:hover{
+    color: #ffffff;
+    text-shadow: 1px 1px 15px rgba(66, 66, 67, 0.252);
+
+  }
 #city {
   padding-top: 30px;
   color: #06445b;
@@ -71,6 +84,8 @@ export default {
   list-style-type: none;
   margin: 0;
   padding: 0;
+  
+
 }
 
 .menu > li {
@@ -119,9 +134,7 @@ export default {
   transform: rotate(405deg);
 }
 
-#menu-toggle:checked + .menu-button-container .menu-button {
-  background: rgba(255, 255, 255, 0);
-}
+
 
 #menu-toggle:checked + .menu-button-container .menu-button::after {
   margin-top: 0px;
@@ -139,8 +152,7 @@ export default {
     left: 0;
     flex-direction: column;
     width: 100%;
-    justify-content: center;
-    align-items: center;
+    align-items: end;
   }
   #menu-toggle ~ .menu li {
     height: 0;
@@ -150,22 +162,21 @@ export default {
     transition: height 400ms cubic-bezier(0.23, 1, 0.32, 1);
   }
   #menu-toggle:checked ~ .menu li {
-    border: 1px solid #333;
-    height: 2.5em;
+    border: 1px solid #ffffff00;
+    height: 1.5em;
     padding: 0.5em;
     transition: height 400ms cubic-bezier(0.23, 1, 0.32, 1);
+    background-color:#dbf0d2
   }
   .menu > li {
-    display: flex;
-    justify-content: center;
-    margin: 0;
-    padding: 0.5em 0;
-    width: 100%;
+  
+    justify-content:right;
+    width: 30%;
     color: white;
-    background-color: #222;
   }
   .menu > li:not(:last-child) {
     border-bottom: 1px solid #444;
   }
+ 
 }
 </style>

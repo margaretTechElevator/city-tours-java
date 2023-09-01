@@ -103,7 +103,7 @@ export default {
 
 <style scoped>
 body {
-  /* background-image: url("https://i.ibb.co/mynJ1nH/city2.png"); */
+  background-image: url("https://i.ibb.co/GWwykcL/chi.png");
 }
 button {
   background-color: rgb(236, 191, 93);
@@ -157,7 +157,7 @@ h2 {
   font-weight: 900;
   font-size: 1.5rem;
   line-height: 0;
-  text-shadow: 1px 1px 10px rgba(130, 114, 110, 0.5);
+  text-shadow: 1px 1px 10px rgba(130, 114, 110, 0);
 }
 #usernameAndPassword {
   margin-top:50px;
@@ -165,7 +165,7 @@ h2 {
   margin-right:auto;
 
   width: 30%;
-  background-color: rgba(255, 255, 255, 0.782);
+  background-color: #ffffff;
   padding: 50px;
 }
 </style>

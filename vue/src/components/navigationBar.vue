@@ -51,7 +51,7 @@
     z-index: 1;
   }
   .dropdown-content a {
-    color: black;
+    color: rgb(36, 239, 9);
     padding: 12px 16px;
     text-decoration: none;
     display: block;

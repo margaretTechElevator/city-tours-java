@@ -89,7 +89,7 @@ export default {
 
 <style scoped>
 body {
-  /* background-image: url("https://i.ibb.co/GWwykcL/chi.png"); */
+  background-image: url("https://i.ibb.co/GWwykcL/chi.png");
  
 }
 button {
@@ -130,7 +130,6 @@ button {
 .inputs {
   text-align: center;
   width: 100%;
- 
   box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.36);
   border:rgb(203, 203, 203) 0.5px solid;
   background-color: rgba(158, 158, 158, 0.248);
@@ -151,14 +150,14 @@ h2 {
   font-weight: 900;
   font-size: 1.5rem;
   line-height: 0;
-  text-shadow: 1px 1px 10px rgba(130, 114, 110, 0.5);
+  text-shadow: 1px 1px 10px rgba(130, 114, 110, 0);
 }
 #usernameAndPassword {
   margin-top:50px;
   margin-left: auto;
   margin-right:auto;
   width: 30%;
-  background-color: rgba(255, 255, 255, 0.738);
+  background-color: rgb(255, 255, 255);
   padding: 50px;
 }
 </style>
