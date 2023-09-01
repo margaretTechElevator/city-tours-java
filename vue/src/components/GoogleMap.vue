@@ -24,8 +24,11 @@
           {{ type }}
         </div>
 
-        <button v-on:click="addToList">Search Attractions</button>
+        <button v-on:click="addToList">let's go!</button>
       </div>
+
+
+
         <p>Current Locations:</p>
         <button v-on:click="generateRoute">Generate Route</button><br /><br />
         <div

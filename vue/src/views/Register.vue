@@ -116,7 +116,7 @@ button {
   font-weight: 900;
   font-size: 1rem;
   line-height: 1;
-box-shadow: 1px 1px 10px rgba(130, 114, 110, 0.36);
+  box-shadow: 1px 1px 10px rgba(130, 114, 110, 0.186);
 }
 ::placeholder {
   color: #e0a788e0;
@@ -140,8 +140,9 @@ box-shadow: 1px 1px 10px rgba(130, 114, 110, 0.36);
 .inputs {
   text-align: center;
   width: 100%;
-  border-color: transparent;
-  box-shadow: 1px 1px 10px rgba(130, 114, 110, 0.36);
+  box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.36);
+  border:rgb(203, 203, 203) 0.5px solid;
+  background-color: rgba(158, 158, 158, 0.248);
 }
 #register {
   height: 700px;
