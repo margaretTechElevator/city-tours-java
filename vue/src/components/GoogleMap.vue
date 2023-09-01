@@ -54,8 +54,6 @@ export default {
       mapCenter: { lat: 42.3327, lng: -83.0458 },
       locations: [],
       location: {},
-      //markers when user want to see the landmarks on the map
-      // markers: [],
     };
   },
 
@@ -92,7 +90,7 @@ export default {
         return;
       }
 
-      //below code is my code to check if it works
+    
       const geocoder = new window.google.maps.Geocoder();
 
       const getCoordinates = (address) =>
@@ -145,36 +143,17 @@ export default {
         radius: this.radiusInput, //search within 50000 meters
         type: this.selectedTypes,
       };
-      console.log("current selected types:", this.selectedTypes);
-      console.log(request);
-
-      //to store the markers
-      // const markers = [];
 
       //make the Places API request
       placesService.nearbySearch(request, (results, status) => {
         if (status === window.google.maps.places.PlacesServiceStatus.OK) {
           for (let i = 0; i < results.length; i++) {
-            console.log(`Landmark: ${results[i].name}`);
-            console.log(`'Place Id: ${results[i].place_id}'`);
             const placeId = results[i].place_id;
 
             //fetch details for each place
             placesService.getDetails({ placeId: placeId }, (place, status) => {
-              console.log(place.current_opening_hours);
               if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-                //check if this place is open on the user-specified day
-                // if(place.opening_hours && place.opening_hours.weekday_text){
-                //   const daysOpen = place.opening_hours.weekday_text;
-                //   const isOpenUserDay = daysOpen.some(dayInfo => dayInfo.startsWith(this.userDayInput));
-
-                //   if(isOpenUserDay) {
-                // Create a marker
-                // const marker = new window.google.maps.Marker({
-                //   position: place.geometry.location,
-                //   map: this.map,
-                //   title: place.name
-                // });
+  
                 const marker = new window.google.maps.Marker({
                   position: results[i].geometry.location,
                   map: this.map,
@@ -183,7 +162,7 @@ export default {
 
                 // Create an info window
                 const infoWindow = new window.google.maps.InfoWindow({
-                  //   content: `<h3>${place.name}</h3><p>${place.formatted_address}</p>`
+                
                   content: `<h3>${results[i].name}</h3><p>${results[i].vicinity}</p>`,
                 });
 
