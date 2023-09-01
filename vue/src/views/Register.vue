@@ -103,10 +103,10 @@ export default {
 
 <style scoped>
 body {
-  background-image: url("https://i.ibb.co/mynJ1nH/city2.png");
+  /* background-image: url("https://i.ibb.co/mynJ1nH/city2.png"); */
 }
 button {
-  background-color: rgba(255, 255, 255, 0.74);
+  background-color: rgb(236, 191, 93);
   border: none;
   text-align: center;
   padding-top: 8px;
@@ -116,7 +116,7 @@ button {
   font-weight: 900;
   font-size: 1rem;
   line-height: 1;
-  text-shadow: 1px 1px 10px rgba(130, 114, 110, 0.5);
+box-shadow: 1px 1px 10px rgba(130, 114, 110, 0.36);
 }
 ::placeholder {
   color: #e0a788e0;
@@ -141,6 +141,7 @@ button {
   text-align: center;
   width: 100%;
   border-color: transparent;
+  box-shadow: 1px 1px 10px rgba(130, 114, 110, 0.36);
 }
 #register {
   height: 700px;
@@ -158,9 +159,12 @@ h2 {
   text-shadow: 1px 1px 10px rgba(130, 114, 110, 0.5);
 }
 #usernameAndPassword {
-  margin: auto;
+  margin-top:50px;
+  margin-left: auto;
+  margin-right:auto;
+
   width: 30%;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.782);
   padding: 50px;
 }
 </style>

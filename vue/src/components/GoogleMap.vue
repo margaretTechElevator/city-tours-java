@@ -4,36 +4,41 @@
       <!--Google Maps will render map here-->
       <div id="map"></div>
 
-      <!-- <div id="input-area">
-  
-            <!-- <p>For best results the address should have this format: <em>2934 Russell St, Detroit, MI, 48207</em></p> -->
-  
-            Location: <input v-model="currentInput" type="input"/>
-            Radius: <input v-model="radiusInput" type="input"/>
-            Attraction Type: 
-            <div v-for="type in attractionTypes" :key="type">
-            <input type="radio" :value="type" v-model="selectedTypes">
-            {{ type }} 
-            </div>
+      <div id="searchArea" class="grid">
+        <input
+          v-model="currentInput"
+          placeholder="starting address"
+          type="input"
+          class="inputStartingMiles"
+        />
+        <input
+          v-model="radiusInput"
+          placeholder="how many miles are you willing to travel"
+          type="input"
+          class="inputStartingMiles"
+        />
+        <p></p>
+        <label for="attractionType">what would you like to search</label>
+        <div id="attractionTypesRadio" v-for="type in attractionTypes" :key="type">
+          <input type="radio" :value="type" v-model="selectedTypes" />
+          {{ type }}
+        </div>
 
-            <button v-on:click="addToList">Search Attractions</button>
-          
-        
-            
-            <p>Current Locations:</p>
-            <button v-on:click="generateRoute">Generate Route</button><br><br>
-            <div id="currentList" v-for="(location, index) of locations" v-bind:key="index">
-                <input class="current-inputs" v-model="locations[index]"/> <button v-on:click="removeFromList(index)">Remove</button>
-            </div>
-        </div> -->
-      <div id="input-area">
-        <!-- <p>
-          For best results the address should have this format:
-          <em>2934 Russell St, Detroit, MI, 48207</em>
-        </p> -->
-        <!-- <label for="addAStop">Add a Location</label> -->
+        <button v-on:click="addToList">Search Attractions</button>
+      </div>
+        <p>Current Locations:</p>
+        <button v-on:click="generateRoute">Generate Route</button><br /><br />
+        <div
+          id="currentList"
+          v-for="(location, index) of locations"
+          v-bind:key="index"
+        >
+          <input class="current-inputs" v-model="locations[index]" />
+          <button v-on:click="removeFromList(index)">Remove</button>
+        </div>
+
         <input v-model="currentInput" type="input" placeholder="address" />
-        <button v-on:click="addToList" >Add a Stop</button>
+        <button v-on:click="addToList">Add a Stop</button>
 
         <p>Current Locations:</p>
         <button v-on:click="generateRoute">Generate Route</button><br /><br />
@@ -45,11 +50,11 @@
           <input class="current-inputs" v-model="locations[index]" />
           <button v-on:click="removeFromList(index)">Remove</button>
         </div>
-      </div>
-
-      <!--Google Maps will render directions here-->
-      <div id="panel"></div>
+      
     </div>
+
+    <!--Google Maps will render directions here-->
+    <div id="panel"></div>
   </div>
 </template>
   
@@ -293,15 +298,16 @@ export default {
   <style>
 #grid-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   grid-template-areas:
-    "map inputs"
-    "directions directions";
+    "inputs "
+    "directions "
+    "map ";
 }
 
 #map {
   grid-area: map;
-  width: 650px;
+  width: 500px;
   height: 400px;
   padding: 25px;
   margin: 25px;
@@ -315,7 +321,23 @@ export default {
   grid-area: directions;
 }
 
-.current-inputs {
-  width: 350px;
+#searchArea {
+  border: rgb(28, 153, 11) 3px solid;
+  margin: auto;
+  width: 50%;
+}
+.inputStartingMiles{
+  width:300px;
+  margin-top:10px;
+  margin-left: auto;
+  margin-right:auto;
+
+}
+#attractionTypesRadio{
+  border: black 3px solid;
+}
+.grid{
+  display:grid;
+  grid-template-columns: ;
 }
 </style>

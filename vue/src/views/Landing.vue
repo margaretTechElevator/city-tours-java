@@ -21,7 +21,7 @@ import NavigationBarHamburger from '../components/navigationBarHamburger.vue';
   
   <style>
   body {
-  background-image: url("https://i.ibb.co/svhYTX5/city.png");
+  /* background-image: url("https://i.ibb.co/svhYTX5/city.png"); */
 }
   #tagline{
     margin:auto;

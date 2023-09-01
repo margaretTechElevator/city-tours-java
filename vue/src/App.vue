@@ -19,6 +19,6 @@ export default {
 </script>
 <style scoped>
 body{
-/* background-image: url("https://i.ibb.co/GWwykcL/chi.png"); */
+
 }
 </style>
