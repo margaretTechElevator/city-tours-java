@@ -335,6 +335,7 @@ export default {
   background-color: rgba(158, 158, 158, 0.248);
   }
 #grid-container {
+  padding-bottom: 20px;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-areas:
