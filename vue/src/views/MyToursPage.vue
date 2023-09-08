@@ -16,8 +16,7 @@
 
   export default {
     components: { Navigation, TripsTable },
-      name: 'myToursPage'
-  
+    name: 'MyToursPage'
   }
   </script>
   

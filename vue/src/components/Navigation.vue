@@ -13,7 +13,7 @@
     <ul class="menu">
       <li><a href="login">login</a></li>
       <li><a href="/">home</a></li>
-      <li><a href="myToursPage">my tours</a></li>
+      <li><a href="MyToursPage">my tours</a></li>
       <li><a href="planNewTourPage">new tour</a></li>
       <li><a href="logout">logout</a></li>
     </ul>

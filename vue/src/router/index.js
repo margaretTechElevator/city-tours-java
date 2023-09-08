@@ -57,7 +57,7 @@ const router = new Router({
     },
     {
       path: "/myToursPage",
-      name: "myToursPage",
+      name: "MyToursPage",
       component: MyToursPage,
       meta: {
         requiresAuth: true
