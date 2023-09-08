@@ -53,7 +53,7 @@ import Navigation from '../components/Navigation.vue';
 import authService from "../services/AuthService";
 
 export default {
-  name: "login",
+  name: "Login",
   components: { Navigation },
   data() {
     return {

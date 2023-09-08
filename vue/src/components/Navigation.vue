@@ -11,11 +11,11 @@
       <div class="menu-button"></div>
     </label>
     <ul class="menu">
-      <li><a href="login">login</a></li>
+      <li><a href="Login">login</a></li>
       <li><a href="/">home</a></li>
       <li><a href="MyToursPage">my tours</a></li>
       <li><a href="PlanNewTourPage">new tour</a></li>
-      <li><a href="logout">logout</a></li>
+      <li><a href="Logout">logout</a></li>
     </ul>
   </section>
 </template>

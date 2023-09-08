@@ -54,7 +54,7 @@ import Navigation from '../components/Navigation.vue';
 
 export default {
   components: { Navigation },
-  name: "register",
+  name: "Register",
   data() {
     return {
       user: {

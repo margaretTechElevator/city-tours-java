@@ -14,7 +14,7 @@ import GoogleMap from '../components/GoogleMap.vue';
   import Navigation from '../components/Navigation.vue';
   
   export default {
-      name:"landing",
+    name: "Landing",
     components: { GoogleMap, Navigation },
   
   }
