@@ -65,7 +65,7 @@ const router = new Router({
     },
     {
       path: "/planNewTourPage",
-      name: "planNewTourPage",
+      name: "PlanNewTourPage",
       component: PlanNewTourPage,
       meta: {
         requiresAuth: false
