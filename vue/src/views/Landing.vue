@@ -1,7 +1,7 @@
 <template>
     <body>
       <div id="back">
-      <navigation-bar-hamburger/>
+      <Navigation />
       <div id="tagline">  <div>your city,</div>  <div>your adventure,</div><div>perfectly planned.</div>
     </div>
         <google-map id="mapElement"/>
@@ -11,11 +11,11 @@
   
   <script>
 import GoogleMap from '../components/GoogleMap.vue';
-import NavigationBarHamburger from '../components/navigationBarHamburger.vue';
+  import Navigation from '../components/Navigation.vue';
   
   export default {
       name:"landing",
-      components: {GoogleMap, NavigationBarHamburger},
+    components: { GoogleMap, Navigation },
   
   }
   </script>

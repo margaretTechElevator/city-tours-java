@@ -1,15 +1,10 @@
 <template>
-   <div id="app">
-    <div id="nav">
-      <!-- <navigationBarHamburger/> -->
-    </div>
+  <div id="app">
     <router-view />
   </div>
 </template>
 <script>
 // import Map from '../components/GoogleMap.vue';
-// import navigationBarHamburger from '../components/navigationBarHamburger.vue';
-export default {
   name: 'App',
   components: {
   

@@ -1,7 +1,7 @@
 <template>
   <body>
     <div id="register">
-      <navigation-bar-hamburger/>
+      <Navigation />
       <form @submit.prevent="register">
         <div id="usernameAndPassword">
           <h2>create account</h2>
@@ -50,11 +50,10 @@
 
 <script>
 import authService from "../services/AuthService";
-import NavigationBarHamburger from '../components/navigationBarHamburger.vue';
-
+import Navigation from '../components/Navigation.vue';
 
 export default {
-  components: { NavigationBarHamburger},
+  components: { Navigation },
   name: "register",
   data() {
     return {

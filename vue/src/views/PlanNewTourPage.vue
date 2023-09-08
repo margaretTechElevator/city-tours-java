@@ -1,6 +1,6 @@
 <template>
     <body>
-      <navigation-bar-hamburger/>
+    <Navigation />
 
       
   <google-map id="mapElement"/>
@@ -15,10 +15,10 @@
   <script>
   import route from '../components/route.vue'
   import GoogleMap from '../components/GoogleMap.vue';
-import navigationBarHamburger from '../components/navigationBarHamburger.vue'
+  import Navigation from '../components/Navigation.vue'
 import TripsTable from '../components/tripsTable.vue';
   export default {
-  components: { navigationBarHamburger, GoogleMap, TripsTable, route},
+    components: { Navigation, GoogleMap, TripsTable, route },
       name: 'PlanNewTourPage',
   
   }

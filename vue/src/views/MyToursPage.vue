@@ -1,6 +1,6 @@
 <template>
     <body>
-      <navigation-bar-hamburger/>
+    <Navigation />
   <h4>my tours</h4>
   <trips-table/>
   
@@ -11,10 +11,10 @@
   </template>
   
   <script scoped>
-import NavigationBarHamburger from '../components/navigationBarHamburger.vue'
+  import Navigation from '../components/Navigation.vue'
 import TripsTable from '../components/tripsTable.vue'
   export default {
-    components: {NavigationBarHamburger, TripsTable  },
+    components: { Navigation, TripsTable },
       name: 'myToursPage'
   
   }

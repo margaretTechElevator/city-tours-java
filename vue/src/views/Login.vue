@@ -1,7 +1,7 @@
 <template>
   <body>
     <div id="login">
-      <navigation-bar-hamburger/>
+      <Navigation />
 
       <form @submit.prevent="login">
 
@@ -49,12 +49,12 @@
 <script>
 
 
-import NavigationBarHamburger from '../components/navigationBarHamburger.vue';
+import Navigation from '../components/Navigation.vue';
 import authService from "../services/AuthService";
 
 export default {
   name: "login",
-  components: { NavigationBarHamburger },
+  components: { Navigation },
   data() {
     return {
       user: {
