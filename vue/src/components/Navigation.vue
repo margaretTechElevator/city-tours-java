@@ -24,7 +24,7 @@
     <script>
 export default {
   components: {},
-  name: "navigationBarHamburger",
+  name: "Navigation",
 };
 </script>
     
