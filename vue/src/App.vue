@@ -3,17 +3,9 @@
     <router-view />
   </div>
 </template>
+
 <script>
-// import Map from '../components/GoogleMap.vue';
-  name: 'App',
-  components: {
-  
-
+  export default {
+    name: 'App',
   }
-}
 </script>
-<style scoped>
-body{
-
-}
-</style>
