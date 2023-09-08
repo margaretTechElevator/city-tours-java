@@ -2,7 +2,7 @@
     <body>
     <Navigation />
   <h4>my tours</h4>
-  <trips-table/>
+    <TripsTable />
   
   <div id="myToursTableBackground">
 
@@ -12,7 +12,8 @@
   
   <script scoped>
   import Navigation from '../components/Navigation.vue'
-import TripsTable from '../components/tripsTable.vue'
+  import TripsTable from '../components/TripsTable.vue'
+
   export default {
     components: { Navigation, TripsTable },
       name: 'myToursPage'

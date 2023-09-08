@@ -19,10 +19,9 @@
 </template>
 
 <script>
-export default {
-    name:"tripsTable"
-
-}
+  export default {
+    name:"TripsTable",
+  }
 </script>
 
 <style>
