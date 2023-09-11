@@ -5,73 +5,35 @@
       <div id="map"></div>
 
       <div id="searchArea" class="grid">
-        <input
-          v-model="currentInput"
-          placeholder="starting address"
-          type="input"
-          class="inputStartingMiles"
-          id="startingAddress"
-        />
-        <input
-          v-model="radiusInput"
-          placeholder="search radius in miles"
-          type="input"
-          class="inputStartingMiles"
-          id="milesFrom"
-        />
+        <input v-model="currentInput" placeholder="starting address" type="input" class="inputStartingMiles"
+          id="startingAddress" />
+        <input v-model="radiusInput" placeholder="search radius in miles" type="input" class="inputStartingMiles"
+          id="milesFrom" />
         <p></p>
         <span id="whatToSearch">things to do</span>
-      
+
         <div v-for="type in attractionTypes" :key="type">
-          <input type="checkbox" :value="type" v-model="selectedTypes"/>
+          <input type="checkbox" :value="type" v-model="selectedTypes" />
           {{ type }}
         </div>
 
-        <button v-on:click="addToList" id="letsGo">let's go!</button>
+        <button v-on:click="search" id="letsGo">let's go!</button>
       </div>
 
       <!-- MOVED TO ROUTE.VUE -->
 
-        <!-- <div id="cityTourRoute">
-          <table>
-        <tr>
-          <th>city</th>
-          <th>date</th>
-          <th>starting location</th>
-          <th>ending location</th>
-          <th>number of stops</th>
-       
-        </tr>
-        <tr>
-          <td>first stop</td>
-          <td>3miles</td>
-        </tr>
-      </table>
-        <button v-on:click="generateRoute">show route</button><br /><br />
-        <div
-          id="currentList"
-          v-for="(location, index) of locations"
-          v-bind:key="index"
-        >
-          <input class="current-inputs" v-model="locations[index]" />
-          <button v-on:click="removeFromList(index)">Remove</button>
-        </div>
-
-        <input v-model="currentInput" type="input" placeholder="address" />
-        <button v-on:click="addToList">Add a Stop</button>
-
+      <div id="cityTourRoute">
         <p>Current Locations:</p>
         <button v-on:click="generateRoute">Generate Route</button><br /><br />
-      </div> -->
-        <div
-          id="currentList"
-          v-for="(location, index) of locations"
-          v-bind:key="index"
-        >
-          <input class="current-inputs" v-model="locations[index].address" />
-          <button v-on:click="removeFromList(index)">Remove</button>
-        </div>
-      
+      </div>
+      <div id="currentList" v-for="(location, index) of locations" v-bind:key="index">
+
+        <input class="current-inputs" v-model="locations[index].name" />
+        <button>Details</button>
+        <button v-on:click="removeFromList(index)">Remove</button>
+        <LandmarkInfo></LandmarkInfo>
+      </div>
+
     </div>
 
     <!--Google Maps will render directions here-->
@@ -79,22 +41,25 @@
   </div>
 </template>
   
-  <script>
+<script>
+import LandmarkInfo from './LandmarkInfo.vue'
 export default {
   name: "Map",
+  components: { LandmarkInfo },
   data() {
     return {
       map: null,
       routeService: null,
       routeRendererService: null,
-      currentInput: "",
-      radiusInput: "",
+      currentInput: "beacon park",
+      radiusInput: "200",
       typeInput: "",
       userDayInput: "",
       attractionTypes: ["museum", "cafe", "restaurant", "park"],
       selectedTypes: [],
       roundTrip: true,
       mapCenter: { lat: 42.3327, lng: -83.0458 },
+      searchLocations: [],
       locations: [],
       location: {},
       //markers when user want to see the landmarks on the map
@@ -128,7 +93,7 @@ export default {
     },
 
     // This function is called to add a new location
-    async addToList() {
+    async search() {
       //check the location!
       if (this.currentInput.trim().length === 0) {
         window.alert("Location cannot be empty");
@@ -167,7 +132,7 @@ export default {
           lng: coordinates.lng,
         };
 
-        this.locations.push(this.location);
+        //this.locations.push(this.location);
 
         // Set the map center to the new coordinates and zoom in
         this.map.setCenter(coordinates);
@@ -184,7 +149,7 @@ export default {
       );
 
       //define the location (latitude and longitude)
-      this.location = new window.google.maps.LatLng(
+      this.mapslocation = new window.google.maps.LatLng(
         this.location.lat,
         this.location.lng
       );
@@ -192,7 +157,7 @@ export default {
       //set up the places API request parameters
 
       const request = {
-        location: this.location,
+        location: this.mapslocation,
         radius: this.radiusInput, //search within 50000 meters
         type: this.selectedTypes,
       };
@@ -203,51 +168,105 @@ export default {
       // const markers = [];
 
       //make the Places API request
-      placesService.nearbySearch(request, (results, status) => {
-        if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-          for (let i = 0; i < results.length; i++) {
-            console.log(`Landmark: ${results[i].name}`);
-            console.log(`'Place Id: ${results[i].place_id}'`);
-            const placeId = results[i].place_id;
+      placesService.nearbySearch(
+        request,                      //our request object
+        (results, status) => {        //our function that handles the promise object we are sent back
+          if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+            this.searchLocations = []
 
-            //fetch details for each place
-            placesService.getDetails({ placeId: placeId }, (place, status) => {
-              console.log(place.current_opening_hours);
-              if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-                //check if this place is open on the user-specified day
-                // if(place.opening_hours && place.opening_hours.weekday_text){
-                //   const daysOpen = place.opening_hours.weekday_text;
-                //   const isOpenUserDay = daysOpen.some(dayInfo => dayInfo.startsWith(this.userDayInput));
+            for (let i = 0; i < results.length; i++) {
 
-                //   if(isOpenUserDay) {
-                // Create a marker
-                // const marker = new window.google.maps.Marker({
-                //   position: place.geometry.location,
-                //   map: this.map,
-                //   title: place.name
-                // });
-                const marker = new window.google.maps.Marker({
-                  position: results[i].geometry.location,
-                  map: this.map,
-                  title: results[i].name,
-                });
+              const placeId = results[i].place_id;
 
-                // Create an info window
-                const infoWindow = new window.google.maps.InfoWindow({
-                  //   content: `<h3>${place.name}</h3><p>${place.formatted_address}</p>`
-                  content: `<h3>${results[i].name}</h3><p>${results[i].vicinity}</p>`,
-                });
+              //fetch details for each place
+              placesService.getDetails(
+                { placeId: placeId },
+                (landmark, status) => {
+                  if (status === window.google.maps.places.PlacesServiceStatus.OK) {
 
-                // Add click event listener to marker to show info window
-                marker.addListener("click", () => {
-                  infoWindow.open(this.map, marker);
-                });
-              }
-            });
+                    // Create an info window
+                    const infoWindow = new window.google.maps.InfoWindow({
+                      content:
+                        `<h3>${results[i].name}</h3><p>${results[i].vicinity}</p><button id="routeButton${i}" value="${i}">Add to Route</button>`,
+                      id: i,
+                      routeFunction: this.addToList
+                    });
+
+                    // Create map marker
+                    const marker = new window.google.maps.Marker({
+                      position: results[i].geometry.location,
+                      map: this.map,
+                      title: results[i].name,
+                    });
+
+                    // Add click event listener to marker to show info window
+                    marker.addListener("click", () => {
+                      infoWindow.open(this.map, marker);
+                      window.google.maps.event.addListener(
+                        infoWindow, 
+                        'domready',
+                        () => {
+                          const routeButton = document.getElementById(`routeButton${i}`)
+                          
+                          if(routeButton) {
+                            routeButton.addEventListener('click',this.addToList)
+                          } else {
+                            console.log('did not find button');
+                          }
+                        }
+                      );
+                      
+                      //CREATE SIDEBAR
+                    });
+
+                    this.location = {
+                      id: i,
+                      name: landmark.name,
+                      address: landmark.formatted_address
+                    }
+
+                    this.searchLocations.push(this.location)
+
+                    // Create LandmarkInfo Component
+
+
+                    //check if this place is open on the user-specified day
+                    // if(place.opening_hours && place.opening_hours.weekday_text){
+                    //   const daysOpen = place.opening_hours.weekday_text;
+                    //   const isOpenUserDay = daysOpen.some(dayInfo => dayInfo.startsWith(this.userDayInput));
+
+                    //   if(isOpenUserDay) {
+                    // Create a marker
+                    // const marker = new window.google.maps.Marker({
+                    //   position: place.geometry.location,
+                    //   map: this.map,
+                    //   title: place.name
+                    // });
+
+
+
+                  }
+                }
+              );
+            }
           }
         }
-      });
+      );
       //till here
+    },
+    addToList(event) {
+      const addedLocationId = Number.parseInt(event.target.value)
+
+      const addedLocation = this.searchLocations.filter(location => location.id === addedLocationId)
+      console.log(addedLocation)
+      if (addedLocation.length === 1) {
+        this.locations.push(addedLocation[0]);
+        console.log(addedLocation[0])
+        console.log('should be added');
+      } else {
+        console.log(addedLocation);
+      }
+      
     },
     // This function is called to remove a location
     removeFromList(index) {
@@ -321,18 +340,19 @@ export default {
 };
 </script>
   
-  <style>
-  input{
-    width:300px;
-  margin-top:0px;
+<style>
+input {
+  width: 300px;
+  margin-top: 0px;
   margin-left: auto;
-  margin-right:auto;
+  margin-right: auto;
   text-align: center;
   width: 50%;
   box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.36);
-  border:rgb(203, 203, 203) 0.5px solid;
+  border: rgb(203, 203, 203) 0.5px solid;
   background-color: rgba(158, 158, 158, 0.248);
-  }
+}
+
 #grid-container {
   padding-bottom: 20px;
   display: grid;
@@ -364,18 +384,20 @@ export default {
   width: 50%;
   grid-area: inputs;
   background-color: rgb(255, 255, 255);
-  padding-bottom: 40px;;
-  
+  padding-bottom: 40px;
+  ;
+
 }
-.inputStartingMiles{
-  width:300px;
-  margin-top:10px;
+
+.inputStartingMiles {
+  width: 300px;
+  margin-top: 10px;
   margin-left: auto;
-  margin-right:auto;
+  margin-right: auto;
   text-align: center;
   width: 100%;
   box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.36);
-  border:rgb(203, 203, 203) 0.5px solid;
+  border: rgb(203, 203, 203) 0.5px solid;
   background-color: rgba(158, 158, 158, 0.248);
 
 }
@@ -383,25 +405,28 @@ export default {
 /* Please help get these in a horizontal row */
 
 
-.grid{
-  display:grid;
-  grid-template-columns: 500px 100px 100px 100px ;
+.grid {
+  display: grid;
+  grid-template-columns: 500px 100px 100px 100px;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-  grid-template-areas: 
-  "startingAddress startingAddress startingAddress startingAddress",
-  "milesFrom milesFrom milesFrom milesFrom",
-  " . whatToSearch whatToSearch .",
-  "radio radio radio radio",
-  ". letsGo letsGo .";
- 
+  grid-template-areas:
+    "startingAddress startingAddress startingAddress startingAddress",
+    "milesFrom milesFrom milesFrom milesFrom",
+    " . whatToSearch whatToSearch .",
+    "radio radio radio radio",
+    ". letsGo letsGo .";
+
 }
-#milesFrom{
+
+#milesFrom {
   grid-area: milesFrom;
 }
-#startingAddress{
+
+#startingAddress {
   grid-area: startingAddress;
-} 
-#whatToSearch{
+}
+
+#whatToSearch {
   grid-area: whatToSearch;
   text-align: center;
   padding-top: 20px;
@@ -413,10 +438,12 @@ export default {
   line-height: 0;
   text-shadow: 1px 1px 10px rgba(130, 114, 110, 0.5);
 }
-#letsGo{
+
+#letsGo {
   grid-area: letsGo;
 
 }
+
 button {
   background-color: rgb(236, 191, 93);
   border: none;
@@ -431,6 +458,7 @@ button {
   box-shadow: 1px 1px 10px rgba(130, 114, 110, 0.186);
 
 }
+
 ::placeholder {
   color: #e0a788e0;
   font-weight: 900;
@@ -439,9 +467,4 @@ button {
   background: transparent;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
-
-
-
-  
-
 </style>
