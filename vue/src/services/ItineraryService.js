@@ -1,5 +1,4 @@
 import axios from 'axios';
-const baseURL = 'localhost:9000'
 
 export default {
 
@@ -57,7 +56,7 @@ export default {
     },
 
     getAllItineraries() {
-        return axios.get(`${baseURL}/itineraries/all`)
+        return axios.get(`/itineraries/all`)
         .then(response => {
 
             if (response.status === 200) {
@@ -81,7 +80,7 @@ export default {
         let day = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(date);
         date = `${month}${day}${year}`
 
-        return axios.get(`${baseURL}/itineraries?date=${date}`)
+        return axios.get(`/itineraries?date=${date}`)
         .then(response => {
 
             if (response.status === 200) {
