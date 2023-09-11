@@ -3,12 +3,12 @@
     <Navigation />
     <google-map id="mapElement"/>
     <TripsTable />
-    <route/>
+    <Route/>
   </body>
 </template>
   
 <script>
-  import route from '../components/route.vue'
+  import Route from '../components/Route.vue'
   import GoogleMap from '../components/GoogleMap.vue';
   import Navigation from '../components/Navigation.vue'
   import TripsTable from '../components/TripsTable.vue';
@@ -18,7 +18,7 @@
       Navigation, 
       GoogleMap, 
       TripsTable, 
-      route 
+      Route 
     },
     name: 'PlanNewTourPage',
   }
