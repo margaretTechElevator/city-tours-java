@@ -32,7 +32,10 @@ public class JdbcItineraryDao implements ItineraryDao {
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql,username);
 
         while (results.next()) {
-            itineraries.add(mapRowToItinerary(results));
+            Itinerary model = mapRowToItinerary(results);
+            List<Integer> landmarkIds = getLandmarkIds(model.getId());
+            model.setLandmarks(landmarkIds);
+            itineraries.add(model);
         }
 
         return itineraries;
@@ -51,6 +54,8 @@ public class JdbcItineraryDao implements ItineraryDao {
 
         if (results.next()) {
             itinerary = mapRowToItinerary(results);
+            List<Integer> landmarkIds = getLandmarkIds(itinerary.getId());
+            itinerary.setLandmarks(landmarkIds);
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
@@ -73,6 +78,8 @@ public class JdbcItineraryDao implements ItineraryDao {
 
         if (results.next()) {
             itinerary = mapRowToItinerary(results);
+            List<Integer> landmarkIds = getLandmarkIds(itinerary.getId());
+            itinerary.setLandmarks(landmarkIds);
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
@@ -93,6 +100,8 @@ public class JdbcItineraryDao implements ItineraryDao {
 
         if (results.next()) {
             itinerary = mapRowToItinerary(results);
+            List<Integer> landmarkIds = getLandmarkIds(itinerary.getId());
+            itinerary.setLandmarks(landmarkIds);
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
@@ -117,14 +126,72 @@ public class JdbcItineraryDao implements ItineraryDao {
         try {
             Integer id = jdbcTemplate.queryForObject(sql, Integer.class,
                     username,itinerary.getDate(),itinerary.getStartLocation(),itinerary.getEndLocation());
+            if (id != null) {
+                itinerary.setId(id);
+            }
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
+
+        updateLandmarkList(itinerary.getId(), itinerary.getLandmarks());
     }
 
     @Override
     public void updateItinerary(Itinerary itinerary) {
+        String sql = "UPDATE itinerary SET start_location = ?, end_location = ? WHERE id = ?;";
 
+        try {
+            jdbcTemplate.update(sql, itinerary.getStartLocation(), itinerary.getEndLocation(), itinerary.getId());
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "invalid update object or parameters");
+        }
+
+
+        updateLandmarkList(itinerary.getId(), itinerary.getLandmarks());
+    }
+
+    private void updateLandmarkList(int itineraryId, List<Integer> landmarkList) {
+        if(landmarkList == null) {
+            //don't change the list if not supplied
+            return;
+        }
+
+        //check if previous entries exist
+        String sqlCheck = "SELECT COUNT(id) FROM itinerary_landmark WHERE itinerary_id = ?;";
+        Integer count = jdbcTemplate.queryForObject(sqlCheck, Integer.class, itineraryId);
+
+        if(count > 0) {
+            //clear old entries to maintain order
+            String sqlClear = "DELETE FROM itinerary_landmark WHERE itinerary_id = ?;";
+            jdbcTemplate.update(sqlClear, itineraryId);
+        }
+
+        //no further action needed if list is empty
+        if(landmarkList.size() == 0) {
+            return;
+        }
+
+        //add all entries
+        //todo consider creating separate DAO for this part of the itinerary to utilize NamedParameterJdbcTemplate;
+        // it looks like it could allow a generalized parameter entry to make a single connection call through a map and string building
+        String sqlAdd = "INSERT INTO itinerary_landmark (itinerary_id, landmark_id) VALUES (?,?) RETURNING id;";
+
+        for (Integer landmark : landmarkList) {
+            jdbcTemplate.queryForObject(sqlAdd, Integer.class, itineraryId ,landmark);
+        }
+    }
+
+    private List<Integer> getLandmarkIds(int itineraryId) {
+        List<Integer> landmarkIds = new ArrayList<>();
+
+        String sql = "SELECT landmark_id FROM itinerary_landmark WHERE itinerary_id = ? ORDER BY id;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, itineraryId);
+
+        while (results.next()) {
+            landmarkIds.add(results.getInt("landmark_id"));
+        }
+
+        return landmarkIds;
     }
 
     private Itinerary mapRowToItinerary(SqlRowSet results) {
@@ -143,4 +210,5 @@ public class JdbcItineraryDao implements ItineraryDao {
 
         return itinerary;
     }
+
 }

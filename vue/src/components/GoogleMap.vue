@@ -68,7 +68,7 @@
           v-for="(location, index) of locations"
           v-bind:key="index"
         >
-          <input class="current-inputs" v-model="locations[index]" />
+          <input class="current-inputs" v-model="locations[index].address" />
           <button v-on:click="removeFromList(index)">Remove</button>
         </div>
       
@@ -160,12 +160,14 @@ export default {
       try {
         const coordinates = await getCoordinates(this.currentInput);
 
-        //get the location object if user enter location info tinto the button.
+        //get the location object if user enter location info into the button.
         this.location = {
           address: this.currentInput,
           lat: coordinates.lat,
           lng: coordinates.lng,
         };
+
+        this.locations.push(this.location);
 
         // Set the map center to the new coordinates and zoom in
         this.map.setCenter(coordinates);
@@ -246,9 +248,6 @@ export default {
         }
       });
       //till here
-      (this.currentInput = this.location.address),
-        this.locations.push(this.currentInput);
-      this.currentInput = "";
     },
     // This function is called to remove a location
     removeFromList(index) {
@@ -264,7 +263,7 @@ export default {
     // and retrieves the directions
     generateRoute() {
       for (let i = 0; i < this.locations.length; i++) {
-        if (this.locations[i].trim().length === 0) {
+        if (this.locations[i].address.trim().length === 0) {
           window.alert("Location cannot be empty");
           return;
         }
