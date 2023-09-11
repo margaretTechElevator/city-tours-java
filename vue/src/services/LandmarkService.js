@@ -1,5 +1,4 @@
 import axios from 'axios';
-const baseURL = 'localhost:9000'
 
 export default {
     addLandmark(landmark) {
