@@ -1,30 +1,25 @@
 <template>
-    <body>
-      <navigation-bar-hamburger/>
-
-      
-  <google-map id="mapElement"/>
- <trips-table/>
- <route/>
-
-
-
-    </body>
-  </template>
+  <body>
+    <Navigation />
+    <google-map id="mapElement"/>
+    <TripsTable />
+    <Route/>
+  </body>
+</template>
   
-  <script>
-  import route from '../components/route.vue'
+<script>
+  import Route from '../components/Route.vue'
   import GoogleMap from '../components/GoogleMap.vue';
-import navigationBarHamburger from '../components/navigationBarHamburger.vue'
-import TripsTable from '../components/tripsTable.vue';
+  import Navigation from '../components/Navigation.vue'
+  import TripsTable from '../components/TripsTable.vue';
+
   export default {
-  components: { navigationBarHamburger, GoogleMap, TripsTable, route},
-      name: 'PlanNewTourPage',
-  
+    components: { 
+      Navigation, 
+      GoogleMap, 
+      TripsTable, 
+      Route 
+    },
+    name: 'PlanNewTourPage',
   }
-  </script>
-  
-  <style >
-  
-  
-  </style>
+</script>
