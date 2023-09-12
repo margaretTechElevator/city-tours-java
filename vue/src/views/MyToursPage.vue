@@ -1,7 +1,10 @@
 <template>
   <body>
     <Navigation />
-    <h4>my tours</h4>
+    <div>
+      <h4>my tours</h4>
+      <button v-on:click="redirectToNewItinerary">+ new itinerary</button>
+    </div>
     <ItineraryList />
     <div id="myToursTableBackground"></div>  
   </body>
@@ -13,7 +16,12 @@
 
   export default {
     components: { Navigation, ItineraryList },
-    name: 'MyToursPage'
+    name: 'MyToursPage',
+    methods: {
+      redirectToNewItinerary() {
+        this.$router.push("PlanNewTourPage");
+      },
+    },
   }
 </script>
   

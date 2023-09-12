@@ -47,7 +47,7 @@ import ItineraryService from '../services/ItineraryService'
         })
         .catch((error) => {
           this.hasTried = true;
-          this.failureMessage = `We fucked up, guys: ${error.response}`;
+          this.failureMessage = `Our apologies! ${error.response}`;
         })
       },
       clearErrors() {
