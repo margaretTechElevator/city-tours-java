@@ -2,22 +2,22 @@
   <body>
     <Navigation />
     <google-map id="mapElement"/>
-    <TripsTable />
+    <ItineraryList />
     <Route/>
   </body>
 </template>
   
 <script>
   import Route from '../components/Route.vue'
-  import GoogleMap from '../components/GoogleMap.vue';
+  import GoogleMap from '../components/GoogleMap.vue'
   import Navigation from '../components/Navigation.vue'
-  import TripsTable from '../components/TripsTable.vue';
+  import ItineraryList from '../components/ItineraryList.vue'
 
   export default {
     components: { 
       Navigation, 
       GoogleMap, 
-      TripsTable, 
+      ItineraryList, 
       Route 
     },
     name: 'PlanNewTourPage',

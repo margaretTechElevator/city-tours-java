@@ -2,17 +2,17 @@
   <body>
     <Navigation />
     <h4>my tours</h4>
-    <TripsTable />
+    <ItineraryList />
     <div id="myToursTableBackground"></div>  
   </body>
 </template>
   
 <script scoped>
   import Navigation from '../components/Navigation.vue'
-  import TripsTable from '../components/TripsTable.vue'
+  import ItineraryList from '../components/ItineraryList.vue'
 
   export default {
-    components: { Navigation, TripsTable },
+    components: { Navigation, ItineraryList },
     name: 'MyToursPage'
   }
 </script>
