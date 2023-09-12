@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table v-if="hasTried && failureMessage == ''" id="itineraryList">
+    <table v-if="failureMessage == ''" id="itineraryList">
       <tr>
         <th>city</th>
         <th>date</th>
@@ -35,24 +35,17 @@ import ItineraryService from '../services/ItineraryService'
     data() {
       return {
         failureMessage: "",
-        hasTried: false,
         itineraries: [],
       };
     },
     methods: {
       getAllItineraries() {
         ItineraryService.getAllItineraries().then((response) => {
-          this.hasTried = true;
           this.itineraries =response;
         })
         .catch((error) => {
-          this.hasTried = true;
           this.failureMessage = `Our apologies! ${error.response}`;
         })
-      },
-      clearErrors() {
-        this.hasTried = false;
-        this.failureMessage = "";
       },
     },
 
