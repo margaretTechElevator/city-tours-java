@@ -13,7 +13,7 @@
         <span id="whatToSearch">things to do</span>
 
         <div v-for="type in attractionTypes" :key="type">
-          <input type="checkbox" :value="type" v-model="selectedTypes" />
+          <input type="radio" :value="type" v-model="selectedTypes" />
           {{ type }}
         </div>
 
@@ -29,9 +29,16 @@
       <div id="currentList" v-for="(location, index) of locations" v-bind:key="index">
 
         <input class="current-inputs" v-model="locations[index].name" />
-        <button>Details</button>
+        <button v-on:click.prevent="location.showDetails=!location.showDetails">Details</button>
         <button v-on:click="removeFromList(index)">Remove</button>
-        <LandmarkInfo></LandmarkInfo>
+        <LandmarkInfo 
+          v-bind:landmarkName="location.name"
+          v-bind:address="location.address" 
+          v-bind:photos="location.photos"
+          v-bind:phoneNumber="location.phoneNumber"
+          v-bind:website="location.website"
+          v-show="location.showDetails" 
+        />
       </div>
 
     </div>
@@ -42,6 +49,7 @@
 </template>
   
 <script>
+// import { toRaw } from 'vue';
 import LandmarkInfo from './LandmarkInfo.vue'
 export default {
   name: "Map",
@@ -62,11 +70,11 @@ export default {
       searchLocations: [],
       locations: [],
       location: {},
-      //markers when user want to see the landmarks on the map
+
       // markers: [],
     };
   },
-
+  
   methods: {
     // This function is called during load, but can also be called to reset the map
     initMap() {
@@ -161,11 +169,7 @@ export default {
         radius: this.radiusInput, //search within 50000 meters
         type: this.selectedTypes,
       };
-      console.log("current selected types:", this.selectedTypes);
-      console.log(request);
 
-      //to store the markers
-      // const markers = [];
 
       //make the Places API request
       placesService.nearbySearch(
@@ -173,6 +177,7 @@ export default {
         (results, status) => {        //our function that handles the promise object we are sent back
           if (status === window.google.maps.places.PlacesServiceStatus.OK) {
             this.searchLocations = []
+            // this.deleteMarkers()
 
             for (let i = 0; i < results.length; i++) {
 
@@ -187,9 +192,7 @@ export default {
                     // Create an info window
                     const infoWindow = new window.google.maps.InfoWindow({
                       content:
-                        `<h3>${results[i].name}</h3><p>${results[i].vicinity}</p><button id="routeButton${i}" value="${i}">Add to Route</button>`,
-                      id: i,
-                      routeFunction: this.addToList
+                        `<h3>${results[i].name}</h3><p>${results[i].vicinity}</p><button id="routeButton${placeId}" value="${placeId}">Add to Route</button>`,
                     });
 
                     // Create map marker
@@ -199,74 +202,68 @@ export default {
                       title: results[i].name,
                     });
 
+                    // this.markers.push(toRaw(marker));
+
                     // Add click event listener to marker to show info window
                     marker.addListener("click", () => {
+                      //open info window when marker is selected
                       infoWindow.open(this.map, marker);
+
+                      //add listener to "add to route" button
                       window.google.maps.event.addListener(
-                        infoWindow, 
+                        infoWindow,
                         'domready',
                         () => {
-                          const routeButton = document.getElementById(`routeButton${i}`)
-                          
-                          if(routeButton) {
-                            routeButton.addEventListener('click',this.addToList)
-                          } else {
-                            console.log('did not find button');
+                          const routeButton = document.getElementById(`routeButton${placeId}`)
+
+                          if (routeButton) {
+                            routeButton.addEventListener('click', this.addToList)
                           }
                         }
                       );
-                      
+
                       //CREATE SIDEBAR
                     });
 
-                    this.location = {
-                      id: i,
+                    const newLandmark = {
+                      id: placeId,
                       name: landmark.name,
-                      address: landmark.formatted_address
+                      address: landmark.formatted_address,
+                      reviews: landmark.reviews,
+                      photos: landmark.photos,
+                      rating: landmark.rating,
+                      phoneNumber: landmark.formatted_phone_number,
+                      website: landmark.website,
+                      showDetails: false
+                      // marker: marker,
+                      // infoWindow: infoWindow
                     }
+                    
 
-                    this.searchLocations.push(this.location)
+                    this.searchLocations.push(newLandmark)
 
                     // Create LandmarkInfo Component
-
-
-                    //check if this place is open on the user-specified day
-                    // if(place.opening_hours && place.opening_hours.weekday_text){
-                    //   const daysOpen = place.opening_hours.weekday_text;
-                    //   const isOpenUserDay = daysOpen.some(dayInfo => dayInfo.startsWith(this.userDayInput));
-
-                    //   if(isOpenUserDay) {
-                    // Create a marker
-                    // const marker = new window.google.maps.Marker({
-                    //   position: place.geometry.location,
-                    //   map: this.map,
-                    //   title: place.name
-                    // });
-
 
 
                   }
                 }
               );
             }
+            // this.setMapOnAll()
           }
         }
       );
       //till here
     },
     addToList(event) {
-      const addedLocationId = Number.parseInt(event.target.value)
+      const addedLocationId = event.target.value
 
       const addedLocation = this.searchLocations.filter(location => location.id === addedLocationId)
-      console.log(addedLocation)
+      
       if (addedLocation.length === 1) {
         this.locations.push(addedLocation[0]);
-        console.log(addedLocation[0])
-        console.log('should be added');
-      } else {
-        console.log(addedLocation);
       }
-      
+
     },
     // This function is called to remove a location
     removeFromList(index) {
@@ -332,8 +329,26 @@ export default {
           console.log(error + "Could not generate route");
         });
     },
-  },
+    // // Sets the map on all markers in the array.
+    // setMapOnAll() {
+    //   for (let i = 0; i < this.markers.length; i++) {
+    //     toRaw(this.markers[i]).setMap(this.map);
+    //   }
+    // },
+    // // Removes the markers from the map, but keeps them in the array.
+    // hideMarkers() {
+    //   this.setMapOnAll(null);
+    // },
+    // // Deletes all markers in the array by removing references to them.
+    // deleteMarkers() {
+    //   this.hideMarkers();
+    //   this.markers = [];
+    // },
+    
 
+
+
+  },
   mounted() {
     this.initMap();
   },
