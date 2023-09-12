@@ -131,6 +131,7 @@ export default {
       if (this.currentInput.trim().length === 0) {
         window.alert("Location cannot be empty");
         return;
+      }
 
       //check the radius!
       if (this.radiusInput.trim().length === 0) {
