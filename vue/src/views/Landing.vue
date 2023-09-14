@@ -22,7 +22,7 @@
   }
 </script>
   
-<style >
+<style scoped>
   #back { 
     background-image: url("https://i.ibb.co/TKxNQrR/ny-Opacity.png");
   }

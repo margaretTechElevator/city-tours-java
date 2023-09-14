@@ -1,32 +1,33 @@
 <template>
-  <div>
-    <div id="grid-container">
+  <div class="mapContainer">
+
       <!--Google Maps will render map here-->
       <div id="map"></div>
 
-      <div id="searchArea" class="grid">
+      <!-- Search Area and Radius Input Fields -->
+      <div id="searchArea" >
         <input
           v-model="currentInput"
           placeholder="starting address"
           type="input"
-          class="inputStartingMiles"
+          class="inputFieldStyle"
           id="startingAddress"
         />
         <input
           v-model="radiusInput"
           placeholder="search radius in miles"
           type="input"
-          class="inputStartingMiles"
+          class="inputFieldStyle"
           id="milesFrom"
         />
-        <p></p>
-        <span id="whatToSearch">things to do</span>
-      
-        <div v-for="type in attractionTypes" :key="type">
+        
+      <!-- Buttons for categories -->
+        <div id="categoryButtons" v-for="type in attractionTypes" :key="type">
           <input type="checkbox" :value="type" v-model="selectedTypes"/>
           {{ type }}
         </div>
 
+     
         <button v-on:click="addToList" id="letsGo">let's go!</button>
       </div>
 
@@ -71,8 +72,6 @@
           <input class="current-inputs" v-model="locations[index].address" />
           <button v-on:click="removeFromList(index)">Remove</button>
         </div>
-      
-    </div>
 
     <!--Google Maps will render directions here-->
     <div id="panel"></div>
@@ -321,9 +320,19 @@ export default {
 };
 </script>
   
-  <style>
+  <style scoped>
+  .mapContainer{
+    
+    border: yellow 5px solid;
+  }
+  
+  #categoryButtons{
+    border:solid blue 2px;
+    grid-area: buttons;
+    
+  }
   input{
-    width:300px;
+    width:500px;
   margin-top:0px;
   margin-left: auto;
   margin-right:auto;
@@ -333,114 +342,59 @@ export default {
   border:rgb(203, 203, 203) 0.5px solid;
   background-color: rgba(158, 158, 158, 0.248);
   }
-#grid-container {
-  padding-bottom: 20px;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-areas:
-    "inputs "
-    "map "
-    "directions ";
-}
 
-
-#map {
-  grid-area: map;
-  width: 500px;
-  height: 400px;
-  padding: 25px;
-  margin: 25px;
-
-}
-
-
-#panel {
-  grid-area: directions;
-}
 
 #searchArea {
-  /* border: rgb(28, 153, 11) 3px solid; */
-  margin: auto;
-  width: 50%;
-  grid-area: inputs;
+  /* grid-area: searchArea;
+  display: grid;
+  grid-template-areas:". plan plan ." 
+                      "startingAddress startingAddress startingAddress milesFrom" 
+                      ". buttons buttons ."
+                      ". letsGo letsGo ."; */
   background-color: rgb(255, 255, 255);
-  padding-bottom: 40px;;
-  
+  border: solid green 3px;
+  width: fit-content;
+
 }
-.inputStartingMiles{
-  width:300px;
-  margin-top:10px;
-  margin-left: auto;
-  margin-right:auto;
-  text-align: center;
-  width: 100%;
+.inputFieldStyle{
   box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.36);
   border:rgb(203, 203, 203) 0.5px solid;
   background-color: rgba(158, 158, 158, 0.248);
 
 }
 
-/* Please help get these in a horizontal row */
-
-
-.grid{
-  display:grid;
-  grid-template-columns: 500px 100px 100px 100px ;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-  grid-template-areas: 
-  "startingAddress startingAddress startingAddress startingAddress",
-  "milesFrom milesFrom milesFrom milesFrom",
-  " . whatToSearch whatToSearch .",
-  "radio radio radio radio",
-  ". letsGo letsGo .";
- 
-}
-#milesFrom{
-  grid-area: milesFrom;
-}
-#startingAddress{
-  grid-area: startingAddress;
-} 
-#whatToSearch{
-  grid-area: whatToSearch;
+#newTripTitle{
   text-align: center;
-  padding-top: 20px;
-  padding-bottom: 15px;
   color: #6b1717;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-weight: 900;
   font-size: 1.5rem;
-  line-height: 0;
   text-shadow: 1px 1px 10px rgba(130, 114, 110, 0.5);
+  grid-area: plan;
 }
-#letsGo{
-  grid-area: letsGo;
 
-}
-button {
+/* button {
   background-color: rgb(236, 191, 93);
-  border: none;
-  text-align: center;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  border: black 15px solid;
   color: #6b1717;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-weight: 900;
-  font-size: 1rem;
-  line-height: 1;
   box-shadow: 1px 1px 10px rgba(130, 114, 110, 0.186);
-
-}
+} */
 ::placeholder {
   color: #e0a788e0;
   font-weight: 900;
-  letter-spacing: 0.15rem;
-  font-size: 0.75rem;
   background: transparent;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
-
+/* #startingAddress{
+  grid-area:"startingAddress"
+        
+}
+#milesFrom{
+  grid-area:"searchRadius"
+} */
 
   
 

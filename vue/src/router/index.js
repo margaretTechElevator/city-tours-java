@@ -7,6 +7,7 @@ import store from '../store/index'
 import Landing from '../views/Landing.vue'
 import MyToursPage from '../views/MyToursPage.vue'
 import PlanNewTourPage from '../views/PlanNewTourPage.vue'
+import testFlex from '../views/test.vue'
 
 Vue.use(Router)
 
@@ -67,6 +68,14 @@ const router = new Router({
       path: "/planNewTourPage",
       name: "PlanNewTourPage",
       component: PlanNewTourPage,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: "/test",
+      name: "testFlex",
+      component: testFlex,
       meta: {
         requiresAuth: false
       }

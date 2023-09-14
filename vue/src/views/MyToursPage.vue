@@ -2,22 +2,23 @@
   <body>
     <Navigation />
     <h4>my tours</h4>
-    <TripsTable />
+    <trips-table/>
     <div id="myToursTableBackground"></div>  
   </body>
 </template>
   
 <script scoped>
   import Navigation from '../components/Navigation.vue'
-  import TripsTable from '../components/TripsTable.vue'
+import TripsTable from '../components/TripsTable.vue'
+
 
   export default {
-    components: { Navigation, TripsTable },
+    components: { Navigation, TripsTable},
     name: 'MyToursPage'
   }
 </script>
   
-<style>
+<style scoped>
   body {
     background: url("https://i.ibb.co/TKxNQrR/ny-Opacity.png");
   }
