@@ -71,7 +71,6 @@ export default {
       locations: [],
       location: {},
 
-      // markers: [],
     };
   },
   
@@ -114,7 +113,7 @@ export default {
         return;
       }
 
-      //below code is my code to check if it works
+   //below code is my code to check if it works
       const geocoder = new window.google.maps.Geocoder();
 
       const getCoordinates = (address) =>
@@ -172,12 +171,13 @@ export default {
 
 
       //make the Places API request
+      
       placesService.nearbySearch(
         request,                      //our request object
         (results, status) => {        //our function that handles the promise object we are sent back
           if (status === window.google.maps.places.PlacesServiceStatus.OK) {
             this.searchLocations = []
-            // this.deleteMarkers()
+
 
             for (let i = 0; i < results.length; i++) {
 
@@ -188,6 +188,7 @@ export default {
                 { placeId: placeId },
                 (landmark, status) => {
                   if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+
 
                     // Create an info window
                     const infoWindow = new window.google.maps.InfoWindow({
@@ -201,8 +202,6 @@ export default {
                       map: this.map,
                       title: results[i].name,
                     });
-
-                    // this.markers.push(toRaw(marker));
 
                     // Add click event listener to marker to show info window
                     marker.addListener("click", () => {
