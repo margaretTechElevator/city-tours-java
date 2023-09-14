@@ -1,19 +1,27 @@
 <template>
   <body>
     <Navigation />
-    <h4>my tours</h4>
-    <TripsTable />
+    <div>
+      <h4>my tours</h4>
+      <button v-on:click="redirectToNewItinerary">+ new itinerary</button>
+    </div>
+    <ItineraryList />
     <div id="myToursTableBackground"></div>  
   </body>
 </template>
   
 <script scoped>
   import Navigation from '../components/Navigation.vue'
-  import TripsTable from '../components/TripsTable.vue'
+  import ItineraryList from '../components/ItineraryList.vue'
 
   export default {
-    components: { Navigation, TripsTable },
-    name: 'MyToursPage'
+    components: { Navigation, ItineraryList },
+    name: 'MyToursPage',
+    methods: {
+      redirectToNewItinerary() {
+        this.$router.push("PlanNewTourPage");
+      },
+    },
   }
 </script>
   
