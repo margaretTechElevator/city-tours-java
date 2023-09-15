@@ -8,7 +8,7 @@
         <div id="usernameAndPassword">
           <h2>please sign in</h2>
           <div role="alert" v-if="invalidCredentials">
-            Invalid username and password!
+            Your username or password is incorrect.
           </div>
           <div role="alert" v-if="this.$route.query.registration">
             Thank you for registering, please sign in.
