@@ -10,7 +10,7 @@
         <section class="contact-details">
             <p>{{ address }}</p>
             <p v-show="phoneNumber">{{ phoneNumber }}</p>
-            <a v-show="website">Visit the Website</a>
+            <a v-show="website" v-bind:href="website">Visit the Website</a>
         </section>
     </div>
 </template>
