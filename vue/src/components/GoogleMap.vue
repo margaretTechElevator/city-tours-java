@@ -37,22 +37,22 @@
       </div>
 
       <div id="currentList" 
-        v-for="(location, index) of locations" 
+        v-for="(landmark, index) of landmarks"
         v-bind:key="index"
       >
         <input 
           class="current-inputs" 
-          v-model="locations[index].name" 
+          v-model="landmark.name"
         />
-        <button v-on:click.prevent="location.showDetails=!location.showDetails">Details</button>
-        <button v-on:click="removeFromList(index)">Remove</button>
+        <button v-on:click.prevent="landmark.showDetails=!landmark.showDetails">Details</button>
+        <button v-on:click="removeFromItinerary(index)">Remove</button>
         <LandmarkInfo 
-          v-bind:landmarkName="location.name"
-          v-bind:address="location.address" 
-          v-bind:photos="location.photos"
-          v-bind:phoneNumber="location.phoneNumber"
-          v-bind:website="location.website"
-          v-show="location.showDetails" 
+          v-bind:landmarkName="landmark.name"
+          v-bind:address="landmark.address"
+          v-bind:photos="landmark.photos"
+          v-bind:phoneNumber="landmark.phoneNumber"
+          v-bind:website="landmark.website"
+          v-show="landmark.showDetails"
         />
       </div>
     </div>
@@ -80,8 +80,8 @@ export default {
       selectedTypes: [],
       roundTrip: true,
       mapCenter: { lat: 42.3327, lng: -83.0458 },
-      searchLocations: [],
-      locations: [],
+      searchResultLandmarks: [],
+      landmarks: [],
       location: {},
     };
   },
@@ -182,14 +182,14 @@ export default {
       //make the Places API request
       placesService.nearbySearch(
         request,                      //our request object
-        (results, status) => {        //our function that handles the promise object we are sent back
+        (searchResults, status) => {        //our function that handles the promise object we are sent back
           if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-            this.searchLocations = []
+            this.searchResultLandmarks = []
 
 
-            for (let i = 0; i < results.length; i++) {
+            for (let i = 0; i < searchResults.length; i++) {
 
-              const placeId = results[i].place_id;
+              const placeId = searchResults[i].place_id;
 
               //fetch details for each place
               placesService.getDetails(
@@ -200,14 +200,14 @@ export default {
                     // Create an info window
                     const infoWindow = new window.google.maps.InfoWindow({
                       content:
-                        `<h3>${results[i].name}</h3><p>${results[i].vicinity}</p><button id="routeButton${placeId}" value="${placeId}">Add to Route</button>`,
+                        `<h3>${searchResults[i].name}</h3><p>${searchResults[i].vicinity}</p><button id="routeButton${placeId}" value="${placeId}">Add to Route</button>`,
                     });
 
                     // Create map marker
                     const marker = new window.google.maps.Marker({
-                      position: results[i].geometry.location,
+                      position: searchResults[i].geometry.location,
                       map: this.map,
-                      title: results[i].name,
+                      title: searchResults[i].name,
                     });
 
                     // Add click event listener to marker to show info window
@@ -223,7 +223,7 @@ export default {
                           const routeButton = document.getElementById(`routeButton${placeId}`)
 
                           if (routeButton) {
-                            routeButton.addEventListener('click', this.addToList)
+                            routeButton.addEventListener('click', this.addToItinerary)
                           }
                         }
                       );
@@ -245,7 +245,7 @@ export default {
                       // infoWindow: infoWindow
                     }
                     
-                    this.searchLocations.push(newLandmark)
+                    this.searchResultLandmarks.push(newLandmark)
                   }
                 }
               );
@@ -255,31 +255,31 @@ export default {
       );
       //till here
     },
-    addToList(event) {
+    addToItinerary(event) {
       const addedLocationId = event.target.value
 
-      const addedLocation = this.searchLocations.filter(location => location.id === addedLocationId)
+      const addedLocation = this.searchResultLandmarks.filter(location => location.id === addedLocationId)
       
       if (addedLocation.length === 1) {
-        this.locations.push(addedLocation[0]);
+        this.landmarks.push(addedLocation[0]);
       }
 
     },
     // This function is called to remove a location
-    removeFromList(index) {
-      if (this.locations.length == 2) {
+    removeFromItinerary(index) {
+      if (this.landmarks.length == 2) {
         window.alert("A start and end location must be present");
         return;
       }
 
-      this.locations.splice(index, 1);
+      this.landmarks.splice(index, 1);
     },
 
     // This function calls the Google Maps API, renders the route
     // and retrieves the directions
     generateRoute() {
-      for (let i = 0; i < this.locations.length; i++) {
-        if (this.locations[i].address.trim().length === 0) {
+      for (let i = 0; i < this.landmarks.length; i++) {
+        if (this.landmarks[i].address.trim().length === 0) {
           window.alert("Location cannot be empty");
           return;
         }
@@ -306,17 +306,17 @@ export default {
           }
         */
 
-      for (let i = 1; i < this.locations.length - 1; i++) {
+      for (let i = 1; i < this.landmarks.length - 1; i++) {
         myWaypoints.push({
-          location: this.locations[i],
+          location: this.landmarks[i],
           stopover: true,
         });
       }
 
       this.routeService
         .route({
-          origin: this.locations[0],
-          destination: this.locations[this.locations.length - 1],
+          origin: this.landmarks[0],
+          destination: this.landmarks[this.landmarks.length - 1],
           waypoints: myWaypoints,
           travelMode: window.google.maps.TravelMode.DRIVING,
           avoidTolls: true,
