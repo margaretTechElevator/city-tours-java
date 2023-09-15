@@ -308,15 +308,15 @@ export default {
 
       for (let i = 1; i < this.landmarks.length - 1; i++) {
         myWaypoints.push({
-          location: this.landmarks[i],
+          location: this.landmarks[i].address,
           stopover: true,
         });
       }
 
       this.routeService
         .route({
-          origin: this.landmarks[0],
-          destination: this.landmarks[this.landmarks.length - 1],
+          origin: this.landmarks[0].address,
+          destination: this.landmarks[this.landmarks.length - 1].address,
           waypoints: myWaypoints,
           travelMode: window.google.maps.TravelMode.DRIVING,
           avoidTolls: true,
