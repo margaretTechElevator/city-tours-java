@@ -13,7 +13,7 @@
         <span id="whatToSearch">things to do</span>
 
         <div v-for="type in attractionTypes" :key="type">
-          <input type="radio" :value="type" v-model="selectedTypes" />
+          <input type="checkbox" :value="type" v-model="selectedTypes" />
           {{ type }}
         </div>
 
@@ -40,7 +40,6 @@
           v-show="location.showDetails" 
         />
       </div>
-
     </div>
 
     <!--Google Maps will render directions here-->
@@ -70,7 +69,6 @@ export default {
       searchLocations: [],
       locations: [],
       location: {},
-
     };
   },
   
@@ -113,7 +111,7 @@ export default {
         return;
       }
 
-   //below code is my code to check if it works
+      //below code is my code to check if it works
       const geocoder = new window.google.maps.Geocoder();
 
       const getCoordinates = (address) =>
@@ -139,8 +137,6 @@ export default {
           lng: coordinates.lng,
         };
 
-        //this.locations.push(this.location);
-
         // Set the map center to the new coordinates and zoom in
         this.map.setCenter(coordinates);
         this.map.setZoom(15);
@@ -162,7 +158,6 @@ export default {
       );
 
       //set up the places API request parameters
-
       const request = {
         location: this.mapslocation,
         radius: this.radiusInput, //search within 50000 meters
@@ -171,7 +166,6 @@ export default {
 
 
       //make the Places API request
-      
       placesService.nearbySearch(
         request,                      //our request object
         (results, status) => {        //our function that handles the promise object we are sent back
@@ -188,7 +182,6 @@ export default {
                 { placeId: placeId },
                 (landmark, status) => {
                   if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-
 
                     // Create an info window
                     const infoWindow = new window.google.maps.InfoWindow({
@@ -238,17 +231,11 @@ export default {
                       // infoWindow: infoWindow
                     }
                     
-
                     this.searchLocations.push(newLandmark)
-
-                    // Create LandmarkInfo Component
-
-
                   }
                 }
               );
             }
-            // this.setMapOnAll()
           }
         }
       );
@@ -328,25 +315,6 @@ export default {
           console.log(error + "Could not generate route");
         });
     },
-    // // Sets the map on all markers in the array.
-    // setMapOnAll() {
-    //   for (let i = 0; i < this.markers.length; i++) {
-    //     toRaw(this.markers[i]).setMap(this.map);
-    //   }
-    // },
-    // // Removes the markers from the map, but keeps them in the array.
-    // hideMarkers() {
-    //   this.setMapOnAll(null);
-    // },
-    // // Deletes all markers in the array by removing references to them.
-    // deleteMarkers() {
-    //   this.hideMarkers();
-    //   this.markers = [];
-    // },
-    
-
-
-
   },
   mounted() {
     this.initMap();
@@ -377,7 +345,6 @@ input {
     "directions ";
 }
 
-
 #map {
   grid-area: map;
   width: 500px;
@@ -386,7 +353,6 @@ input {
   margin: 25px;
 
 }
-
 
 #panel {
   grid-area: directions;
@@ -416,9 +382,7 @@ input {
 
 }
 
-/* Please help get these in a horizontal row */
-
-
+Please help get these in a horizontal row
 .grid {
   display: grid;
   grid-template-columns: 500px 100px 100px 100px;
