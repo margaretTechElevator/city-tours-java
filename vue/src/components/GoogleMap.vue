@@ -9,15 +9,15 @@
           v-model="currentInput"
           placeholder="starting address"
           type="input"
-          class="inputStartingMiles"
+          class="input-text"
           id="startingAddress"
         />
         <input
           v-model="radiusInput"
-          placeholder="search radius in miles"
+          placeholder="search radius"
           type="input"
-          class="inputStartingMiles"
-          id="milesFrom"
+          class="input-text"
+          id="radius"
         />
         <div id="whatToSearch">things to do</div>
         <div id="attractionTypeCheckboxesGroup">
@@ -328,7 +328,7 @@ export default {
   grid-template-areas:
     "inputs "
     "map "
-    "directions ";
+    "route";
 }
 
 
@@ -342,9 +342,9 @@ export default {
 }
 
 
-#panel {
-  grid-area: directions;
-}
+ #panel {
+   grid-area: route;
+ }
 
 #searchArea {
   /* border: rgb(28, 153, 11) 3px solid; */
@@ -355,7 +355,7 @@ export default {
   padding-bottom: 40px;;
   
 }
-.inputStartingMiles{
+ .input-text {
   width:300px;
   margin-top:10px;
   margin-left: auto;
@@ -368,12 +368,13 @@ export default {
 
 }
 
-#milesFrom{
-  grid-area: milesFrom;
-}
 #startingAddress{
   grid-area: startingAddress;
 } 
+
+  #radius {
+   grid-area: radius;
+ }
 #whatToSearch{
   grid-area: whatToSearch;
   text-align: center;
@@ -420,7 +421,7 @@ button {
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
     grid-template-areas:
     "startingAddress startingAddress startingAddress startingAddress"
-    "milesFrom milesFrom milesFrom milesFrom"
+    "radius radius radius radius"
     ". whatToSearch whatToSearch ."
     "types types types types"
     ". letsGo letsGo .";
