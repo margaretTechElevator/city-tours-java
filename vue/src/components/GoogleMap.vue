@@ -5,10 +5,19 @@
       <div id="map"></div>
 
       <div id="searchArea" class="grid">
-        <input v-model="currentInput" placeholder="starting address" type="input" class="inputStartingMiles"
-          id="startingAddress" />
-        <input v-model="radiusInput" placeholder="search radius in miles" type="input" class="inputStartingMiles"
-          id="milesFrom" />
+        <input 
+          v-model="currentInput" 
+          placeholder="starting address" 
+          type="input" 
+          class="inputStartingMiles"
+          id="startingAddress" 
+        />
+        <input v-model="radiusInput" 
+          placeholder="search radius in miles" 
+          type="input" 
+          class="inputStartingMiles"
+          id="milesFrom" 
+        />
         <p></p>
         <span id="whatToSearch">things to do</span>
 
@@ -26,9 +35,15 @@
         <p>Current Locations:</p>
         <button v-on:click="generateRoute">Generate Route</button><br /><br />
       </div>
-      <div id="currentList" v-for="(location, index) of locations" v-bind:key="index">
 
-        <input class="current-inputs" v-model="locations[index].name" />
+      <div id="currentList" 
+        v-for="(location, index) of locations" 
+        v-bind:key="index"
+      >
+        <input 
+          class="current-inputs" 
+          v-model="locations[index].name" 
+        />
         <button v-on:click.prevent="location.showDetails=!location.showDetails">Details</button>
         <button v-on:click="removeFromList(index)">Remove</button>
         <LandmarkInfo 
@@ -48,7 +63,6 @@
 </template>
   
 <script>
-// import { toRaw } from 'vue';
 import LandmarkInfo from './LandmarkInfo.vue'
 export default {
   name: "Map",
