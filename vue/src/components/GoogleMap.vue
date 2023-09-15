@@ -19,12 +19,21 @@
           class="inputStartingMiles"
           id="milesFrom"
         />
-        <p></p>
-        <span id="whatToSearch">things to do</span>
-      
-        <div v-for="type in attractionTypes" :key="type">
-          <input type="checkbox" :value="type" v-model="selectedTypes"/>
-          {{ type }}
+        <div id="whatToSearch">things to do</div>
+        <div id="attractionTypeCheckboxesGroup">
+          <div
+            v-for="type in attractionTypes" 
+            :key="type"
+            class="attractionTypeCheckboxes"
+          >
+            <input 
+              type="checkbox" 
+              :value="type" 
+              v-model="selectedTypes"
+              :id="`${type}-id`"
+            />
+            <label :for="`${type}-id`">{{ type }}</label>
+          </div>
         </div>
 
         <button v-on:click="addToList" id="letsGo">let's go!</button>
@@ -359,21 +368,6 @@ export default {
 
 }
 
-/* Please help get these in a horizontal row */
-
-
-.grid{
-  display:grid;
-  grid-template-columns: 500px 100px 100px 100px ;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-  grid-template-areas: 
-  "startingAddress startingAddress startingAddress startingAddress",
-  "milesFrom milesFrom milesFrom milesFrom",
-  " . whatToSearch whatToSearch .",
-  "radio radio radio radio",
-  ". letsGo letsGo .";
- 
-}
 #milesFrom{
   grid-area: milesFrom;
 }
@@ -420,7 +414,27 @@ button {
 }
 
 
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+    "startingAddress startingAddress startingAddress startingAddress"
+    "milesFrom milesFrom milesFrom milesFrom"
+    ". whatToSearch whatToSearch ."
+    "types types types types"
+    ". letsGo letsGo .";
+  }
 
+
+  #attractionTypeCheckboxesGroup {
+    grid-area: types;
+  }
   
+  .attractionTypeCheckboxes {
+    display: inline-block;
+    padding: 3%;
+  }
+
 
 </style>
