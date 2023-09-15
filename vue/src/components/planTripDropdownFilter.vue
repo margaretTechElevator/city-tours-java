@@ -17,7 +17,7 @@
 
     <!-- filter button -->
     <div id="filterButtonHolder">
-      <button @click="showDropdown" id="filterButton">filter button... make filter dropdown go away when clicking outside</button>
+      <button @click="showDropdown">FILTER (make filter dropdown go away when clicking outside)</button>
       <div v-if="showMenu" class="menu">
         <!-- <div id="categoryButtons" v-for="type in attractionTypes" :key="type">
           <input type="checkbox" :value="type" v-model="selectedTypes" />
@@ -70,14 +70,7 @@ export default {
   line-height: 2rem;
   font-size: 1.5rem;
 }
-/* #filterButton {
-  background-color: yellow;
-  text-align: center;
-  width: 100px;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 
-
-} */
 #addressInput {
   text-align: center;
 }

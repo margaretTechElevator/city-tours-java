@@ -10,29 +10,30 @@
     <label class="menu-button-container" for="menu-toggle">
       <div class="menu-button"></div>
     </label>
-    <ul class="menu">
 
-      <!-- old links -->
-      <!-- <li><a href="/">home</a></li>
-      <li><a href="MyToursPage">my tours</a></li>
-      <li><a href="PlanNewTourPage">new tour</a></li>
-      <li><a href="Login">login</a></li>
-      <li><a href="Logout">logout</a></li>
-      <li> <a href="Register">sign up</a></li>
-      <li><a href="test">testFlex</a></li> -->
 
-      <li><a href="/">"home" landing page with map and example itineraries OR just new tours page un-logged in</a></li>
-      <li><a href="MyToursPage">my tours (as itinerary cards) (should it be a part of my account?)</a></li>
-      <li><a href="PlanNewTourPage">new tour (not sure if this is needed)</a></li>
-      <li><a href="Login">my account (including login logout and signup)</a></li>
-      <li><a href="test">testFlex</a></li>
+    <ul class="menu" id="logged-in-menu">
+    
+      <li><a href="test">test page</a></li>
+      <li><a href="/">landing page (hide when logged in)</a></li>
+
+      <!-- hide if not logged in -->
+      <li><a href="MyToursPage">my trips</a></li>
+      <li><a href="PlanNewTourPage">new trip</a></li>
+      <!-- <li><a href="Login">login</a></li> -->
+      <li><myAccount/></li>
     </ul>
+
+
   </section>
 </template>
     
     
 <script>
+import myAccount from './AccountDropdown.vue';
+
   export default {
+  components: { myAccount },
     name: "Navigation",
   };
 </script>

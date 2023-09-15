@@ -14,35 +14,48 @@
 
       <!-- map -->
         <div id="map">
-          <div>INTERACTIVE MAP + LOCATION DETAILS  (Make the basic details viewable on-hover of landmark pin.  Make all (more) details be a pop up of the location card on click of basic popup "details" button (or if it makes more sense, on-click of anywhere on the basic details pop up) .  Add an "add to trip" button on the on-hover basic details location card as well as the detailed on-click details.   Make the login page pop up when you click on the button "add to trip" to your trip if you arent already logged in)  if I can, make the popups float over existing map instead of displaying details to the right to maintain balance in design</div>
-          <!-- <google-map/> -->
+          <!-- INTERACTIVE MAP + LOCATION DETAILS  (Make the basic details viewable
+           on-hover of landmark pin.  Make all (more) details be a pop up of the 
+           location card on click of basic popup "details" button (or if it makes 
+           more sense, on-click of anywhere on the basic details pop up) .  
+           Add an "add to trip" button on the on-hover basic details location card 
+           as well as the detailed on-click details.   Make the login page pop up 
+           when you click on the button "add to trip" to your trip if you arent 
+           already logged in)  if I can, make the popups float over existing map instead 
+           of displaying details to the right to maintain balance in design -->
+          <Map/>
         </div>
 
         <!-- route -->
-        <div id="route">
+        <!-- <div id="route">
           <div>MY TRIP AREA (make expandable to fit the remaining area below) Inside this area should be information from each locations card (limited) as well as the route, time traveled, and distance if possible.  I should also have a "save trip" button</div>
-        </div>
+        </div> -->
 
     </div>
   </body>
 </template>
 
 <script>
+import Map from "../components/GoogleMap.vue";
 import Navigation from "../components/Navigation.vue";
 import PlanTripDropdownFilter from "../components/planTripDropdownFilter.vue";
 
 export default {
-  components: {Navigation, PlanTripDropdownFilter},
+  components: {Navigation, PlanTripDropdownFilter, Map},
   name: "testFlex",
 };
 </script>
 
 <style scoped>
+#map{
+  padding-top:500px;
+  
+}
+
 #planDropdown{
 
   grid-area: dropdown;
-  background-color:aqua;
-  border:white 5px solid;
+  background-color:rgb(255, 255, 255);
 
 }
 #dropdown{

@@ -321,47 +321,18 @@ export default {
 </script>
   
   <style scoped>
-  .mapContainer{
-    
-    border: yellow 5px solid;
-  }
-  
-  #categoryButtons{
+
+   #categoryButtons{
     border:solid blue 2px;
     grid-area: buttons;
     
   }
-  input{
-    width:500px;
-  margin-top:0px;
-  margin-left: auto;
-  margin-right:auto;
-  text-align: center;
-  width: 50%;
-  box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.36);
-  border:rgb(203, 203, 203) 0.5px solid;
-  background-color: rgba(158, 158, 158, 0.248);
-  }
-
 
 #searchArea {
-  /* grid-area: searchArea;
-  display: grid;
-  grid-template-areas:". plan plan ." 
-                      "startingAddress startingAddress startingAddress milesFrom" 
-                      ". buttons buttons ."
-                      ". letsGo letsGo ."; */
-  background-color: rgb(255, 255, 255);
-  border: solid green 3px;
-  width: fit-content;
+  background-color: rgb(125, 137, 245);
 
 }
-.inputFieldStyle{
-  box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.36);
-  border:rgb(203, 203, 203) 0.5px solid;
-  background-color: rgba(158, 158, 158, 0.248);
 
-}
 
 #newTripTitle{
   text-align: center;
@@ -369,33 +340,14 @@ export default {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-weight: 900;
   font-size: 1.5rem;
-  text-shadow: 1px 1px 10px rgba(130, 114, 110, 0.5);
-  grid-area: plan;
 }
 
-/* button {
-  background-color: rgb(236, 191, 93);
-  border: black 15px solid;
-  color: #6b1717;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  font-weight: 900;
-  box-shadow: 1px 1px 10px rgba(130, 114, 110, 0.186);
-} */
 ::placeholder {
   color: #e0a788e0;
   font-weight: 900;
   background: transparent;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
-
-/* #startingAddress{
-  grid-area:"startingAddress"
-        
-}
-#milesFrom{
-  grid-area:"searchRadius"
-} */
-
   
 
 </style>
