@@ -7,6 +7,8 @@ import store from '../store/index'
 import Landing from '../views/Landing.vue'
 import MyToursPage from '../views/MyToursPage.vue'
 import PlanNewTourPage from '../views/PlanNewTourPage.vue'
+import testFlex from '../views/test.vue'
+import ForgotPassword from '../views/ForgotPassword.vue'
 
 Vue.use(Router)
 
@@ -28,7 +30,7 @@ const router = new Router({
       name: 'Landing',
       component: Landing,
       meta: {
-        requiresAuth: true
+        requiresAuth: false
       }
     },
     {
@@ -67,6 +69,22 @@ const router = new Router({
       path: "/planNewTourPage",
       name: "PlanNewTourPage",
       component: PlanNewTourPage,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: "/test",
+      name: "testFlex",
+      component: testFlex,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: "/forgot",
+      name: "forgotPassword",
+      component: ForgotPassword,
       meta: {
         requiresAuth: false
       }

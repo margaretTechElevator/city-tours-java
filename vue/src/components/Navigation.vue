@@ -1,33 +1,44 @@
 <template>
   <section class="top-nav">
     <div>
-      <div id="cityToursLogo">
-        <h1 id="city">City Tours</h1>
-        <h3 id="daytrip">plan the perfect daytrip</h3>
+      <div>
+        <h1 id="city">City Trippin</h1>
+        
       </div>
     </div>
     <input id="menu-toggle" type="checkbox" />
     <label class="menu-button-container" for="menu-toggle">
       <div class="menu-button"></div>
     </label>
-    <ul class="menu">
-      <li><a href="Login">login</a></li>
-      <li><a href="/">home</a></li>
-      <li><a href="MyToursPage">my tours</a></li>
-      <li><a href="PlanNewTourPage">new tour</a></li>
-      <li><a href="Logout">logout</a></li>
+
+
+    <ul class="menu" id="logged-in-menu">
+    
+      <li><a href="test">test page</a></li>
+      <li><a href="/">landing page (hide when logged in)</a></li>
+
+      <!-- hide if not logged in -->
+      <li><a href="MyToursPage">my trips</a></li>
+      <li><a href="PlanNewTourPage">new trip</a></li>
+      <!-- <li><a href="Login">login</a></li> -->
+      <li><myAccount/></li>
     </ul>
+
+
   </section>
 </template>
     
     
 <script>
+import myAccount from './AccountDropdown.vue';
+
   export default {
+  components: { myAccount },
     name: "Navigation",
   };
 </script>
     
-<style>
+<style scoped>
   a { 
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
       color:#06445b;
@@ -43,26 +54,14 @@
 
   #city {
     padding-top: 30px;
-    color: #06445b;
+    color: #ffffff;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     font-size: 4rem;
     font-weight: 900;
-    text-shadow: 1px 1px 35px rgb(252, 189, 0);
     font-size: 2.5rem;
     margin-top: 0px;
     margin-bottom: 0px;
     line-height: 8px;
-  }
-
-  #daytrip {
-    text-align: start;
-    color: #ffffffdb;
-    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-    font-weight: 700;
-    font-size: 1rem;
-    text-shadow: 1px 1px 10px rgba(71, 51, 41, 0.501);
-    padding-left: 10px;
-    padding-right: 10px;
   }
 
   .top-nav {
@@ -70,8 +69,8 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    background-color: #00baf0;
-    background: linear-gradient(to left, #f46b45, #eea849);
+    background-color: transparent;
+    /* background: linear-gradient(to left, #f46b45, #eea849); */
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     color: #fff;
     height: 50px;

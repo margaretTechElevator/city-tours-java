@@ -88,6 +88,7 @@
 <style scoped>
   body {
     background-color: black;
+    border: magenta 1px solid;
     /* background-image: url("https://i.ibb.co/GWwykcL/chi.png"); */
   }
 
