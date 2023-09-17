@@ -7,7 +7,7 @@ import store from '../store/index'
 import Landing from '../views/Landing.vue'
 import MyToursPage from '../views/MyToursPage.vue'
 import PlanNewTourPage from '../views/PlanNewTourPage.vue'
-import TourPage from '../views/TourPage.vue'
+import ItineraryDetailView from '../views/ItineraryDetailView.vue'
 
 Vue.use(Router)
 
@@ -74,8 +74,8 @@ const router = new Router({
     },
     {
       path: "/itineraries/:itineraryId",
-      name: "TourPage",
-      component: TourPage,
+      name: "ItineraryDetailView",
+      component: ItineraryDetailView,
       meta: {
         requiresAuth: true
       }
