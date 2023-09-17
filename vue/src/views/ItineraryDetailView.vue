@@ -36,6 +36,16 @@
       return {
         itinerary: {},
         failureMessage: "",
+        // landmark: {
+        //   name: "Landmark 1 hardcoded",
+        //   placeId: "someplaceid",
+        //   address: "422 Bullvead",
+        //   reviews: {},
+        //   photos: [{}],
+        //   phoneNumber: "93939445451",
+        //   ratings: {},
+        //   website: "landmarkbasby.com"
+        // }
       }
     },
     methods: {
