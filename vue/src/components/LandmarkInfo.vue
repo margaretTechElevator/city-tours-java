@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>{{ landmarkName }}</h1>
+        <h1>{{ name }}</h1>
         <div>
             <img v-bind:src="photos[0].getUrl()">
             <aside v-for="attribution in photos[0].html_attributions" v-bind:key="attribution.id">
@@ -21,7 +21,7 @@
 export default {
     name: 'LandmarkInfo',
     props: {
-        landmarkName: String,
+        name: String,
         placeId: String,
         address: String,
         reviews: Object,

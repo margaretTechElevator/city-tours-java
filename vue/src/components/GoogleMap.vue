@@ -47,7 +47,7 @@
         <button v-on:click.prevent="landmark.showDetails=!landmark.showDetails">Details</button>
         <button v-on:click="removeFromItinerary(index)">Remove</button>
         <LandmarkInfo 
-          v-bind:landmarkName="landmark.name"
+          v-bind:name="landmark.name"
           v-bind:address="landmark.address"
           v-bind:photos="landmark.photos"
           v-bind:phoneNumber="landmark.phoneNumber"
