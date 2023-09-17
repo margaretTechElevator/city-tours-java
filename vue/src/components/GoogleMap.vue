@@ -4,30 +4,7 @@
       <!--Google Maps will render map here-->
       <div id="map"></div>
 
-      <div id="searchArea" class="grid">
-        <input
-          v-model="currentInput"
-          placeholder="starting address"
-          type="input"
-          class="inputStartingMiles"
-          id="startingAddress"
-        />
-        <input
-          v-model="radiusInput"
-          placeholder="search radius in miles"
-          type="input"
-          class="inputStartingMiles"
-          id="milesFrom"
-        />
-        <p></p>
-        <span id="whatToSearch">things to do</span>
-      
-        <div v-for="type in attractionTypes" :key="type">
-          <input type="checkbox" :value="type" v-model="selectedTypes"/>
-          {{ type }}
-        </div>
-
-        <button v-on:click="addToList" id="letsGo">let's go!</button>
+      <MapSearchForm id="search-form" @search-submitted="addToList" />
       </div>
 
       <!-- MOVED TO ROUTE.VUE -->
@@ -79,20 +56,17 @@
   </div>
 </template>
   
-  <script>
+<script>
+import MapSearchForm from './MapSearchForm.vue'
+
 export default {
   name: "Map",
+  components: { MapSearchForm },
   data() {
     return {
       map: null,
       routeService: null,
       routeRendererService: null,
-      currentInput: "",
-      radiusInput: "",
-      typeInput: "",
-      userDayInput: "",
-      attractionTypes: ["museum", "cafe", "restaurant", "park"],
-      selectedTypes: [],
       roundTrip: true,
       mapCenter: { lat: 42.3327, lng: -83.0458 },
       locations: [],
@@ -126,15 +100,16 @@ export default {
     },
 
     // This function is called to add a new location
-    async addToList() {
+    async addToList(submittedForm) {
+
       //check the location!
-      if (this.currentInput.trim().length === 0) {
+      if (submittedForm.search_term.trim().length === 0) {
         window.alert("Location cannot be empty");
         return;
       }
 
       //check the radius!
-      if (this.radiusInput.trim().length === 0) {
+      if (submittedForm.search_radius.trim().length === 0) {
         window.alert("Radius cannot be empty");
         return;
       }
@@ -156,11 +131,11 @@ export default {
           });
         });
       try {
-        const coordinates = await getCoordinates(this.currentInput);
+        const coordinates = await getCoordinates(submittedForm.search_term);
 
         //get the location object if user enter location info into the button.
         this.location = {
-          address: this.currentInput,
+          address: submittedForm.search_term,
           lat: coordinates.lat,
           lng: coordinates.lng,
         };
@@ -191,8 +166,8 @@ export default {
 
       const request = {
         location: this.location,
-        radius: this.radiusInput, //search within 50000 meters
-        type: this.selectedTypes,
+        radius: submittedForm.search_radius, //search within 50000 meters
+        type: submittedForm.selected_types,
       };
 
       //make the Places API request
@@ -336,66 +311,6 @@ export default {
 #panel {
   grid-area: directions;
 }
-
-#searchArea {
-  /* border: rgb(28, 153, 11) 3px solid; */
-  margin: auto;
-  width: 50%;
-  grid-area: inputs;
-  background-color: rgb(255, 255, 255);
-  padding-bottom: 40px;;
-  
-}
-.inputStartingMiles{
-  width:300px;
-  margin-top:10px;
-  margin-left: auto;
-  margin-right:auto;
-  text-align: center;
-  width: 100%;
-  box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.36);
-  border:rgb(203, 203, 203) 0.5px solid;
-  background-color: rgba(158, 158, 158, 0.248);
-
-}
-
-/* Please help get these in a horizontal row */
-
-
-.grid{
-  display:grid;
-  grid-template-columns: 500px 100px 100px 100px ;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-  grid-template-areas: 
-  "startingAddress startingAddress startingAddress startingAddress",
-  "milesFrom milesFrom milesFrom milesFrom",
-  " . whatToSearch whatToSearch .",
-  "radio radio radio radio",
-  ". letsGo letsGo .";
- 
-}
-#milesFrom{
-  grid-area: milesFrom;
-}
-#startingAddress{
-  grid-area: startingAddress;
-} 
-#whatToSearch{
-  grid-area: whatToSearch;
-  text-align: center;
-  padding-top: 20px;
-  padding-bottom: 15px;
-  color: #6b1717;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  font-weight: 900;
-  font-size: 1.5rem;
-  line-height: 0;
-  text-shadow: 1px 1px 10px rgba(130, 114, 110, 0.5);
-}
-#letsGo{
-  grid-area: letsGo;
-
-}
 button {
   background-color: rgb(236, 191, 93);
   border: none;
@@ -419,6 +334,9 @@ button {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
+  #search-form {
+    grid-area: inputs;
+  }
 
 
   
