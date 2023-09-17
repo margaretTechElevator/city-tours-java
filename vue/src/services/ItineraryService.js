@@ -70,6 +70,22 @@ export default {
 
     /**
      * 
+     * @returns {} itinerary object or error
+     */
+    getItineraryById(id) {
+        return axios.get(`/itineraries/${id}`)
+            .then(response => {
+                if (response.status === 200) {
+                    return response.data
+                }
+            })
+            .catch(error => {
+                return error
+            })
+    },
+
+    /**
+     * 
      * @param {Date} date 
      * @returns {} itinerary object or error
      */

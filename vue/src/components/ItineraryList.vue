@@ -14,6 +14,7 @@
         <td>content</td>
         <td>content</td>
         <td>{{ itinerary["landmarks"].length }}</td>
+        <td v-on:click="getItineraryById(itinerary['id'])">View details</td>
       </tr>
     </table>
     <p v-else>{{ failureMessage }}</p>
@@ -47,6 +48,11 @@ import ItineraryService from '../services/ItineraryService'
           this.failureMessage = `Our apologies! ${error.response}`;
         })
       },
+      getItineraryById(itineraryId) {
+        this.$router.push({
+          path: `/itineraries/${itineraryId}`
+        })
+      }
     },
 
     mounted() {
