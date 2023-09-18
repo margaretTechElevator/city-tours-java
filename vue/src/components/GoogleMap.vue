@@ -64,6 +64,8 @@
   
 <script>
 import LandmarkInfo from './LandmarkInfo.vue'
+import {loadedGoogleMapsAPI} from '@/main'
+
 export default {
   name: "Map",
   components: { LandmarkInfo },
@@ -331,7 +333,9 @@ export default {
     },
   },
   mounted() {
-    this.initMap();
+    loadedGoogleMapsAPI.then( () => {
+      this.initMap()
+    })
   },
 };
 </script>
