@@ -17,7 +17,7 @@
   }
 </script>
   
-<style>
+<style scoped>
   body {
     background: url("https://i.ibb.co/TKxNQrR/ny-Opacity.png");
   }

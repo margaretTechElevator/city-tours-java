@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="mapElement">
     <div id="grid-container">
       <!--Google Maps will render map here-->
       <div id="map"></div>
@@ -88,7 +88,7 @@
   </div>
 </template>
   
-  <script>
+<script>
 export default {
   name: "Map",
   data() {
@@ -309,111 +309,95 @@ export default {
 };
 </script>
   
-  <style>
-  input{
-    width:300px;
-  margin-top:0px;
-  margin-left: auto;
-  margin-right:auto;
-  text-align: center;
-  width: 50%;
-  box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.36);
-  border:rgb(203, 203, 203) 0.5px solid;
-  background-color: rgba(158, 158, 158, 0.248);
+<style scoped>
+  input {
+    width: 300px;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 50%;
+    box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.36);
+    border: rgb(203, 203, 203) 0.5px solid;
+    background-color: rgba(158, 158, 158, 0.248);
   }
-#grid-container {
-  padding-bottom: 20px;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-areas:
-    "inputs "
-    "map "
-    "route";
-}
 
-
-#map {
-  grid-area: map;
-  width: 500px;
-  height: 400px;
-  padding: 25px;
-  margin: 25px;
-
-}
-
-
- #panel {
-   grid-area: route;
- }
-
-#searchArea {
-  /* border: rgb(28, 153, 11) 3px solid; */
-  margin: auto;
-  width: 50%;
-  grid-area: inputs;
-  background-color: rgb(255, 255, 255);
-  padding-bottom: 40px;;
+  button {
+    background-color: rgb(236, 191, 93);
+    border: none;
+    text-align: center;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    color: #6b1717;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+    font-weight: 900;
+    font-size: 1rem;
+    line-height: 1;
+    box-shadow: 1px 1px 10px rgba(130, 114, 110, 0.186);
+  }
   
-}
- .input-text {
-  width:300px;
-  margin-top:10px;
-  margin-left: auto;
-  margin-right:auto;
-  text-align: center;
-  width: 100%;
-  box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.36);
-  border:rgb(203, 203, 203) 0.5px solid;
-  background-color: rgba(158, 158, 158, 0.248);
+  ::placeholder {
+    color: #e0a788e0;
+    font-weight: 900;
+    letter-spacing: 0.15rem;
+    font-size: 0.75rem;
+    background: transparent;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  } 
 
-}
+  #mapElement {
+    margin: auto;
+    text-align: center;
+    margin-top: 0px;
+    padding-top: 20px;
+    box-shadow: 1px 1px 10px rgba(130, 114, 110, 0.17);
+    background-color: white;
+  }
 
-#startingAddress{
-  grid-area: startingAddress;
-} 
+  #grid-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "inputs "
+      "map "
+      "route ";
+    padding-bottom: 20px;
+  }
 
-  #radius {
-   grid-area: radius;
- }
-#whatToSearch{
-  grid-area: whatToSearch;
-  text-align: center;
-  padding-top: 20px;
-  padding-bottom: 15px;
-  color: #6b1717;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  font-weight: 900;
-  font-size: 1.5rem;
-  line-height: 0;
-  text-shadow: 1px 1px 10px rgba(130, 114, 110, 0.5);
-}
-#letsGo{
-  grid-area: letsGo;
+  #searchArea {
+    grid-area: inputs;
+    margin: auto;
+    width: 50%;
+    height: 150px;
+    background-color: rgb(255, 255, 255);
+    padding-bottom: 40px;
+  }
 
-}
-button {
-  background-color: rgb(236, 191, 93);
-  border: none;
-  text-align: center;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  color: #6b1717;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  font-weight: 900;
-  font-size: 1rem;
-  line-height: 1;
-  box-shadow: 1px 1px 10px rgba(130, 114, 110, 0.186);
+  #map {
+    grid-area: map;
+    width: 500px;
+    height: 400px;
+    padding: 25px;
+    margin: auto;
+    margin-top: 20px;
+    text-align: center;
+  }
 
-}
-::placeholder {
-  color: #e0a788e0;
-  font-weight: 900;
-  letter-spacing: 0.15rem;
-  font-size: 0.75rem;
-  background: transparent;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-}
+  #panel {
+    grid-area: route;
+  }
 
+  .input-text {
+    width: 300px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 100%;
+    box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.36);
+    border: rgb(203, 203, 203) 0.5px solid;
+    background-color: rgba(158, 158, 158, 0.248);
+  }
 
   .grid {
     display: grid;
@@ -427,6 +411,26 @@ button {
     ". letsGo letsGo .";
   }
 
+  #startingAddress {
+    grid-area: startingAddress;
+  }
+
+  #radius {
+    grid-area: radius;
+  }
+
+  #whatToSearch {
+    grid-area: whatToSearch;
+    padding-top: 20px;
+    padding-bottom: 15px;
+    color: #6b1717;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+    font-weight: 900;
+    font-size: 1.5rem;
+    line-height: 0;
+    text-shadow: 1px 1px 10px rgba(130, 114, 110, 0.5);
+    width: 100%;
+  }
 
   #attractionTypeCheckboxesGroup {
     grid-area: types;
@@ -437,5 +441,7 @@ button {
     padding: 3%;
   }
 
-
+  #letsGo {
+    grid-area: letsGo;
+  }
 </style>
