@@ -5,7 +5,7 @@
     <div v-if="!failureMessage">
       <p>{{ this.itinerary }}</p>
       <div
-        v-for="(landmark, index) of itinerary.landmarks"
+        v-for="(landmark, index) of this.itinerary.landmarks"
         v-bind:key="index" 
       >
         <LandmarkInfo 
