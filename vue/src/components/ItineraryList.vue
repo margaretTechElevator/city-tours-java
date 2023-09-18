@@ -14,7 +14,7 @@
         <td>content</td>
         <td>content</td>
         <td>{{ itinerary["landmarks"].length }}</td>
-        <td v-on:click="getItineraryById(itinerary['id'])">View details</td>
+        <td><button v-on:click="getItineraryById(itinerary['id'])">View details</button></td>
       </tr>
     </table>
     <p v-else>{{ failureMessage }}</p>
@@ -49,8 +49,9 @@ import ItineraryService from '../services/ItineraryService'
         })
       },
       getItineraryById(itineraryId) {
+        let current_user = this.$store.state.user;
         this.$router.push({
-          path: `/itineraries/${itineraryId}`
+          path: `/users/${current_user.id}/itineraries/${itineraryId}`
         })
       }
     },
