@@ -13,7 +13,7 @@
         </div>
         <div class="list">
           <div
-            v-for="(landmark, index) of this.itinerary.landmarks"
+            v-for="(landmark, index) of this.landmarks"
             v-bind:key="index"
             class="card" 
           >
@@ -45,18 +45,57 @@
     },
     data() {
       return {
+        /** each itinerary object has these properties:
+         *     city: "",
+         *     date: "",
+         *     starting_location: "",
+         *     ending_location: "",
+         *     landmarks: []
+         */
         itinerary: {},
         failureMessage: "",
-        // landmark: {
-        //   name: "Landmark 1 hardcoded",
-        //   placeId: "someplaceid",
-        //   address: "422 Bullvead",
-        //   reviews: {},
-        //   photos: [{}],
-        //   phoneNumber: "93939445451",
-        //   ratings: {},
-        //   website: "landmarkbasby.com"
-        // }
+        landmarks: [
+          {
+            name: "Landmark 1 hardcoded",
+            placeId: "someplaceid",
+            address: "422 Bullvead",
+            reviews: {},
+            photos: [
+              {
+                height: 3024,
+                html_attributions : 
+                [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/115423001447290172121\"\u003eJared Exel\u003c/a\u003e"
+                ],
+                getUrl: () => {return "https://lh3.googleusercontent.com/p/AF1QipM1k2bQzbYXqy_EP6mS3HE0gjB_PDHZAOLgNA8r=k"},
+                width: 4032,
+              }
+            ],
+            phoneNumber: "93939445451",
+            ratings: {},
+            website: "landmarkbasby.com"
+          },
+          {
+            name: "Landmark 2 hardcoded",
+            placeId: "someplaceid",
+            address: "422 Bullvead",
+            reviews: {},
+            photos: [
+              {
+                height: 3024,
+                html_attributions : 
+                [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/115423001447290172121\"\u003eJared Exel\u003c/a\u003e"
+                ],
+                getUrl: () => {return "https://lh3.googleusercontent.com/p/AF1QipM1k2bQzbYXqy_EP6mS3HE0gjB_PDHZAOLgNA8r=k"},
+                width: 4032,
+              }
+            ],
+            phoneNumber: "93939445451",
+            ratings: {},
+            website: "landmarkbasby.com"
+          }
+        ],
       }
     },
     methods: {
