@@ -78,7 +78,7 @@
           console.log("This calls on the backend to remove an itinerary.");
           // I (Sam) don't see a controller method for this yet, but I consider it out of scope for my present ticket
         })
-        .catch((error) => {
+        .catch(() => {
           this.failureMessage = `Our apologies! We were unable to delete this itinerary.`;
         })
       },
