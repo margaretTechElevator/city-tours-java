@@ -18,8 +18,7 @@
     <!-- filter button -->
     <div id="filterButtonHolder">
       <button @click="showDropdown">FILTER (make filter dropdown go away when clicking outside)</button>
-        <div v-if="toggleMenu" class="menu">
-
+      <div v-if="showMenu" class="menu">
         <!-- <div id="categoryButtons" v-for="type in attractionTypes" :key="type">
           <input type="checkbox" :value="type" v-model="selectedTypes" />
           {{ type }}
@@ -53,9 +52,9 @@ export default {
     onClick: { type: Function },
   },
   methods: {
-    toggleDropdown: function(){
-      this.toggleDropdown =!this.toggleDropdown;
-    }
+    showDropdown: function () {
+      this.showMenu = !this.showMenu;
+    },
   },
 };
 </script>
