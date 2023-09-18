@@ -17,6 +17,7 @@
         />
       </div>
       <button v-on:click="viewEditItinerary">Edit Itinerary</button>
+      <button v-on:click="deleteItinerary">Remove Itinerary</button>
     </div>
     <div v-else>{{ this.failureMessage }}</div>
   </body>
@@ -61,6 +62,16 @@
       },
       viewEditItinerary() {
         this.$router.push(`/planNewTourPage/${this.$route.params.itineraryId}`);
+      },
+      deleteItinerary() {
+        ItineraryService.updateItinerary(this.$route.params.itineraryId)
+        .then(() => {
+          console.log("This calls on the backend to remove an itinerary.");
+          // I (Sam) don't see a controller method for this yet, but I consider it out of scope for my present ticket
+        })
+        .catch((error) => {
+          this.failureMessage = `Our apologies! We were unable to delete this itinerary.`;
+        })
       },
     },
     mounted() {
