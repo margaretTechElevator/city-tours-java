@@ -3,21 +3,30 @@
     <Navigation />
     <h1>Tours Page</h1>
     <div v-if="!failureMessage">
-      <p>{{ this.itinerary }}</p>
-      <div
-        v-for="(landmark, index) of this.itinerary.landmarks"
-        v-bind:key="index" 
-      >
-        <LandmarkInfo 
-          v-bind:landmarkName="landmark.name"
-          v-bind:address="landmark.address"
-          v-bind:photos="landmark.photos"
-          v-bind:phoneNumber="landmark.phoneNumber"
-          v-bind:website="landmark.website"
-        />
+      <div id="itinerary">
+        <div id="itinerary-details">
+          <h1>{{ this.itinerary.startLocation }}</h1>
+          <p>{{ this.itinerary.date }}</p>
+          <p>{{ this.itinerary.endLocation }}</p>
+          <button v-on:click="viewEditItinerary">Edit Itinerary</button>
+          <button v-on:click="deleteItinerary">Remove Itinerary</button>
+        </div>
+        <div class="list">
+          <div
+            v-for="(landmark, index) of this.itinerary.landmarks"
+            v-bind:key="index"
+            class="card" 
+          >
+            <LandmarkInfo 
+              v-bind:name="landmark.name"
+              v-bind:address="landmark.address"
+              v-bind:photos="landmark.photos"
+              v-bind:phoneNumber="landmark.phoneNumber"
+              v-bind:website="landmark.website"
+            />
+          </div>
+        </div>
       </div>
-      <button v-on:click="viewEditItinerary">Edit Itinerary</button>
-      <button v-on:click="deleteItinerary">Remove Itinerary</button>
     </div>
     <div v-else>{{ this.failureMessage }}</div>
   </body>
@@ -81,5 +90,21 @@
 </script>
 
 <style>
-
+  #itinerary {
+    /* display: grid; */
+  }
+  #itinerary-details {
+    width: 50%;
+    float: right;
+  }
+  .list {
+    border: 1px red solid;
+    display: grid;
+    width: 30%;
+    float: left;
+  }
+  .card {
+    border: 1px blue dotted;
+    margin: 2em;
+  }
 </style>
