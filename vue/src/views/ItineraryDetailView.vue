@@ -16,6 +16,7 @@
           v-bind:website="landmark.website"
         />
       </div>
+      <button v-on:click="viewEditItinerary">Edit Itinerary</button>
     </div>
     <div v-else>{{ this.failureMessage }}</div>
   </body>
@@ -50,12 +51,16 @@
     },
     methods: {
       getItineraryById(itineraryId) {
-        ItineraryService.getItineraryById(itineraryId).then((response) => {
+        ItineraryService.getItineraryById(itineraryId)
+        .then((response) => {
           this.itinerary = response;
         })
         .catch((error) => {
           this.failureMessage = `Our apologies! ${error.response}`;
         })
+      },
+      viewEditItinerary() {
+        this.$router.push(`/planNewTourPage/${this.$route.params.itineraryId}`);
       },
     },
     mounted() {

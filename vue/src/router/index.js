@@ -65,7 +65,7 @@ const router = new Router({
       }
     },
     {
-      path: "/planNewTourPage",
+      path: "/planNewTourPage/:itineraryId?",
       name: "PlanNewTourPage",
       component: PlanNewTourPage,
       meta: {
