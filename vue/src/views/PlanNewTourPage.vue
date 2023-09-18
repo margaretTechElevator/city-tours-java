@@ -8,7 +8,7 @@
         <div>perfectly planned.</div>
       </div>
       <google-map />
-      <TripsTable />
+      <ItineraryList />
       <Route/>
     </div>
   </body>
@@ -16,16 +16,16 @@
   
 <script>
   import Route from '../components/Route.vue'
-  import GoogleMap from '../components/GoogleMap.vue';
+  import GoogleMap from '../components/GoogleMap.vue'
   import Navigation from '../components/Navigation.vue'
-  import TripsTable from '../components/TripsTable.vue';
+  import ItineraryList from '../components/ItineraryList.vue'
 
   export default {
     name: 'PlanNewTourPage',
     components: { 
       Navigation, 
       GoogleMap, 
-      TripsTable, 
+      ItineraryList, 
       Route 
     },
     computed: {
