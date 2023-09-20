@@ -188,11 +188,11 @@ export default {
       );
 
       //set up the places API request parameters
-
+      for(const type of this.selectedTypes){
       const request = {
         location: this.location,
         radius: this.radiusInput, //search within 50000 meters
-        type: this.selectedTypes,
+        type: type,
       };
 
       //make the Places API request
@@ -209,7 +209,12 @@ export default {
                   position: results[i].geometry.location,
                   map: this.map,
                   title: results[i].name,
+              
                 });
+
+                //check the title of the place
+                console.log(results[i].name);
+                console.log(results.length)
 
                 // Create an info window
                 const infoWindow = new window.google.maps.InfoWindow({
@@ -225,7 +230,8 @@ export default {
             });
           }
         }
-      });
+      })
+    }
       //till here
     },
     // This function is called to remove a location
