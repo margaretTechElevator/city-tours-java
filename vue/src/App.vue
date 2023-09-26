@@ -19,4 +19,8 @@ input{
 button{
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
+#app{
+  background-color: 182935;
+
+}
 </style>
