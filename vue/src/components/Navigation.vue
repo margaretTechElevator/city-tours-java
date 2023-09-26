@@ -1,10 +1,7 @@
 <template>
   <section class="top-nav">
     <div>
-      <div>
-        <h1 id="city">City Trippin</h1>
-        
-      </div>
+     
     </div>
     <input id="menu-toggle" type="checkbox" />
     <label class="menu-button-container" for="menu-toggle">

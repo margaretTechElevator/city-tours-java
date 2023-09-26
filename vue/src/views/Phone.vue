@@ -1,6 +1,5 @@
 <template>
   <div id="phoneApp">
-    <Navigation />
 
   
     <Topper />
@@ -8,10 +7,10 @@
 </template>
 
 <script>
-import Navigation from "../components/Navigation.vue";
+
 import Topper from "../components/Topper.vue";
 export default {
-  components: { Topper, Navigation },
+  components: { Topper},
 };
 </script>
 
