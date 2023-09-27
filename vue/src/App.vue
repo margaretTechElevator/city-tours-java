@@ -16,9 +16,6 @@
 }
 /* @import url('../assets/fonts/); */
 
-#app{
-  background-color: #182935;
-  
-}
+
 
 </style>

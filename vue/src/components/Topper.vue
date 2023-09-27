@@ -2,8 +2,9 @@
   <div id="iphone14Layout">
     <div id="topNavPhoneArea">
       <div id="pingoLogo">pingo</div>
-      <div id="myAccountIcon"></div>
+      <div id="myAccountIcon"><img src="../assets/samantha.png"/></div>
     </div>
+
   </div>
 </template>
 
@@ -13,10 +14,12 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #iphone14Layout {
-  width: 390px;
-  height: 844px;
+  width: 100%;
+
+  margin: 0;
+  /* font-family: Orelega One; */
 }
 #topNavPhoneArea {
   border-radius: 0px 0px 20px 20px;
@@ -28,29 +31,54 @@ export default {
     #183c55 75.52%,
     #194f77 97.92%
   );
+
   display: flex;
   padding: 17px 26px;
   justify-content: flex-end;
   align-items: flex-end;
-  gap: 222px;
-  flex: 1 0 0;
-  align-self: stretch;
+  /* flex: 1 0 0;
+  align-self: stretch; */
 }
 #pingoLogo {
   color: var(--mint, #cfe7ca);
-  text-align: center;
   text-shadow: 0px -4px 4px rgba(0, 0, 0, 0.2);
   font-family: Orelega One;
   font-size: 48px;
   font-style: normal;
-  font-weight: 400;
-  line-height: 134.033%; /* 64.336px */
+  line-height: 64.336px;
+  margin: auto;
+  width: 50%;
+  text-align: center;
 }
-#myAccountIcon{
-
-    border-radius: 26px;
-border: 2px solid var(--mint, #CFE7CA);
-background-image: url('https://www.google.com/url?sa=i&url=https%3A%2F%2F1000logos.net%2Fgoogle-photos-logo%2F&psig=AOvVaw3quy0yHPzzju-aRBhknStN&ust=1695788772673000&source=images&cd=vfe&opi=89978449&ved=0CA8QjRxqFwoTCJDgqc23x4EDFQAAAAAdAAAAABAE');
+#myAccountIcon {
+  border-radius: 75%;
+  height: 26px;
+  width:26px;
+  overflow: hidden;
+  border: 2px solid var(--mint, #cfe7ca);
 
 }
+img{
+  width: 26px;
+  object-fit: cover;
+}
+
 </style>
+
+<!-- /* small devices (landscape phones, 576 px and up) */
+@media (min-width: 576px) {
+  
+}
+
+/* medium devices (tablets, 768px and up) */
+@media (min-width: 768px){
+
+}
+/* large devices (desktops 992px and up) */
+@media(min-width: 992px){
+
+}
+/* extra large */
+@media(min-width: 1200px){
+  
+} -->
