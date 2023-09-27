@@ -9,7 +9,7 @@ import MyToursPage from '../views/MyToursPage.vue'
 import PlanNewTourPage from '../views/PlanNewTourPage.vue'
 import testFlex from '../views/test.vue'
 import ForgotPassword from '../views/ForgotPassword.vue'
-import Phone from '../views/Phone.vue'
+
 
 Vue.use(Router)
 
@@ -86,14 +86,6 @@ const router = new Router({
       path: "/forgot",
       name: "forgotPassword",
       component: ForgotPassword,
-      meta: {
-        requiresAuth: false
-      }
-    },
-    {
-      path: "/phone",
-      name: "Phone",
-      component: Phone,
       meta: {
         requiresAuth: false
       }

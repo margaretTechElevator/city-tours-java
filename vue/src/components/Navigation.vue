@@ -10,7 +10,7 @@
 
 
     <ul class="menu" id="logged-in-menu">
-      <li><a href="Phone">Phone Layout page</a></li>
+
     
       <li><a href="test">test page</a></li>
       <li><a href="/">landing page (hide when logged in)</a></li>
