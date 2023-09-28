@@ -13,7 +13,7 @@
 
     
       <li><a href="test">test page</a></li>
-      <li><a href="/">landing page (hide when logged in)</a></li>
+      <li><a href="/">landing page</a></li>
 
       <!-- hide if not logged in -->
       <li><a href="MyToursPage">my trips</a></li>

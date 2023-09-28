@@ -29,7 +29,7 @@ export default {
   
 <style >
 #googleMaps {
-  background-color: bisque;
+  background-color: rgb(201, 123, 28);
   height: 100%;
   width: 100%;
   /* was absolute and it was working but the bottom nav wasnt showing up */
@@ -46,7 +46,7 @@ export default {
 #searchArea{
   /* non-scoped way to access and hide the search area 
   and filters in the GoogleMap component */
-  display: none;
+  /* display: none; */
 }
 body{
   margin: 0px;
@@ -56,7 +56,7 @@ SearchBarFilterGo{
   z-index:4;
   width: 400px;
   height:900px;
-  bottom: 0px;
+
 
 }
 

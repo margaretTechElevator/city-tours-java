@@ -321,16 +321,8 @@ export default {
 </script>
   
   <style scoped>
-
-   #categoryButtons{
-    border:solid blue 2px;
-    grid-area: buttons;
-    
-  }
-
-#searchArea {
-  background-color: rgb(125, 137, 245);
-
+#searchArea{
+  display:none;
 }
 
 
