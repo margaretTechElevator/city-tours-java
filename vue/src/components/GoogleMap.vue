@@ -1,11 +1,9 @@
 <template>
-  <div>
     <div id="grid-container">
       <!--Google Maps will render map here-->
       <div id="map"></div>
 
       <MapSearchForm id="search-form" @search-submitted="addToList" />
-      </div>
 
       <!-- MOVED TO ROUTE.VUE -->
 
@@ -49,8 +47,6 @@
           <button v-on:click="removeFromList(index)">Remove</button>
         </div>
       
-    </div>
-
     <!--Google Maps will render directions here-->
     <div id="panel"></div>
   </div>
