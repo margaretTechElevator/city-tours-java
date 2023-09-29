@@ -17,8 +17,8 @@
       </tr>
     </table>
     <p v-else-if="!this.isLoggedIn">Once you log in, you can see your existing itineraries here!</p>
-    <p v-else-if="this.itineraries.length === 0">You haven't saved any itineraries yet.</p>
-    <p v-else>{{ failureMessage }}</p>
+    <p v-else-if="failureMessage != ''">{{ failureMessage }}</p>
+    <p v-else>You haven't saved any itineraries yet.</p>
   </div>
 </template>
 
