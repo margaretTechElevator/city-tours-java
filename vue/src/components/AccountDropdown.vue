@@ -62,7 +62,5 @@ export default {
 </script>
 
 <style scoped>
-#this{
-  border:magenta 5px solid;
-}
+
 </style>

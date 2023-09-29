@@ -1,11 +1,11 @@
 <template>
-  <div class="mapContainer">
-
+  <body >
+ 
       <!--Google Maps will render map here-->
       <div id="map"></div>
 
       <!-- Search Area and Radius Input Fields -->
-      <div id="searchArea" >
+      <div id="searchArea">
         <input
           v-model="currentInput"
           placeholder="starting address"
@@ -20,20 +20,19 @@
           class="inputFieldStyle"
           id="milesFrom"
         />
-        
-      <!-- Buttons for categories -->
+
+        <!-- Buttons for categories -->
         <div id="categoryButtons" v-for="type in attractionTypes" :key="type">
-          <input type="checkbox" :value="type" v-model="selectedTypes"/>
+          <input type="checkbox" :value="type" v-model="selectedTypes" />
           {{ type }}
         </div>
 
-     
         <button v-on:click="addToList" id="letsGo">let's go!</button>
       </div>
 
       <!-- MOVED TO ROUTE.VUE -->
 
-        <!-- <div id="cityTourRoute">
+      <!-- <div id="cityTourRoute">
           <table>
         <tr>
           <th>city</th>
@@ -64,18 +63,19 @@
         <p>Current Locations:</p>
         <button v-on:click="generateRoute">Generate Route</button><br /><br />
       </div> -->
-        <div
-          id="currentList"
-          v-for="(location, index) of locations"
-          v-bind:key="index"
-        >
-          <input class="current-inputs" v-model="locations[index].address" />
-          <button v-on:click="removeFromList(index)">Remove</button>
-        </div>
+      <div
+        id="currentList"
+        v-for="(location, index) of locations"
+        v-bind:key="index"
+      >
+        <input class="current-inputs" v-model="locations[index].address" />
+        <button v-on:click="removeFromList(index)">Remove</button>
+      </div>
 
-    <!--Google Maps will render directions here-->
-    <div id="panel"></div>
-  </div>
+      <!--Google Maps will render directions here-->
+      <div id="panel"></div>
+   
+  </body>
 </template>
   
   <script>
@@ -321,25 +321,17 @@ export default {
 </script>
   
   <style scoped>
-#searchArea{
-  display:none;
-}
+  #searchArea{
+    display: none;
+  }
+  body{
+    width:100%;
+    height:100%;
+    background-color:pink;
+ 
+  }
 
 
-#newTripTitle{
-  text-align: center;
-  color: #6b1717;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  font-weight: 900;
-  font-size: 1.5rem;
-}
 
-::placeholder {
-  color: #e0a788e0;
-  font-weight: 900;
-  background: transparent;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-}
-  
 
 </style>

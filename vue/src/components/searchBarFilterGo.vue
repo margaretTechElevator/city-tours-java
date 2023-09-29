@@ -43,17 +43,7 @@ export default {
 <style scoped>
 #startMag{
   display:flex;
- 
-
 }
-
-
-
-
-
-
-
-
 
 #filterGo{
   display:flex;

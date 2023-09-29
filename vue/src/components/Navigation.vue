@@ -10,16 +10,13 @@
 
 
     <ul class="menu" id="logged-in-menu">
-
     
-      <li><a href="test">test page</a></li>
-      <li><a href="/">landing page</a></li>
+
 
       <!-- hide if not logged in -->
       <li><a href="MyToursPage">my trips</a></li>
       <li><a href="PlanNewTourPage">new trip</a></li>
       <!-- <li><a href="Login">login</a></li> -->
-      <li><myAccount/></li>
     </ul>
 
 
@@ -28,10 +25,8 @@
     
     
 <script>
-import myAccount from './AccountDropdown.vue';
 
   export default {
-  components: { myAccount },
     name: "Navigation",
   };
 </script>
@@ -116,21 +111,21 @@ import myAccount from './AccountDropdown.vue';
 
   .menu-button::before {
     content: "";
-    margin-top: -8px;
+ 
   }
 
   .menu-button::after {
     content: "";
-    margin-top: 8px;
+
   }
 
   #menu-toggle:checked + .menu-button-container .menu-button::before {
-    margin-top: 0px;
+
     transform: rotate(405deg);
   }
 
   #menu-toggle:checked + .menu-button-container .menu-button::after {
-    margin-top: 0px;
+
     transform: rotate(-405deg);
   }
 

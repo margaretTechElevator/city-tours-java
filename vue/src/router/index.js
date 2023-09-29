@@ -7,8 +7,9 @@ import store from '../store/index'
 import Landing from '../views/Landing.vue'
 import MyToursPage from '../views/MyToursPage.vue'
 import PlanNewTourPage from '../views/PlanNewTourPage.vue'
-import testFlex from '../views/test.vue'
+import Account from '../views/Account.vue'
 import ForgotPassword from '../views/ForgotPassword.vue'
+import EditLogin from '../views/EditLogin.vue'
 
 
 Vue.use(Router)
@@ -63,7 +64,7 @@ const router = new Router({
       name: "MyToursPage",
       component: MyToursPage,
       meta: {
-        requiresAuth: true
+        requiresAuth: false
       }
     },
     {
@@ -75,17 +76,25 @@ const router = new Router({
       }
     },
     {
-      path: "/test",
-      name: "testFlex",
-      component: testFlex,
+      path: "/forgot",
+      name: "forgotPassword",
+      component: ForgotPassword,
       meta: {
         requiresAuth: false
       }
     },
     {
-      path: "/forgot",
-      name: "forgotPassword",
-      component: ForgotPassword,
+      path: "/account",
+      name: "Account",
+      component: Account,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: "/editLogin",
+      name: "EditLogin",
+      component: EditLogin,
       meta: {
         requiresAuth: false
       }

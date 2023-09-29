@@ -1,45 +1,47 @@
 <template>
-  <body>
-    <Navigation />
-    <h4>my tours</h4>
-    <trips-table/>
-    <div id="myToursTableBackground"></div>  
+  <body id="accountArea">
+    <div id="myTripsTitle">my trips</div>
+    <trips-table />
+    <div id="myToursTableBackground"></div>
   </body>
 </template>
   
 <script scoped>
-  import Navigation from '../components/Navigation.vue'
-import TripsTable from '../components/TripsTable.vue'
+import TripsTable from "../components/TripsTable.vue";
 
-
-  export default {
-    components: { Navigation, TripsTable},
-    name: 'MyToursPage'
-  }
+export default {
+  components: { TripsTable },
+  name: "MyToursPage",
+};
 </script>
   
 <style scoped>
-  body {
-    background: url("https://i.ibb.co/TKxNQrR/ny-Opacity.png");
-  }
+body {
+  background: url("https://i.ibb.co/TKxNQrR/ny-Opacity.png");
+}
 
-  #myToursTableBackground {
-    background-color: #fffefe;
-    width: auto;
-    height:900px;
-  }
-
-  h4 {
-    margin:auto;
-    width: 80%;
-    text-align: center;
-    text-shadow: 1px 1px 15px rgba(215, 255, 53, 0.277);
-
-    font-size: 2.5rem;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-weight: 900;
-    color:rgb(1, 37, 105);
-    padding-top:20px;
-    padding-bottom: 10px;  
-  }
+#accountArea {
+  width: 100%;
+  height: 700px;
+  border-radius: 0px 0px 20px 20px;
+  background: linear-gradient(
+    180deg,
+    #182935 0%,
+    #182c3a 36.46%,
+    #183143 54.69%,
+    #183c55 75.52%,
+    #194f77 97.92%
+  );
+}
+#myTripsTitle {
+  color: var(--selected-green, #adff00);
+  text-align: center;
+  font-family: Orelega One;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 50px; /* 125% */
+  letter-spacing: 1px;
+  text-transform: lowercase;
+}
 </style>

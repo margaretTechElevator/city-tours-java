@@ -1,8 +1,13 @@
 <template>
-  <div id="iphone14Layout">
-    <div id="topNavPhoneArea">
-      <div id="pingoLogo">pingo</div>
-      <div id="myAccountIcon"><img src="../assets/samantha.png"/></div>
+  <div id="topper">
+    <div id="topArea">
+
+      <router-link to="/" id="pingoLogo">pingo</router-link>
+
+      <div id="myAccountIcon" >
+        <router-link to="Account">
+          <img src="../assets/samantha.png"/>
+        </router-link></div>
     </div>
 
   </div>
@@ -15,13 +20,14 @@ export default {
 </script>
 
 <style scoped>
-#iphone14Layout {
-  width: 100%;
+#topper {
 
-  margin: 0;
-  /* font-family: Orelega One; */
+  /* position sticky to stick to the top of the page nav */
+  /* position: sticky; */
+
+
 }
-#topNavPhoneArea {
+#topArea {
   border-radius: 0px 0px 20px 20px;
   background-image: linear-gradient(
     180deg,
@@ -61,6 +67,9 @@ export default {
 img{
   width: 26px;
   object-fit: cover;
+}
+a{
+  text-decoration: none;
 }
 
 </style>
