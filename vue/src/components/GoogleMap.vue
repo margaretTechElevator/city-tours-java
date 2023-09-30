@@ -1,6 +1,11 @@
 <template>
+<<<<<<< HEAD
   <body >
  
+=======
+  <div id="mapElement">
+    <div id="grid-container">
+>>>>>>> main
       <!--Google Maps will render map here-->
       <div id="map"></div>
 
@@ -10,13 +15,18 @@
           v-model="currentInput"
           placeholder="starting address"
           type="input"
+<<<<<<< HEAD
           class="inputFieldStyle"
+=======
+          class="input-text"
+>>>>>>> main
           id="startingAddress"
         />
         <input
           v-model="radiusInput"
-          placeholder="search radius in miles"
+          placeholder="search radius"
           type="input"
+<<<<<<< HEAD
           class="inputFieldStyle"
           id="milesFrom"
         />
@@ -25,13 +35,34 @@
         <div id="categoryButtons" v-for="type in attractionTypes" :key="type">
           <input type="checkbox" :value="type" v-model="selectedTypes" />
           {{ type }}
+=======
+          class="input-text"
+          id="radius"
+        />
+        <div id="whatToSearch">things to do</div>
+        <div id="attractionTypeCheckboxesGroup">
+          <div
+            v-for="type in attractionTypes" 
+            :key="type"
+            class="attractionTypeCheckboxes"
+          >
+            <input 
+              type="checkbox" 
+              :value="type" 
+              v-model="selectedTypes"
+              :id="`${type}-id`"
+            />
+            <label :for="`${type}-id`">{{ type }}</label>
+          </div>
+>>>>>>> main
         </div>
 
-        <button v-on:click="addToList" id="letsGo">let's go!</button>
+        <button v-on:click="search" id="letsGo">let's go!</button>
       </div>
 
       <!-- MOVED TO ROUTE.VUE -->
 
+<<<<<<< HEAD
       <!-- <div id="cityTourRoute">
           <table>
         <tr>
@@ -71,6 +102,33 @@
         <input class="current-inputs" v-model="locations[index].address" />
         <button v-on:click="removeFromList(index)">Remove</button>
       </div>
+=======
+      <div id="cityTourRoute">
+        <p>Current Locations:</p>
+        <button v-on:click="generateRoute">Generate Route</button><br /><br />
+      </div>
+
+      <div id="currentList" 
+        v-for="(landmark, index) of landmarks"
+        v-bind:key="index"
+      >
+        <input 
+          class="current-inputs" 
+          v-model="landmark.name"
+        />
+        <button v-on:click.prevent="landmark.showDetails=!landmark.showDetails">Details</button>
+        <button v-on:click="removeFromItinerary(index)">Remove</button>
+        <LandmarkInfo 
+          v-bind:name="landmark.name"
+          v-bind:address="landmark.address"
+          v-bind:photos="landmark.photos"
+          v-bind:phoneNumber="landmark.phoneNumber"
+          v-bind:website="landmark.website"
+          v-show="landmark.showDetails"
+        />
+      </div>
+    </div>
+>>>>>>> main
 
       <!--Google Maps will render directions here-->
       <div id="panel"></div>
@@ -78,29 +136,32 @@
   </body>
 </template>
   
-  <script>
+<script>
+import LandmarkInfo from './LandmarkInfo.vue'
+import {loadedGoogleMapsAPI} from '@/main'
+
 export default {
   name: "Map",
+  components: { LandmarkInfo },
   data() {
     return {
       map: null,
       routeService: null,
       routeRendererService: null,
-      currentInput: "",
-      radiusInput: "",
+      currentInput: "beacon park",
+      radiusInput: "200",
       typeInput: "",
       userDayInput: "",
       attractionTypes: ["museum", "cafe", "restaurant", "park"],
       selectedTypes: [],
       roundTrip: true,
       mapCenter: { lat: 42.3327, lng: -83.0458 },
-      locations: [],
+      searchResultLandmarks: [],
+      landmarks: [],
       location: {},
-      //markers when user want to see the landmarks on the map
-      // markers: [],
     };
   },
-
+  
   methods: {
     // This function is called during load, but can also be called to reset the map
     initMap() {
@@ -127,7 +188,7 @@ export default {
     },
 
     // This function is called to add a new location
-    async addToList() {
+    async search() {
       //check the location!
       if (this.currentInput.trim().length === 0) {
         window.alert("Location cannot be empty");
@@ -166,8 +227,6 @@ export default {
           lng: coordinates.lng,
         };
 
-        this.locations.push(this.location);
-
         // Set the map center to the new coordinates and zoom in
         this.map.setCenter(coordinates);
         this.map.setZoom(15);
@@ -183,86 +242,120 @@ export default {
       );
 
       //define the location (latitude and longitude)
-      this.location = new window.google.maps.LatLng(
+      this.mapslocation = new window.google.maps.LatLng(
         this.location.lat,
         this.location.lng
       );
 
       //set up the places API request parameters
-
       const request = {
-        location: this.location,
+        location: this.mapslocation,
         radius: this.radiusInput, //search within 50000 meters
         type: this.selectedTypes,
       };
-      console.log("current selected types:", this.selectedTypes);
-      console.log(request);
 
-      //to store the markers
-      // const markers = [];
 
       //make the Places API request
-      placesService.nearbySearch(request, (results, status) => {
-        if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-          for (let i = 0; i < results.length; i++) {
-            console.log(`Landmark: ${results[i].name}`);
-            console.log(`'Place Id: ${results[i].place_id}'`);
-            const placeId = results[i].place_id;
+      placesService.nearbySearch(
+        request,                      //our request object
+        (searchResults, status) => {        //our function that handles the promise object we are sent back
+          if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+            this.searchResultLandmarks = []
 
-            //fetch details for each place
-            placesService.getDetails({ placeId: placeId }, (place, status) => {
-              console.log(place.current_opening_hours);
-              if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-                //check if this place is open on the user-specified day
-                // if(place.opening_hours && place.opening_hours.weekday_text){
-                //   const daysOpen = place.opening_hours.weekday_text;
-                //   const isOpenUserDay = daysOpen.some(dayInfo => dayInfo.startsWith(this.userDayInput));
 
-                //   if(isOpenUserDay) {
-                // Create a marker
-                // const marker = new window.google.maps.Marker({
-                //   position: place.geometry.location,
-                //   map: this.map,
-                //   title: place.name
-                // });
-                const marker = new window.google.maps.Marker({
-                  position: results[i].geometry.location,
-                  map: this.map,
-                  title: results[i].name,
-                });
+            for (let i = 0; i < searchResults.length; i++) {
 
-                // Create an info window
-                const infoWindow = new window.google.maps.InfoWindow({
-                  //   content: `<h3>${place.name}</h3><p>${place.formatted_address}</p>`
-                  content: `<h3>${results[i].name}</h3><p>${results[i].vicinity}</p>`,
-                });
+              const placeId = searchResults[i].place_id;
 
-                // Add click event listener to marker to show info window
-                marker.addListener("click", () => {
-                  infoWindow.open(this.map, marker);
-                });
-              }
-            });
+              //fetch details for each place
+              placesService.getDetails(
+                { placeId: placeId },
+                (landmark, status) => {
+                  if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+
+                    // Create an info window
+                    const infoWindow = new window.google.maps.InfoWindow({
+                      content:
+                        `<h3>${searchResults[i].name}</h3><p>${searchResults[i].vicinity}</p><button id="routeButton${placeId}" value="${placeId}">Add to Route</button>`,
+                    });
+
+                    // Create map marker
+                    const marker = new window.google.maps.Marker({
+                      position: searchResults[i].geometry.location,
+                      map: this.map,
+                      title: searchResults[i].name,
+                    });
+
+                    // Add click event listener to marker to show info window
+                    marker.addListener("click", () => {
+                      //open info window when marker is selected
+                      infoWindow.open(this.map, marker);
+
+                      //add listener to "add to route" button
+                      window.google.maps.event.addListener(
+                        infoWindow,
+                        'domready',
+                        () => {
+                          const routeButton = document.getElementById(`routeButton${placeId}`)
+
+                          if (routeButton) {
+                            routeButton.addEventListener('click', this.addToItinerary)
+                          }
+                        }
+                      );
+
+                      //CREATE SIDEBAR
+                    });
+
+                    const newLandmark = {
+                      id: placeId,
+                      name: landmark.name,
+                      address: landmark.formatted_address,
+                      reviews: landmark.reviews,
+                      photos: landmark.photos,
+                      rating: landmark.rating,
+                      phoneNumber: landmark.formatted_phone_number,
+                      website: landmark.website,
+                      showDetails: false
+                      // marker: marker,
+                      // infoWindow: infoWindow
+                    }
+                    
+                    this.searchResultLandmarks.push(newLandmark)
+                  }
+                }
+              );
+            }
           }
         }
-      });
+      );
       //till here
     },
+    addToItinerary(event) {
+      const addedLocationId = event.target.value
+
+      const addedLocation = this.searchResultLandmarks.filter(location => location.id === addedLocationId)
+      
+      if (addedLocation.length === 1) {
+        this.landmarks.push(addedLocation[0]);
+      }
+
+    },
     // This function is called to remove a location
-    removeFromList(index) {
-      if (this.locations.length == 2) {
+    removeFromItinerary(index) {
+      if (this.landmarks.length == 2) {
         window.alert("A start and end location must be present");
         return;
       }
 
-      this.locations.splice(index, 1);
+      this.landmarks.splice(index, 1);
     },
 
     // This function calls the Google Maps API, renders the route
     // and retrieves the directions
     generateRoute() {
-      for (let i = 0; i < this.locations.length; i++) {
-        if (this.locations[i].address.trim().length === 0) {
+      for (let i = 0; i < this.landmarks.length; i++) {
+        if (this.landmarks[i].address.trim().length === 0) {
           window.alert("Location cannot be empty");
           return;
         }
@@ -289,17 +382,17 @@ export default {
           }
         */
 
-      for (let i = 1; i < this.locations.length - 1; i++) {
+      for (let i = 1; i < this.landmarks.length - 1; i++) {
         myWaypoints.push({
-          location: this.locations[i],
+          location: this.landmarks[i].address,
           stopover: true,
         });
       }
 
       this.routeService
         .route({
-          origin: this.locations[0],
-          destination: this.locations[this.locations.length - 1],
+          origin: this.landmarks[0].address,
+          destination: this.landmarks[this.landmarks.length - 1].address,
           waypoints: myWaypoints,
           travelMode: window.google.maps.TravelMode.DRIVING,
           avoidTolls: true,
@@ -313,13 +406,15 @@ export default {
         });
     },
   },
-
   mounted() {
-    this.initMap();
+    loadedGoogleMapsAPI.then( () => {
+      this.initMap()
+    })
   },
 };
 </script>
   
+<<<<<<< HEAD
   <style scoped>
   #searchArea{
     display: none;
@@ -329,9 +424,144 @@ export default {
     height:100%;
     background-color:pink;
  
+=======
+<style scoped>
+  input {
+    width: 300px;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 50%;
+    box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.36);
+    border: rgb(203, 203, 203) 0.5px solid;
+    background-color: rgba(158, 158, 158, 0.248);
   }
 
+  button {
+    background-color: rgb(236, 191, 93);
+    border: none;
+    text-align: center;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    color: #6b1717;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+    font-weight: 900;
+    font-size: 1rem;
+    line-height: 1;
+    box-shadow: 1px 1px 10px rgba(130, 114, 110, 0.186);
+  }
+  
+  ::placeholder {
+    color: #e0a788e0;
+    font-weight: 900;
+    letter-spacing: 0.15rem;
+    font-size: 0.75rem;
+    background: transparent;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  } 
 
+  #mapElement {
+    margin: auto;
+    text-align: center;
+    margin-top: 0px;
+    padding-top: 20px;
+    box-shadow: 1px 1px 10px rgba(130, 114, 110, 0.17);
+    background-color: white;
+  }
 
+  #grid-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "inputs "
+      "map "
+      "route ";
+    padding-bottom: 20px;
+  }
 
+  #searchArea {
+    grid-area: inputs;
+    margin: auto;
+    width: 50%;
+    height: 150px;
+    background-color: rgb(255, 255, 255);
+    padding-bottom: 40px;
+  }
+
+  #map {
+    grid-area: map;
+    width: 500px;
+    height: 400px;
+    padding: 25px;
+    margin: auto;
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  #panel {
+    grid-area: route;
+  }
+
+  .input-text {
+    width: 300px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 100%;
+    box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.36);
+    border: rgb(203, 203, 203) 0.5px solid;
+    background-color: rgba(158, 158, 158, 0.248);
+>>>>>>> main
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+    "startingAddress startingAddress startingAddress startingAddress"
+    "radius radius radius radius"
+    ". whatToSearch whatToSearch ."
+    "types types types types"
+    ". letsGo letsGo .";
+  }
+
+  #startingAddress {
+    grid-area: startingAddress;
+  }
+
+<<<<<<< HEAD
+=======
+  #radius {
+    grid-area: radius;
+  }
+
+  #whatToSearch {
+    grid-area: whatToSearch;
+    padding-top: 20px;
+    padding-bottom: 15px;
+    color: #6b1717;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+    font-weight: 900;
+    font-size: 1.5rem;
+    line-height: 0;
+    text-shadow: 1px 1px 10px rgba(130, 114, 110, 0.5);
+    width: 100%;
+  }
+
+  #attractionTypeCheckboxesGroup {
+    grid-area: types;
+  }
+  
+  .attractionTypeCheckboxes {
+    display: inline-block;
+    padding: 3%;
+  }
+>>>>>>> main
+
+  #letsGo {
+    grid-area: letsGo;
+  }
 </style>

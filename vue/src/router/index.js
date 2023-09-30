@@ -4,7 +4,6 @@ import Login from '../views/Login.vue'
 import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
-import Landing from '../views/Landing.vue'
 import MyToursPage from '../views/MyToursPage.vue'
 import PlanNewTourPage from '../views/PlanNewTourPage.vue'
 import Account from '../views/Account.vue'
@@ -29,8 +28,8 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'Landing',
-      component: Landing,
+      name: 'Home',
+      component: PlanNewTourPage,
       meta: {
         requiresAuth: false
       }

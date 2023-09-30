@@ -1,12 +1,24 @@
 <template>
+<<<<<<< HEAD
   <body id="accountArea">
     <div id="myTripsTitle">my trips</div>
     <trips-table />
     <div id="myToursTableBackground"></div>
+=======
+  <body>
+    <Navigation />
+    <div>
+      <h4>my tours</h4>
+      <button v-on:click="redirectToNewItinerary">+ new itinerary</button>
+    </div>
+    <ItineraryList />
+    <div id="myToursTableBackground"></div>  
+>>>>>>> main
   </body>
 </template>
   
 <script scoped>
+<<<<<<< HEAD
 import TripsTable from "../components/TripsTable.vue";
 
 export default {
@@ -19,6 +31,26 @@ export default {
 body {
   background: url("https://i.ibb.co/TKxNQrR/ny-Opacity.png");
 }
+=======
+  import Navigation from '../components/Navigation.vue'
+  import ItineraryList from '../components/ItineraryList.vue'
+
+  export default {
+    components: { Navigation, ItineraryList },
+    name: 'MyToursPage',
+    methods: {
+      redirectToNewItinerary() {
+        this.$router.push("PlanNewTourPage");
+      },
+    },
+  }
+</script>
+  
+<style scoped>
+  body {
+    background: url("https://i.ibb.co/TKxNQrR/ny-Opacity.png");
+  }
+>>>>>>> main
 
 #accountArea {
   width: 100%;
