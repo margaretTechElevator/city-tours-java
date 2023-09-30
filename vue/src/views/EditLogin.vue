@@ -1,5 +1,5 @@
 <template>
-  <h1>edit login page</h1>
+  <div>edit login page</div>
 </template>
 
 <script>

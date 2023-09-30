@@ -18,8 +18,12 @@ import Topper from './components/Topper.vue'
   font-family: 'Orelega One';
   src: url('~@/assets/fonts/OrelegaOne-Regular.ttf') format('truetype');
 }
+@font-face {
+  font-family: 'Inter';
+  src: url('~@/assets/fonts/Inter.ttf');
+}
 
-/* @import url('../assets/fonts/); */
+
 body{
   margin:0px;
   background-color:  #182935;

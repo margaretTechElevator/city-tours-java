@@ -4,7 +4,7 @@
 
       <div>Landing Page</div>
       <SearchBarFilterGo />
-      <google-map />
+      <google-map id="map"/>
 
 
   </div>
@@ -24,6 +24,9 @@ export default {
 </script>
   
 <style scoped>
+#map{
+  background-color: yellow;
+}
 
 
 </style>
