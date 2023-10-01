@@ -1,6 +1,7 @@
 <template>
+  <div id="accountPage">
+    <topper/>
   <div id="myAccountBoundingBox">
-
 
     <div id="myAccountAddPhotoArea">
       <div id="myAccountTitle">my account</div>
@@ -11,7 +12,6 @@
         </router-link>
       </div>
     </div>
-
 
     <div id="login">
       <input id="email" type="text" placeholder="email" />
@@ -24,28 +24,29 @@
      
       <a href="/forgot"><button id="forgot">?</button></a>
       <a href="/editLogin"
-        ><button id="edit"><EditPencil /></button
+        ><button id="edit"><pencilIcon /></button
       ></a>
 
     </div>
     <button id="loginButton">login</button>
 
-
+<!-- if we want to add this functionality later -->
     <!-- <router-link to="defaultStartingAddress" id="setDefault"
       >set default starting address</router-link
     > -->
 
-    <div id="newSaved">
-      <!-- <a href="/"><div>new trip</div></a> -->
+    <div id="savedLink">
       <a href="/myToursPage"><div>saved</div></a>
     </div>
   </div>
+</div>
 </template>
 
 <script>
-import EditPencil from "../assets/EditPencil.vue";
+import pencilIcon from '../assets/pencilIcon.vue'
+import Topper from '../components/Topper.vue';
 export default {
-  components: { EditPencil },
+  components: { pencilIcon, Topper },
   name: "Account",
 };
 </script>
@@ -56,6 +57,7 @@ export default {
   flex-direction: column;
   width: 420px;
   margin: auto;
+  padding-top: 100px;
 }
 
 /* title and change login photo area */
@@ -95,16 +97,18 @@ export default {
 }
 input {
   padding-left: 30px;
-  width: 100%;
+  width: 92%;
   height: 30px;
   flex-shrink: 0;
   border-radius: 20px;
   background: rgba(25, 79, 119, 0.5);
   box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.6) inset;
   border: none;
+
+
 }
 ::placeholder {
-  color: var(--mint, #cfe7ca);
+  color: var(--menu-bar-mint-50, rgba(207, 231, 202, 0.5));
   font-family: Inter;
   font-size: 14px;
   font-style: normal;
@@ -118,7 +122,7 @@ input {
 }
 
 /* new and saved links */
-#newSaved {
+#savedLink {
   color: var(--mint, #cfe7ca);
   text-align: center;
   font-family: Orelega One;
@@ -145,11 +149,13 @@ input {
   height: 20px;
   flex-shrink: 0;
   margin-left: 20px;
+  margin-right:20px;
 }
 #forgotEdit {
   display: flex;
   justify-content: flex-end;
   margin-top: 20px;
+  
 }
 button {
   background-color: transparent;
@@ -158,6 +164,7 @@ button {
   font-size: 32px;
   color: var(--menu-bar-mint-50, rgba(207, 231, 202, 0.5));
   font-weight: 900;
+
 }
 
 img {

@@ -87,8 +87,9 @@ input {
 }
 
 #searchArea {
-  z-index: 0;
-  position: absolute;
+  overflow:hidden;
+  z-index: 6;
+  position: fixed;
   bottom: 0%;
   width: 100%;
   height: 162px;

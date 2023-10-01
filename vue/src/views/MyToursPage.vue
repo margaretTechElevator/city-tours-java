@@ -1,58 +1,47 @@
 <template>
-<<<<<<< HEAD
-  <body id="accountArea">
-    <div id="myTripsTitle">my trips</div>
-    <trips-table />
-    <div id="myToursTableBackground"></div>
-=======
-  <body>
-    <Navigation />
-    <div>
-      <h4>my tours</h4>
-      <button v-on:click="redirectToNewItinerary">+ new itinerary</button>
+  <div id="myToursPage">
+    <topper />
+
+    <div id="accountArea">
+      <div id="myTripNewTrip">
+        <div id="myTripsTitle">my trips</div>
+        <button v-on:click="redirectToNewItinerary" id="newTrip">+ new trip</button>
+      </div>
+      <ItineraryList id="tripList"/>
     </div>
-    <ItineraryList />
-    <div id="myToursTableBackground"></div>  
->>>>>>> main
-  </body>
+  </div>
 </template>
   
 <script scoped>
-<<<<<<< HEAD
-import TripsTable from "../components/TripsTable.vue";
+import ItineraryList from "../components/ItineraryList.vue";
+import Topper from "../components/Topper.vue";
 
 export default {
-  components: { TripsTable },
+  components: { ItineraryList, Topper },
   name: "MyToursPage",
+
+  methods: {
+    redirectToNewItinerary() {
+      this.$router.push("PlanNewTourPage");
+    },
+  },
 };
 </script>
   
 <style scoped>
+#myTripNewTrip{
+  display: flex;
+  justify-content: space-between;
+  margin-left: 26px;
+  margin-right: 26px;
+  
+}
 body {
   background: url("https://i.ibb.co/TKxNQrR/ny-Opacity.png");
 }
-=======
-  import Navigation from '../components/Navigation.vue'
-  import ItineraryList from '../components/ItineraryList.vue'
-
-  export default {
-    components: { Navigation, ItineraryList },
-    name: 'MyToursPage',
-    methods: {
-      redirectToNewItinerary() {
-        this.$router.push("PlanNewTourPage");
-      },
-    },
-  }
-</script>
-  
-<style scoped>
-  body {
-    background: url("https://i.ibb.co/TKxNQrR/ny-Opacity.png");
-  }
->>>>>>> main
 
 #accountArea {
+  padding-top: 100px;
   width: 100%;
   height: 700px;
   border-radius: 0px 0px 20px 20px;
@@ -65,9 +54,12 @@ body {
     #194f77 97.92%
   );
 }
+#newTrip{
+  margin-top: 30px;
+}
 #myTripsTitle {
-  color: var(--selected-green, #adff00);
-  text-align: center;
+  color: var(--menu-bar-mint-50, rgba(207, 231, 202, 0.5));
+
   font-family: Orelega One;
   font-size: 40px;
   font-style: normal;
@@ -75,5 +67,19 @@ body {
   line-height: 50px; /* 125% */
   letter-spacing: 1px;
   text-transform: lowercase;
+  margin-top: 30px;
+  padding-left: 26px;
+}
+button{
+  background-color: transparent;
+  border-style: none;
+  font-family: Orelaga One;
+  font-size: 32px;
+  color: var(--menu-bar-mint-50, rgba(207, 231, 202, 0.5));
+  font-weight: 900;
+}
+#tripList{
+  padding-left: 26px;
+  padding-right: 26px;
 }
 </style>

@@ -21,10 +21,11 @@ export default {
 
 <style scoped>
 #topper {
-
-  /* position sticky to stick to the top of the page nav */
-  /* position: sticky; */
-
+  overflow: hidden;
+  position:fixed;
+  top:0;
+  z-index: 5;
+  width:100%;
 
 }
 #topArea {

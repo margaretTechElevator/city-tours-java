@@ -47,7 +47,7 @@
 </template>
 
 <script>
-  import Navigation from '../components/Navigation.vue';
+  import Navigation from '../components/no longer needed/Navigation.vue';
   import authService from "../services/AuthService";
 
   export default {

@@ -6,6 +6,7 @@
  
     <!--my account dropdown if you are not logged in -->
     <div id="this">
+
       <button @click="showDropdown">my account</button>
       <div v-if="showMenu" class="menu">
 
@@ -43,7 +44,9 @@ so you can get back to that page if you are in my trips page -->
 </template>
 
 <script>
+
 export default {
+  components: {  },
   name: "AccountDropdown",
   data: function () {
     return {
