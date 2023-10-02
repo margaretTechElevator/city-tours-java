@@ -40,13 +40,12 @@ export default {
 #searchBar {
 
   padding: 20px 26px;
-  border: orange 4px solid;
+
 }
 #startMag {
   margin:auto;
   display: flex;
   width:440px;
-  border: pink 3px solid;
 
 }
 
@@ -63,7 +62,7 @@ export default {
   padding-right: 26px;
 }
 
-/* non-scoped to inherit from the component */
+
 ::placeholder {
   color: var(--menu-bar-mint-50, rgba(207, 231, 202, 0.5));
   font-family: Inter;
@@ -72,6 +71,8 @@ export default {
   font-weight: 400;
   line-height: 20px;
   letter-spacing: 1.8px;
+  padding-left: 20px;
+
 }
 
 
@@ -82,7 +83,7 @@ input {
   background: rgba(25, 79, 119, 0.5);
   box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.6) inset;
   border: none;
-  width:100%
+  width:100%;
 }
 
 #searchArea {
@@ -126,9 +127,10 @@ input {
   border: none;
 }
 #magnifyingGlass{
-  border:green 3px solid;
-  position: relative;
-  margin-right: 10px;
+
+  position: absolute;
+  margin-left: 12px;
+  margin-top:10px;
 }
 
 </style>

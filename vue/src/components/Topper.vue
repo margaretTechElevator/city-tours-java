@@ -1,15 +1,9 @@
 <template>
   <div id="topper">
     <div id="topArea">
-
-      <router-link to="/" id="pingoLogo">pingo</router-link>
-
-      <div id="myAccountIcon" >
-        <router-link to="Account">
-          <img src="../assets/samantha.png"/>
-        </router-link></div>
+      <router-link to="/" id="logo">pingo</router-link>
+      <img src="../assets/samantha.png" id="user-pic" />
     </div>
-
   </div>
 </template>
 
@@ -20,13 +14,12 @@ export default {
 </script>
 
 <style scoped>
-#topper {
-  overflow: hidden;
-  position:fixed;
-  top:0;
-  z-index: 5;
-  width:100%;
 
+#topper {
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  width: 100%;
 }
 #topArea {
   border-radius: 0px 0px 20px 20px;
@@ -38,57 +31,45 @@ export default {
     #183c55 75.52%,
     #194f77 97.92%
   );
-
-  display: flex;
   padding: 17px 26px;
-  justify-content: flex-end;
-  align-items: flex-end;
-  /* flex: 1 0 0;
-  align-self: stretch; */
+  /* align-items: flex-start; */
+  height: 100px;
+  display: flex;
+  position: relative;
 }
-#pingoLogo {
+
+#logo {
   color: var(--mint, #cfe7ca);
   text-shadow: 0px -4px 4px rgba(0, 0, 0, 0.2);
   font-family: Orelega One;
   font-size: 48px;
-  font-style: normal;
-  line-height: 64.336px;
-  margin: auto;
-  width: 50%;
   text-align: center;
-}
-#myAccountIcon {
-  border-radius: 75%;
-  height: 26px;
-  width:26px;
-  overflow: hidden;
-  border: 2px solid var(--mint, #cfe7ca);
+  text-decoration: none;
+  padding-top: 80px;
+  z-index: auto;
+  position:absolute;
+  left: 50%;
+  width:100px;
+  margin: -50px 0 0 -50px;
+
+
 
 }
-img{
+
+#user-pic {
+  overflow: hidden;
+  border-radius: 50%;
   width: 26px;
+  height: 26px;
   object-fit: cover;
-}
-a{
-  text-decoration: none;
+  border: 2px solid var(--mint, #cfe7ca);
+  margin-top:65px;
+  z-index: 3;
+  position:absolute;
+  right:26px;
+ 
+
 }
 
 </style>
 
-<!-- /* small devices (landscape phones, 576 px and up) */
-@media (min-width: 576px) {
-  
-}
-
-/* medium devices (tablets, 768px and up) */
-@media (min-width: 768px){
-
-}
-/* large devices (desktops 992px and up) */
-@media(min-width: 992px){
-
-}
-/* extra large */
-@media(min-width: 1200px){
-  
-} -->

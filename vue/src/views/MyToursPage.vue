@@ -44,15 +44,8 @@ body {
   padding-top: 100px;
   width: 100%;
   height: 700px;
-  border-radius: 0px 0px 20px 20px;
-  background: linear-gradient(
-    180deg,
-    #182935 0%,
-    #182c3a 36.46%,
-    #183143 54.69%,
-    #183c55 75.52%,
-    #194f77 97.92%
-  );
+  background: 
+    #182935 100%,
 }
 #newTrip{
   margin-top: 30px;

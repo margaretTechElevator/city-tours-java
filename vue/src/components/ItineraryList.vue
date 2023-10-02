@@ -2,11 +2,11 @@
   <div>
     <table v-if="failureMessage == ''" id="itineraryList">
       <tr>
-        <th class="longInput">trip name</th>
+        <th class="longInput">trip</th>
         <th class="longInput">starting location</th>
         <th class="longInput">ending location</th>
         <th class="shortInput">stops</th>
-        <th class="shortInput">completed date</th>
+        <th class="shortInput">date</th>
       </tr>
       <tr
         class="itinerariesList"
@@ -61,12 +61,14 @@ export default {
 </script>
 
 <style scoped>
+
 .longInput {
   width: 10rem;
 }
 .shortInput {
   width: 0.5rem;
 }
+
 #itineraryList {
   color: var(--menu-bar-mint-50, rgba(207, 231, 202, 0.5));
   font-family: Inter;
@@ -75,7 +77,16 @@ export default {
   text-transform: lowercase;
   width: 100%;
   margin-top: 10px;
-  border: yellow solid 3px;
+  background-image: linear-gradient(
+    180deg,
+    #194f77 97.92%
+    #183c55 75.52%,
+    #183143 54.69%,
+    #182c3a 36.46%,
+    #182935 0%,
+  );
+  border-radius: 20px 20px 0px 0px;
+  /* border: 3px pink solid; */
 }
 
 
@@ -85,7 +96,7 @@ export default {
   text-align: center;
   background-color: transparent;
   color: --menu-bar-mint-50, rgba(207, 231, 202, 0.5);
-  border:orange 5px solid;
+
 
 }
 </style>
