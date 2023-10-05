@@ -29,6 +29,7 @@ export default {
 </script>
   
 <style scoped>
+
 #myTripNewTrip{
   display: flex;
   justify-content: space-between;
@@ -43,7 +44,7 @@ body {
 #accountArea {
   padding-top: 100px;
   width: 100%;
-  height: 700px;
+  height: 100%;
   background: 
     #182935 100%,
 }
