@@ -365,9 +365,7 @@ export default {
 </script>
   
 <style scoped>
-#searchArea {
-  display: none;
-}
+
 body {
   width: 100%;
   height: 100%;
@@ -413,8 +411,6 @@ button {
   text-align: center;
   margin-top: 0px;
   padding-top: 20px;
-  box-shadow: 1px 1px 10px rgba(130, 114, 110, 0.17);
-  background-color: white;
 }
 
 #grid-container {

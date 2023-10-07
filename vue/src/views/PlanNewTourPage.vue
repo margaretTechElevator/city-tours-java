@@ -2,7 +2,6 @@
   <body>
     <div v-if="landing" id="container">
       <topper/>
-      <SearchBarFilterGo  id="search"/>
       <google-map id="map" />
       <Route class="route" />
 
@@ -14,7 +13,6 @@
 <script>
 import Route from "../components/Route.vue";
 import GoogleMap from "../components/GoogleMap.vue";
-import SearchBarFilterGo from "../components/searchBarFilterGo.vue";100
 import Topper from '../components/Topper.vue';
 
 export default {
@@ -22,7 +20,7 @@ export default {
   components: {
     GoogleMap,
     Route,
-    SearchBarFilterGo,
+
 
     Topper
     
@@ -37,19 +35,19 @@ export default {
 <style scoped>
 
 #map{
-  width:100%;
-  height:90%;
+  /* resized map because it isnt fitting... something
+  about the body and html margin auto is 8px */
+  width:96%;
+  height:94%;
   z-index: 1;
   position:absolute;
+  margin: 0px;
 }
 #route{
   z-index: 2;
 
 }
-#search{
-  z-index: 3;
 
-}
 
 
 </style>

@@ -136,7 +136,7 @@ hr {
   flex-direction: column;
   width: 420px;
   margin: auto;
-  padding-top: 124px;
+  margin-top: 160px;
 }
 
 /* title and change login photo area */

@@ -1,13 +1,33 @@
 <template>
   <div id="topper">
     <div id="topArea">
-      <router-link to="/" id="logo">pingo</router-link>
+      <div id="logo">
+        <div id="logo">
+          <span id="p">p</span>
+          <span id="i">i</span>
+          <span id="n">n</span>
+          <span id="go">go</span>
+          <span id="exclamation">!</span>
+        </div>
+      </div>
 
-      
-             <!-- dropdown menu -->
+      <div id="searchBar">
+        <form>
+
+          <div>
+            <input
+              type="text"
+              placeholder="starting from?"
+              onfocus="this.placeholder=''"
+              onblur="this.placeholder='starting from?'"
+            />
+          </div>
+        </form>
+      </div>
+
+      <!-- dropdown menu -->
       <div class="toggle">
-
-              <!-- toggle on click small user photo -->
+        <!-- toggle on click small user photo -->
         <img src="../assets/samantha.png" id="userPic" />
         <!-- <img src="../assets/samantha.png" id="userPic" onclick="toggleMenu()"/> -->
 
@@ -55,22 +75,24 @@
 
 <script>
 import userIcon from "../assets/userIcon.vue";
+// import magnifyingGlass from "../assets/magnifyingGlass.vue";
+// import FilterHamburger from "../assets/filterHamburger.vue";
 
 export default {
-  components: { userIcon},
+  components: { userIcon },
   name: "Topper",
 };
 
-// this isnt working.   error  'toggleMenu' is defined but never used but it 
+// this isnt working.   error  'toggleMenu' is defined but never used but it
 // IS used in the img.  ?
 
 // function toggleMenu() {
 
-    //(function toggle A)
+//(function toggle A)
 //   // let menu= document.getElementById("menu");
 //   // menu.classList.toggle("openMenu");
 
-    //(function toggle B)
+//(function toggle B)
 //   var x = document.getElementById("menu");
 //   if (x.style.display === "none") {
 //     x.style.display = "block";
@@ -80,37 +102,96 @@ export default {
 // }
 
 // Close menu when clicking outside
-
-
 </script>
 
 <style scoped>
+#p {
+  color: #adff00;
+}
+#i {
+  color: #adff00;
+}
+#n {
+  color:#cfe7ca;
+}
+#go {
+  color:#cfe7ca;
+}
+#exclamation {
+  color:#cfe7ca;
+}
+/* #goButton {
+  color: var(--selected-green, #adff00);
+  font-family: Orelega One;
+  font-size: 30px;
+  letter-spacing: 1px;
+  background-color: transparent;
+  border: none;
+} */
+/* #magnifyingGlass {
+  position: absolute;
+  margin-left: 400px;
+  margin-top: 10px;
+} */
+/* #filterGo {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+} */
+
+/* #filter {
+  flex: 8;
+  padding-left: 26px;
+}
+#go {
+  flex: 0;
+  padding-right: 26px;
+} */
+/* form{
+  display: flex;
+} */
+#searchBar {
+  margin: auto;
+  margin-top: 120px;
+}
+input {
+  height: 30px;
+  padding: 0px 16px;
+  border-radius: 20px;
+  background:#173951;
+  box-shadow: 0px 4px 3px 0px rgba(3, 36, 6, 0.6) inset;
+  width: 50vw;
+  max-width: 400px;
+  bottom: 0px;
+  border: none;
+
+}
+
+::placeholder {
+  color: var(--menu-bar-mint-50, rgba(207, 231, 202, 0.5));
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 1.8px;
+  /* padding-left: 20px; */
+}
 
 /* toggle display on and off til the function is fixed */
-.toggle{
-  /* display:none; */
+.toggle {
+  /* display: none; */
 }
-#changePhoto{
+#changePhoto {
   display: flex;
   z-index: 2;
+}
 
-}
-#addContainer {
-  display: flex;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  z-index: 3;
-  position:absolute;
-  margin-left: 60px;
-  margin-top: 60px;
-}
 #largeUserPic {
   border-radius: 50%;
   width: 80px;
   margin-right: 15px;
 }
-
 
 #topper {
   position: fixed;
@@ -128,26 +209,24 @@ export default {
     #183c55 75.52%,
     #194f77 97.92%
   );
-  padding: 17px 26px;
-  /* align-items: flex-start; */
-  height: 90px;
+  /* padding: 17px 16px; */
+  height: 170px;
   display: flex;
   position: relative;
 }
 
 #logo {
+  width: 100%;
   color: var(--mint, #cfe7ca);
-  text-shadow: 0px -4px 4px rgba(0, 0, 0, 0.2);
+  text-shadow: 0px -4px 4px rgba(0, 0, 0, 0.3);
   font-family: Orelega One;
   font-size: 48px;
-  text-align: center;
   text-decoration: none;
-  padding-top: 80px;
-  z-index: auto;
+  margin-top: 26px;
   position: absolute;
-  left: 50%;
-  width: 100px;
-  margin: -50px 0 0 -50px;
+  text-align: center;
+
+
 }
 
 #userPic {
@@ -157,12 +236,11 @@ export default {
   height: 26px;
   object-fit: cover;
   border: 2px solid var(--mint, #cfe7ca);
-  margin-top: 65px;
+  margin-top: 110px;
   z-index: 3;
   position: absolute;
   right: 26px;
 }
-
 
 .menu {
   position: absolute;
@@ -173,9 +251,9 @@ export default {
   overflow: hidden;
   transition: max-height 0.5s;
 }
-.menu.openMenu {
+/* .menu.openMenu {
   max-height: 600px;
-}
+} */
 .menu {
   background: #182935;
   padding: 20px;

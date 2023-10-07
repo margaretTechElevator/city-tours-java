@@ -21,10 +21,11 @@
   src: url('~@/assets/fonts/Inter.ttf');
 }
 
-body{
+body, html{
   margin:0px;
   background-color:  #182935;
 }
+
 
 
 </style>

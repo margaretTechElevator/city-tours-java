@@ -1,5 +1,7 @@
 <template>
-
+  <!-- this will be a component that is in the nav bar.
+    this will change to "logout" when logged in and 
+    will have a temporary popup "youre logged out" -->
 
  
     <!--my account dropdown if you are not logged in -->

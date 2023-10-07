@@ -11,10 +11,6 @@
       </button>
     </div>
 <div id="startingFromInputArea">
-    <button type="submit" id="magnifyingGlassButton">
-      <magnifyingGlass />
-    </button>
-
     <input
       id="addressInputArea"
       v-model="currentInput"
@@ -34,14 +30,16 @@
 </template>
 
 <script>
-import magnifyingGlass from "../assets/magnifyingGlass.vue";
 export default {
-  components: { magnifyingGlass },
+  components: { },
   name: "Route",
 };
 </script>
 
 <style scoped>
+#cityTourRoute{
+  display: none;
+}
 #startingFromInputArea{
   display: flex;
 }

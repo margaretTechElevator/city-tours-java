@@ -1,16 +1,19 @@
 <template>
   <body>
     <div id="searchArea">
-      <div id="pullBar"></div>
+      <!-- <div id="pullBar"></div> -->
 
       <div id="searchBar">
         <form>
           <div id="startMag">
-
             <magnifyingGlass id="magnifyingGlass" />
-            <input type="text" placeholder="starting from?" />
-
-        </div>
+            <input
+              type="text"
+              placeholder="starting from****"
+              onfocus="this.placeholder=''"
+              onblur="this.placeholder='enter your text'"
+            />
+          </div>
         </form>
       </div>
 
@@ -38,15 +41,12 @@ export default {
 
 <style scoped>
 #searchBar {
-
   padding: 20px 26px;
-
 }
 #startMag {
-  margin:auto;
+  margin: auto;
   display: flex;
-  width:440px;
-
+  width: 440px;
 }
 
 #filterGo {
@@ -62,7 +62,6 @@ export default {
   padding-right: 26px;
 }
 
-
 ::placeholder {
   color: var(--menu-bar-mint-50, rgba(207, 231, 202, 0.5));
   font-family: Inter;
@@ -72,9 +71,7 @@ export default {
   line-height: 20px;
   letter-spacing: 1.8px;
   padding-left: 20px;
-
 }
-
 
 input {
   height: 30px;
@@ -83,10 +80,11 @@ input {
   background: rgba(25, 79, 119, 0.5);
   box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.6) inset;
   border: none;
-  width:100%;
+  width: 100%;
 }
 
 #searchArea {
+  /* display: none; */
   overflow: hidden;
   z-index: 6;
   position: fixed;
@@ -96,7 +94,7 @@ input {
   border-radius: 20px 20px 0px 0px;
   background: var(--dark-denim, #182935);
 }
-#pullBar {
+/* #pullBar {
   width: 50px;
   height: 3px;
   border-radius: 20px;
@@ -105,7 +103,7 @@ input {
   position: relative;
   top: 10px;
   margin: auto;
-}
+} */
 
 #goButton {
   display: flex;
@@ -126,11 +124,9 @@ input {
   background-color: #182935;
   border: none;
 }
-#magnifyingGlass{
-
+#magnifyingGlass {
   position: absolute;
-  margin-left: 12px;
-  margin-top:10px;
+  margin-left: 400px;
+  margin-top: 10px;
 }
-
 </style>

@@ -12,7 +12,5 @@ export default {
 </script>
 
 <style>
-svg{
-  color: #e2c4c4;
-}
+
 </style>

@@ -42,7 +42,7 @@ body {
 }
 
 #accountArea {
-  padding-top: 100px;
+  padding-top: 160px;
   width: 100%;
   height: 100%;
   background: 
