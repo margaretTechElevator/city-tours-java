@@ -1,6 +1,5 @@
 <template>
   <div id="topper">
-
     <!-- logo area -->
     <div id="topArea" class="topArea">
       <div id="logo">
@@ -13,11 +12,10 @@
         </div>
       </div>
 
-     <!-- search bar area -->
+      <!-- search bar area -->
       <div id="searchBar" class="navbar-toggle" @click="mainNavToggle">
         <form>
           <div>
-
             <input
               type="text"
               placeholder="starting from?"
@@ -28,17 +26,27 @@
         </form>
       </div>
 
+<!-- miles slider -->
+      <div class="slidecontainer" v-if="showAttractions">
+          <input
+            type="range"
+            min="1"
+            max="30"
+            value="50"
+            class="slider"
+            id="myRange"
+          />
+        </div>
       <!-- attraction type buttons  -->
-      <div class="attractionTypes" v-if="showAttractions">
+      <div class="attractionButtonContainer" v-if="showAttractions">
         <button class="attractionButton">museum</button>
         <button class="attractionButton">restaurant</button>
         <button class="attractionButton">cafe</button>
         <button class="attractionButton">park</button>
       </div>
 
-
-    <!-- my small photo linking to my account dropdown -->
-      <nav >
+      <!-- my small photo linking to my account dropdown -->
+      <nav>
         <img
           src="../assets/person.jpg"
           id="userPic"
@@ -54,20 +62,23 @@
           v-if="loggedIn"
         />
 
-  <!-- my account menu LOGGED IN-->
+        <!-- my account menu LOGGED IN-->
         <div id="menu" v-if="showMenu">
           <div class="menu">
-
             <div class="accountDropdownHeader">
               <h3 id="userName" v-if="loggedOut">welcome!</h3>
               <h3 id="userName" v-if="loggedIn">Sam Doe</h3>
               <div id="changePhoto">
-                <img src="../assets/samantha.png" 
-                id="largeUserPic" 
-                v-if="loggedIn"/>
-                <img src="../assets/person.jpg" 
-                id="largeUserPic" 
-                v-if="loggedOut"/>
+                <img
+                  src="../assets/samantha.png"
+                  id="largeUserPic"
+                  v-if="loggedIn"
+                />
+                <img
+                  src="../assets/person.jpg"
+                  id="largeUserPic"
+                  v-if="loggedOut"
+                />
               </div>
             </div>
             <hr />
@@ -88,16 +99,25 @@
               <p>new trip</p>
               <span>></span>
             </a>
-            
-            <a @click="logout" class="menuLink" v-if="loggedIn" id="loginLogout">
+
+            <a
+              @click="logout"
+              class="menuLink"
+              v-if="loggedIn"
+              id="loginLogout"
+            >
               <p>logout</p>
               <span>></span>
             </a>
-            <a @click="login" class="menuLink" v-if="loggedOut" id="loginLogout">
+            <a
+              @click="login"
+              class="menuLink"
+              v-if="loggedOut"
+              id="loginLogout"
+            >
               <p>login</p>
               <span>></span>
             </a>
-
           </div>
         </div>
       </nav>
@@ -106,7 +126,6 @@
 </template>
 
 <script>
-
 import userIcon from "../assets/userIcon.vue";
 // import magnifyingGlass from "../assets/magnifyingGlass.vue";
 // import FilterHamburger from "../assets/filterHamburger.vue";
@@ -114,16 +133,14 @@ import userIcon from "../assets/userIcon.vue";
 export default {
   components: { userIcon },
   name: "Topper",
-  data:function() {
-    return{
-      showMenu:false,
-      loggedIn:false,
-      loggedOut:true,
-      showAttractions:false,
-      showLargeBackground:false,
-
+  data: function () {
+    return {
+      showMenu: false,
+      loggedIn: false,
+      loggedOut: true,
+      showAttractions: false,
+      showLargeBackground: false,
     };
-
   },
   props: {
     onClick: { type: Function },
@@ -132,71 +149,65 @@ export default {
     showDropdown: function () {
       this.showMenu = !this.showMenu;
     },
-    
-    
-    
-    mainNavToggle: function(){
+
+    mainNavToggle: function () {
       //hide and show the attraction buttons and slider
-      this.showAttractions= !this.showAttractions;
-      
-      if(this.showLargeBackground){ 
-        document.getElementById("topArea").style.height="170px";
-        this.showLargeBackground=false;
-        }  else if(!this.showLargeBackground) {
-            document.getElementById("topArea").style.height="300px";
-            this.showLargeBackground=true;
-      
-          }
-      },
-      logout: function (){
-        this.loggedOut=!this.loggedOut;
-        this.loggedIn=!this.loggedIn;
-        
-      },
-      login: function(){
-        this.loggedIn=!this.loggedIn;
-        this.loggedOut=!this.loggedOut;
+      this.showAttractions = !this.showAttractions;
+
+      if (this.showLargeBackground) {
+        document.getElementById("topArea").style.height = "170px";
+        this.showLargeBackground = false;
+      } else if (!this.showLargeBackground) {
+        document.getElementById("topArea").style.height = "300px";
+        this.showLargeBackground = true;
       }
+    },
+    logout: function () {
+      this.loggedOut = !this.loggedOut;
+      this.loggedIn = !this.loggedIn;
+    },
+    login: function () {
+      this.loggedIn = !this.loggedIn;
+      this.loggedOut = !this.loggedOut;
+    },
   },
 
-
-
-
-
-
-
-// Add a click event to run the mainNavToggle function
-
-
+  // Add a click event to run the mainNavToggle function
 };
-
-
 </script>
 
 <style scoped>
-
-.attractionTypes{
-  display: flex;
-  /* z-index: 75; */
-  position: absolute;
-  justify-content: space-evenly;
-  width:400px;
-  left: 50%;
-  margin-left: -200px;
-  margin-top:230px;
-
- 
+.slideContainer{
+  margin-top: 49px;
 }
-.attractionButton{
+#myRange{
+  display: flex;
+  position: absolute;
+  width: 320px;
+  left: 50%;
+  margin-left: -180px;
+  background: transparent;
+  box-shadow: none;
+  bottom: 80px;
+}
+.attractionButtonContainer {
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  width: 400px;
+  left: 50%;
+  margin-left: -190px;
+  margin-top: 230px;
+}
+.attractionButton {
   color: var(--menu-bar-mint-50, rgba(207, 231, 202, 0.5));
   font-family: Inter;
   font-size: 12px;
   font-style: normal;
   line-height: 20px;
   letter-spacing: 1.8px;
-  background:transparent;
+  background: transparent;
   border: none;
-
 }
 #p {
   color: #adff00;
@@ -213,7 +224,6 @@ export default {
 #exclamation {
   color: #cfe7ca;
 }
-
 
 /* #filterGo {
   display: flex;
@@ -266,7 +276,7 @@ input {
 #largeUserPic {
   border-radius: 50%;
   width: 80px;
-  height:80px;
+  height: 80px;
   margin-right: 15px;
 }
 
@@ -290,7 +300,6 @@ input {
   display: flex;
   position: relative;
 }
-
 
 #logo {
   width: 100%;
@@ -393,7 +402,7 @@ input {
   transform: translateX(5px);
   color: #cfe7ca;
 }
-#loginLogout{
+#loginLogout {
   font-size: 18px;
   text-align: center;
 }
