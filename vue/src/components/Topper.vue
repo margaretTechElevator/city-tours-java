@@ -40,36 +40,45 @@
     <!-- my small photo linking to my account dropdown -->
       <nav >
         <img
+          src="../assets/person.jpg"
+          id="userPic"
+          @click="showDropdown"
+          class="userOn"
+          v-if="loggedOut"
+        />
+        <img
           src="../assets/samantha.png"
           id="userPic"
           @click="showDropdown"
           class="userOn"
+          v-if="loggedIn"
         />
 
-  <!-- my account menu -->
+  <!-- my account menu LOGGED IN-->
         <div id="menu" v-if="showMenu">
-          <div class="menu" v-if="loggedIn">
-            <div class="userInfo">
-              <h3 id="userName">Sam Doe</h3>
+          <div class="menu">
+
+            <div class="accountDropdownHeader">
+              <h3 id="userName" v-if="loggedOut">welcome!</h3>
+              <h3 id="userName" v-if="loggedIn">Sam Doe</h3>
               <div id="changePhoto">
-                <img src="../assets/samantha.png" id="largeUserPic" />
+                <img src="../assets/samantha.png" 
+                id="largeUserPic" 
+                v-if="loggedIn"/>
+                <img src="../assets/person.jpg" 
+                id="largeUserPic" 
+                v-if="loggedOut"/>
               </div>
             </div>
             <hr />
 
-            <a class="menuLink">
-              <div class="menuLinkIcon"><userIcon /></div>
-              <p>logout</p>
-              <span>></span>
-            </a>
-
-            <a href="Account" class="menuLink">
+            <a href="Account" class="menuLink" v-if="loggedIn">
               <div class="menuLinkIcon"><userIcon /></div>
               <p>edit profile</p>
               <span>></span>
             </a>
 
-            <a href="MyToursPage" class="menuLink">
+            <a href="MyToursPage" class="menuLink" v-if="loggedIn">
               <div class="menuLinkIcon"><userIcon /></div>
               <p>my trips</p>
               <span>></span>
@@ -79,6 +88,16 @@
               <p>new trip</p>
               <span>></span>
             </a>
+            
+            <a @click="logout" class="menuLink" v-if="loggedIn" id="loginLogout">
+              <p>logout</p>
+              <span>></span>
+            </a>
+            <a @click="login" class="menuLink" v-if="loggedOut" id="loginLogout">
+              <p>login</p>
+              <span>></span>
+            </a>
+
           </div>
         </div>
       </nav>
@@ -98,7 +117,8 @@ export default {
   data:function() {
     return{
       showMenu:false,
-      loggedIn:true,
+      loggedIn:false,
+      loggedOut:true,
       showAttractions:false,
       showLargeBackground:false,
 
@@ -123,12 +143,20 @@ export default {
         document.getElementById("topArea").style.height="170px";
         this.showLargeBackground=false;
         }  else if(!this.showLargeBackground) {
-            document.getElementById("topArea").style.height="360px";
+            document.getElementById("topArea").style.height="300px";
             this.showLargeBackground=true;
       
           }
-   
       },
+      logout: function (){
+        this.loggedOut=!this.loggedOut;
+        this.loggedIn=!this.loggedIn;
+        
+      },
+      login: function(){
+        this.loggedIn=!this.loggedIn;
+        this.loggedOut=!this.loggedOut;
+      }
   },
 
 
@@ -238,6 +266,7 @@ input {
 #largeUserPic {
   border-radius: 50%;
   width: 80px;
+  height:80px;
   margin-right: 15px;
 }
 
@@ -314,7 +343,7 @@ input {
   border-radius: 20px;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.4);
 }
-.userInfo {
+.accountDropdownHeader {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -363,6 +392,10 @@ input {
 .menuLink:hover span {
   transform: translateX(5px);
   color: #cfe7ca;
+}
+#loginLogout{
+  font-size: 18px;
+  text-align: center;
 }
 </style>
 
