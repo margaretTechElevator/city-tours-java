@@ -1,6 +1,8 @@
 <template>
   <div id="topper">
-    <div id="topArea">
+
+    <!-- logo area -->
+    <div id="topArea" class="topArea">
       <div id="logo">
         <div id="logo">
           <span id="p">p</span>
@@ -11,10 +13,11 @@
         </div>
       </div>
 
-      <div id="searchBar">
+     <!-- search bar area -->
+      <div id="searchBar" class="navbar-toggle" @click="mainNavToggle">
         <form>
-
           <div>
+
             <input
               type="text"
               placeholder="starting from?"
@@ -25,28 +28,38 @@
         </form>
       </div>
 
-      <!-- dropdown menu -->
-      <div class="toggle">
-        <!-- toggle on click small user photo -->
-        <img src="../assets/samantha.png" id="userPic" />
-        <!-- <img src="../assets/samantha.png" id="userPic" onclick="toggleMenu()"/> -->
+      <!-- attraction type buttons  -->
+      <div class="attractionTypes" v-if="showAttractions">
+        <button class="attractionButton">museum</button>
+        <button class="attractionButton">restaurant</button>
+        <button class="attractionButton">cafe</button>
+        <button class="attractionButton">park</button>
+      </div>
 
-        <div class="menuWrap" id="menu">
-          <div class="menu">
+
+    <!-- my small photo linking to my account dropdown -->
+      <nav >
+        <img
+          src="../assets/samantha.png"
+          id="userPic"
+          @click="showDropdown"
+          class="userOn"
+        />
+
+  <!-- my account menu -->
+        <div id="menu" v-if="showMenu">
+          <div class="menu" v-if="loggedIn">
             <div class="userInfo">
               <h3 id="userName">Sam Doe</h3>
               <div id="changePhoto">
                 <img src="../assets/samantha.png" id="largeUserPic" />
-                <!-- <div id="addContainer">
-                  <plusIcon/>
-                </div> -->
               </div>
             </div>
             <hr />
 
-            <a href="#" class="menuLink">
+            <a class="menuLink">
               <div class="menuLinkIcon"><userIcon /></div>
-              <p>login/logout</p>
+              <p>logout</p>
               <span>></span>
             </a>
 
@@ -68,12 +81,13 @@
             </a>
           </div>
         </div>
-      </div>
+      </nav>
     </div>
   </div>
 </template>
 
 <script>
+
 import userIcon from "../assets/userIcon.vue";
 // import magnifyingGlass from "../assets/magnifyingGlass.vue";
 // import FilterHamburger from "../assets/filterHamburger.vue";
@@ -81,30 +95,81 @@ import userIcon from "../assets/userIcon.vue";
 export default {
   components: { userIcon },
   name: "Topper",
+  data:function() {
+    return{
+      showMenu:false,
+      loggedIn:true,
+      showAttractions:false,
+      showLargeBackground:false,
+
+    };
+
+  },
+  props: {
+    onClick: { type: Function },
+  },
+  methods: {
+    showDropdown: function () {
+      this.showMenu = !this.showMenu;
+    },
+    
+    
+    
+    mainNavToggle: function(){
+      //hide and show the attraction buttons and slider
+      this.showAttractions= !this.showAttractions;
+      
+      if(this.showLargeBackground){ 
+        document.getElementById("topArea").style.height="170px";
+        this.showLargeBackground=false;
+        }  else if(!this.showLargeBackground) {
+            document.getElementById("topArea").style.height="360px";
+            this.showLargeBackground=true;
+      
+          }
+   
+      },
+  },
+
+
+
+
+
+
+
+// Add a click event to run the mainNavToggle function
+
+
 };
 
-// this isnt working.   error  'toggleMenu' is defined but never used but it
-// IS used in the img.  ?
 
-// function toggleMenu() {
-
-//(function toggle A)
-//   // let menu= document.getElementById("menu");
-//   // menu.classList.toggle("openMenu");
-
-//(function toggle B)
-//   var x = document.getElementById("menu");
-//   if (x.style.display === "none") {
-//     x.style.display = "block";
-//   } else {
-//     x.style.display = "none";
-//   }
-// }
-
-// Close menu when clicking outside
 </script>
 
 <style scoped>
+
+.attractionTypes{
+  display: flex;
+  /* z-index: 75; */
+  position: absolute;
+  justify-content: space-evenly;
+  width:400px;
+  left: 50%;
+  margin-left: -200px;
+  margin-top:230px;
+
+ 
+}
+.attractionButton{
+  color: var(--menu-bar-mint-50, rgba(207, 231, 202, 0.5));
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  line-height: 20px;
+  letter-spacing: 1.8px;
+  background:transparent;
+  border: none;
+
+}
 #p {
   color: #adff00;
 }
@@ -112,27 +177,16 @@ export default {
   color: #adff00;
 }
 #n {
-  color:#cfe7ca;
+  color: #cfe7ca;
 }
 #go {
-  color:#cfe7ca;
+  color: #cfe7ca;
 }
 #exclamation {
-  color:#cfe7ca;
+  color: #cfe7ca;
 }
-/* #goButton {
-  color: var(--selected-green, #adff00);
-  font-family: Orelega One;
-  font-size: 30px;
-  letter-spacing: 1px;
-  background-color: transparent;
-  border: none;
-} */
-/* #magnifyingGlass {
-  position: absolute;
-  margin-left: 400px;
-  margin-top: 10px;
-} */
+
+
 /* #filterGo {
   display: flex;
   justify-content: space-between;
@@ -158,13 +212,12 @@ input {
   height: 30px;
   padding: 0px 16px;
   border-radius: 20px;
-  background:#173951;
+  background: #173951;
   box-shadow: 0px 4px 3px 0px rgba(3, 36, 6, 0.6) inset;
   width: 50vw;
   max-width: 400px;
   bottom: 0px;
   border: none;
-
 }
 
 ::placeholder {
@@ -175,13 +228,8 @@ input {
   font-weight: 400;
   line-height: 20px;
   letter-spacing: 1.8px;
-  /* padding-left: 20px; */
 }
 
-/* toggle display on and off til the function is fixed */
-.toggle {
-  /* display: none; */
-}
 #changePhoto {
   display: flex;
   z-index: 2;
@@ -209,11 +257,11 @@ input {
     #183c55 75.52%,
     #194f77 97.92%
   );
-  /* padding: 17px 16px; */
   height: 170px;
   display: flex;
   position: relative;
 }
+
 
 #logo {
   width: 100%;
@@ -225,8 +273,12 @@ input {
   margin-top: 26px;
   position: absolute;
   text-align: center;
-
-
+}
+.userOff {
+  display: none;
+}
+.userOn {
+  display: block;
 }
 
 #userPic {
@@ -250,6 +302,7 @@ input {
   max-height: 600px;
   overflow: hidden;
   transition: max-height 0.5s;
+  z-index: 6;
 }
 /* .menu.openMenu {
   max-height: 600px;
