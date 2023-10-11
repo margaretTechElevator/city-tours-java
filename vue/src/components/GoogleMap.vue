@@ -369,9 +369,16 @@ export default {
 body {
   width: 100%;
   height: 100%;
-
 }
-input {
+
+#map {
+  width: 100%;
+  height: 100%;
+  padding: 0px;
+  margin: 0;
+  position: absolute;
+}
+/* input {
   width: 300px;
   margin-top: 0px;
   margin-left: auto;
@@ -381,38 +388,36 @@ input {
   box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.36);
   border: rgb(203, 203, 203) 0.5px solid;
   background-color: rgba(158, 158, 158, 0.248);
-}
+} */
 
-button {
+/* button {
   background-color: rgb(236, 191, 93);
   border: none;
   text-align: center;
-  padding-top: 8px;
-  padding-bottom: 8px;
   color: #6b1717;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-weight: 900;
   font-size: 1rem;
   line-height: 1;
   box-shadow: 1px 1px 10px rgba(130, 114, 110, 0.186);
-}
+} */
 
-::placeholder {
+/* ::placeholder {
   color: #e0a788e0;
   font-weight: 900;
   letter-spacing: 0.15rem;
   font-size: 0.75rem;
   background: transparent;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-}
+} */
 
-#mapElement {
-  margin: auto;
+/* #mapElement {
+  margin: 0;
   text-align: center;
   margin-top: 0px;
-  padding-top: 20px;
-}
-
+  padding:0;
+} */
+/* 
 #grid-container {
   display: grid;
   grid-template-columns: 1fr;
@@ -420,33 +425,25 @@ button {
     "inputs "
     "map "
     "route ";
-  padding-bottom: 20px;
-}
 
-#searchArea {
+  margin:0;
+} */
+
+/* #searchArea {
   grid-area: inputs;
   margin: auto;
   width: 50%;
   height: 150px;
   background-color: rgb(255, 255, 255);
-  padding-bottom: 40px;
-}
+  margin-bottom: 40px;
+} */
 
-#map {
-  grid-area: map;
-  width: 500px;
-  height: 400px;
-  padding: 25px;
-  margin: auto;
-  margin-top: 20px;
-  text-align: center;
-}
 
-#panel {
+/* #panel {
   grid-area: route;
-}
+} */
 
-.input-text {
+/* .input-text {
   width: 300px;
   margin-top: 10px;
   margin-left: auto;
@@ -456,9 +453,9 @@ button {
   box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.36);
   border: rgb(203, 203, 203) 0.5px solid;
   background-color: rgba(158, 158, 158, 0.248);
-}
+} */
 
-.grid {
+/* .grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
@@ -468,17 +465,17 @@ button {
     ". whatToSearch whatToSearch ."
     "types types types types"
     ". letsGo letsGo .";
-}
+} */
 
-#startingAddress {
+/* #startingAddress {
   grid-area: startingAddress;
-}
+} */
 
-#radius {
+/* #radius {
   grid-area: radius;
-}
+} */
 
-#whatToSearch {
+/* #whatToSearch {
   grid-area: whatToSearch;
   padding-top: 20px;
   padding-bottom: 15px;
@@ -489,18 +486,18 @@ button {
   line-height: 0;
   text-shadow: 1px 1px 10px rgba(130, 114, 110, 0.5);
   width: 100%;
-}
+} */
 
-#attractionTypeCheckboxesGroup {
+/* #attractionTypeCheckboxesGroup {
   grid-area: types;
-}
+} */
 
-.attractionTypeCheckboxes {
+/* .attractionTypeCheckboxes {
   display: inline-block;
   padding: 3%;
-}
+} */
 
-#letsGo {
+/* #letsGo {
   grid-area: letsGo;
-}
+} */
 </style>

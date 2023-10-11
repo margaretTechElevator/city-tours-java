@@ -37,8 +37,8 @@ export default {
 #map{
   /* resized map because it isnt fitting... something
   about the body and html margin auto is 8px */
-  width:96%;
-  height:94%;
+  width:100%;
+  height:100%;
   z-index: 1;
   position:absolute;
   margin: 0px;

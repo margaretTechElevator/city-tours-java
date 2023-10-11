@@ -26,19 +26,23 @@
         </form>
       </div>
 
-<!-- miles slider -->
+      <!-- miles slider -->
       <div class="slidecontainer" v-if="showAttractions">
-          <input
-            type="range"
-            min="1"
-            max="30"
-            value="50"
-            class="slider"
-            id="myRange"
-          />
-        </div>
+        <input
+          type="range"
+          min="1"
+          max="30"
+          value="50"
+          class="slider"
+          id="myRange"
+        />
+        <p id="milesCounter">
+          <span id="demo" @click="milesFromPin">13</span> miles from pin
+        </p>
+      </div>
       <!-- attraction type buttons  -->
       <div class="attractionButtonContainer" v-if="showAttractions">
+        
         <button class="attractionButton">museum</button>
         <button class="attractionButton">restaurant</button>
         <button class="attractionButton">cafe</button>
@@ -170,17 +174,73 @@ export default {
       this.loggedIn = !this.loggedIn;
       this.loggedOut = !this.loggedOut;
     },
-  },
+   
+    milesFromPin: function () {
+      var slider= document.getElementById("myRange");
+      var output = document.getElementById("demo");
+      output.innerHTML = slider.value;
 
-  // Add a click event to run the mainNavToggle function
-};
+      slider.oninput=function(){
+      output.innerHTML=this.value
+    }
+       
+    }
+    
+    },
+  };
 </script>
 
 <style scoped>
-.slideContainer{
-  margin-top: 49px;
+#milesCounter {
+  color: var(--menu-bar-mint-50, rgba(207, 231, 202, 0.5));
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  line-height: 20px;
+  letter-spacing: 1.8px;
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  width: 400px;
+  left: 50%;
+  margin-left: -190px;
+  margin-top: 170px;
 }
-#myRange{
+.slideContainer {
+}
+.slider {
+  /* -webkit-appearance: none; */
+  /* appearance: none; */
+  width: 100%; /* Full-width */
+  height: 25px; /* Specified height */
+  background: pink; /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 0.5; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: 0.2s; /* 0.2 seconds transition on hover */
+  transition: opacity 0.2s;
+}
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #04aa6d; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #04aa6d; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+#myRange {
   display: flex;
   position: absolute;
   width: 320px;

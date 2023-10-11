@@ -24,6 +24,7 @@
 body, html{
   margin:0px;
   background-color:  #182935;
+
 }
 
 
