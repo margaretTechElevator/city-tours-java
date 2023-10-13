@@ -29,24 +29,41 @@
       <!-- miles slider -->
       <div class="slidecontainer" v-if="showAttractions">
         <input
-          type="range"
-          min="1"
-          max="30"
-          value="50"
-          class="slider"
           id="myRange"
+          type="range"
+          min="0"
+          max="30"
+          value="0"
+          class="slider"
+          @click="rangeValue()"
         />
+        
+
         <p id="milesCounter">
-          <span id="demo" @click="milesFromPin">13</span> miles from pin
+          <span id="milesFromPin">0</span> &nbsp;miles from pin
         </p>
       </div>
       <!-- attraction type buttons  -->
-      <div class="attractionButtonContainer" v-if="showAttractions">
-        
-        <button class="attractionButton">museum</button>
-        <button class="attractionButton">restaurant</button>
-        <button class="attractionButton">cafe</button>
-        <button class="attractionButton">park</button>
+      <div class="attractionButtonContainer" v-if="showAttractions" onmouseover="hoverButton(this)">
+        <div class="attractionTypeContainer">
+          <museum-icon class="attractionIcon"></museum-icon>
+          <button class="attractionButton">museum</button>
+        </div>
+
+        <div class="attractionTypeContainer">
+          <restaurant-icon class="attractionIcon"></restaurant-icon>
+          <button class="attractionButton">restaurant</button>
+        </div>
+
+        <div class="attractionTypeContainer">
+          <cafe-icon class="attractionIcon" id="cafe"></cafe-icon>
+          <button class="attractionButton" id="cafeText">cafe</button>
+        </div>
+
+        <div class="attractionTypeContainer">
+          <park-icon class="attractionIcon"></park-icon>
+          <button class="attractionButton">park</button>
+        </div>
       </div>
 
       <!-- my small photo linking to my account dropdown -->
@@ -130,12 +147,14 @@
 </template>
 
 <script>
+import CafeIcon from "../assets/cafeIcon.vue";
+import RestaurantIcon from "../assets/restaurantIcon.vue";
 import userIcon from "../assets/userIcon.vue";
-// import magnifyingGlass from "../assets/magnifyingGlass.vue";
-// import FilterHamburger from "../assets/filterHamburger.vue";
+import museumIcon from "../assets/museumIcon.vue";
+import parkIcon from "../assets/parkIcon.vue";
 
 export default {
-  components: { userIcon },
+  components: { userIcon, museumIcon, CafeIcon, RestaurantIcon, parkIcon },
   name: "Topper",
   data: function () {
     return {
@@ -174,23 +193,42 @@ export default {
       this.loggedIn = !this.loggedIn;
       this.loggedOut = !this.loggedOut;
     },
-   
-    milesFromPin: function () {
-      var slider= document.getElementById("myRange");
-      var output = document.getElementById("demo");
-      output.innerHTML = slider.value;
 
-      slider.oninput=function(){
-      output.innerHTML=this.value
-    }
-       
-    }
-    
-    },
-  };
+  // gets the miles value from the slider
+    rangeValue: function () {
+      var miles = document.getElementById("myRange").value;
+      var slider=document.getElementById("myRange");
+      slider.addEventListener("input", (document.getElementById("milesFromPin").innerHTML=miles));
+  },
+
+  
+}
+};
 </script>
 
 <style scoped>
+cafe-icon{
+  border:red 3px solid;
+}
+.attractionTypeContainer {
+  text-align: center;
+  width: 400px;
+  opacity: 1;
+}
+
+
+.attractionIcon {
+  height: 30px;
+  justify-content: center;
+  opacity: 0.3;
+  fill: #cfe7ca;
+  
+}
+.attractionIcon:hover{
+  opacity: 1;
+}
+
+
 #milesCounter {
   color: var(--menu-bar-mint-50, rgba(207, 231, 202, 0.5));
   font-family: Inter;
@@ -206,40 +244,47 @@ export default {
   margin-left: -190px;
   margin-top: 170px;
 }
-.slideContainer {
-}
+/* .slideContainer {
+} */
 .slider {
-  /* -webkit-appearance: none; */
-  /* appearance: none; */
-  width: 100%; /* Full-width */
-  height: 25px; /* Specified height */
-  background: pink; /* Grey background */
-  outline: none; /* Remove outline */
-  opacity: 0.5; /* Set transparency (for mouse-over effects on hover) */
-  -webkit-transition: 0.2s; /* 0.2 seconds transition on hover */
-  transition: opacity 0.2s;
+  -webkit-appearance:none;
+  appearance: none; 
+  width: 100%;
+  cursor: pointer;
+  outline: none;
+  overflow: hidden;
+  border-radius: 16px;
+  height: 15px; 
+
 }
+
 /* Mouse-over effects */
-.slider:hover {
-  opacity: 1; /* Fully shown on mouse-over */
-}
+
 
 /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
 .slider::-webkit-slider-thumb {
   -webkit-appearance: none; /* Override default look */
   appearance: none;
-  width: 25px; /* Set a specific slider handle width */
-  height: 25px; /* Slider handle height */
-  background: #04aa6d; /* Green background */
+  width: 15px; /* Set a specific slider handle width */
+  height: 15px; /* Slider handle height */
+  border-radius: 50%;
+  background: #adff00; /* Green background */
   cursor: pointer; /* Cursor on hover */
+  opacity: 1;
+
+}
+.slider::-webkit-slider-runnable-track{
+  background: #132f44;
+  
+  border-radius: 20%;
+
+
+}
+.slider::-webkit-slider-runnable-track:hover{
+
+  box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.1) inset;
 }
 
-.slider::-moz-range-thumb {
-  width: 25px; /* Set a specific slider handle width */
-  height: 25px; /* Slider handle height */
-  background: #04aa6d; /* Green background */
-  cursor: pointer; /* Cursor on hover */
-}
 #myRange {
   display: flex;
   position: absolute;
@@ -258,9 +303,13 @@ export default {
   left: 50%;
   margin-left: -190px;
   margin-top: 230px;
+  margin-bottom: 0px;
+ 
 }
+
+
 .attractionButton {
-  color: var(--menu-bar-mint-50, rgba(207, 231, 202, 0.5));
+  color: #cfe7ca;
   font-family: Inter;
   font-size: 12px;
   font-style: normal;
@@ -268,7 +317,9 @@ export default {
   letter-spacing: 1.8px;
   background: transparent;
   border: none;
+  opacity:0.5;
 }
+
 #p {
   color: #adff00;
 }
@@ -311,7 +362,7 @@ input {
   padding: 0px 16px;
   border-radius: 20px;
   background: #173951;
-  box-shadow: 0px 4px 3px 0px rgba(3, 36, 6, 0.6) inset;
+  box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.4) inset;
   width: 50vw;
   max-width: 400px;
   bottom: 0px;
