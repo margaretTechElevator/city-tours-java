@@ -40,7 +40,7 @@ The following actions are available using the API
 | **GET** | '/landmarks?city=`{city}`' | Retrieve all stored landmarks in `city`.| 200 | ```[ { id, placeId, type, city }, ... ]``` or ```[]``` |
 | **GET** | '/landmarks?type=`{type}`' | Retrieve all stored landmarks of `type`. | 200 | ```[ { id, placeId, type, city }, ... ]``` or ```[]``` |
 | **GET** | '/landmarks?type=`{type}`&city=`{city}`' | Retrieve all stored landmarks of `type` in `city`. | 200 | ```[ { id, placeId, type, city }, ... ]``` or ```[]``` |
-| **GET** | '/landmarks/`{placeId}`' | Retrieve landmark with `placeId`. | 200 | ``` { id, placeId, type, city } |
+| **GET** | '/landmarks/`{placeId}`' | Retrieve landmark with `placeId`. | 200 | ``` { id, placeId, type, city } ``` |
 |||| 404 ||
 | **POST** | '/landmarks' | Create landmark in database | 201 | |
 
