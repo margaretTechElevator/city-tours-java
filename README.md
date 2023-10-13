@@ -8,7 +8,6 @@ Project partners:
 - [hp-plus5](https://github.com/hp-plus5)
 - [kubra90](https://github.com/kubra90)
 - [s-sandlin](https://github.com/s-sandlin)
-- kj
 
 ## Schema
 See the Entity Relationship Diagram below:
