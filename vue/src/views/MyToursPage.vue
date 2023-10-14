@@ -5,6 +5,7 @@
     <div id="accountArea">
       <div id="myTripNewTrip">
         <div id="myTripsTitle">my trips</div>
+        <button v-on:click="redirectToNewItinerary" id="newTrip">+ new trip</button>
       </div>
       <ItineraryList id="tripList"/>
     </div>
@@ -20,6 +21,9 @@ export default {
   name: "MyToursPage",
 
   methods: {
+    redirectToNewItinerary() {
+      this.$router.push("PlanNewTourPage");
+    },
   },
 };
 </script>
