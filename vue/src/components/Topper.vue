@@ -33,35 +33,67 @@
           type="range"
           min="0"
           max="30"
-          value="0"
+          v-model="sliderValue"
           class="slider"
-          @click="rangeValue()"
+          @input="updateSliderValue"
         />
-        
+        <!-- @click="rangeValue()" 
+         value="0"-->
 
         <p id="milesCounter">
-          <span id="milesFromPin">0</span> &nbsp;miles from pin
+          <span id="milesFromPin">{{ sliderValue }}</span> &nbsp;miles from pin
         </p>
       </div>
       <!-- attraction type buttons  -->
-      <div class="attractionButtonContainer" v-if="showAttractions" onmouseover="hoverButton(this)">
-        <div class="attractionTypeContainer">
-          <museum-icon class="attractionIcon"></museum-icon>
+      <div class="attractionButtonContainer" v-if="showAttractions">
+        <div
+          class="attractionTypeContainer"
+          :class="{ selected: selectedAttraction === 'museum' }"
+          @click="selectAttractionType('museum')"
+        >
+          <museum-icon
+            class="attractionIcon"
+            :fill="selectedAttraction === 'museum' ? 'orange' : 'brown'"
+          ></museum-icon>
+          <!-- <svg>
+          <use xlink:href="#museum"></use>
+        </svg> -->
           <button class="attractionButton">museum</button>
         </div>
 
-        <div class="attractionTypeContainer">
+        <div
+          class="attractionTypeContainer"
+          :class="{ selected: selectedAttraction === 'restaurant' }"
+          @click="selectAttractionType('restaurant')"
+        >
           <restaurant-icon class="attractionIcon"></restaurant-icon>
+          <!-- <svg>
+          <use xlink:href="#restaurant"></use>
+        </svg> -->
           <button class="attractionButton">restaurant</button>
         </div>
 
-        <div class="attractionTypeContainer">
-          <cafe-icon class="attractionIcon" id="cafe"></cafe-icon>
-          <button class="attractionButton" id="cafeText">cafe</button>
+        <div
+          class="attractionTypeContainer"
+          :class="{ selected: selectedAttraction === 'cafe' }"
+          @click="selectAttractionType('cafe')"
+        >
+          <cafe-icon class="attractionIcon"></cafe-icon>
+          <!-- <svg>
+          <use xlink:href="#cafe"></use>
+        </svg> -->
+          <button class="attractionButton">cafe</button>
         </div>
 
-        <div class="attractionTypeContainer">
+        <div
+          class="attractionTypeContainer"
+          :class="{ selected: selectedAttraction === 'park' }"
+          @click="selectAttractionType('park')"
+        >
           <park-icon class="attractionIcon"></park-icon>
+          <!-- <svg>
+          <use xlink:href="#park"></use>
+        </svg> -->
           <button class="attractionButton">park</button>
         </div>
       </div>
@@ -147,14 +179,15 @@
 </template>
 
 <script>
-import CafeIcon from "../assets/cafeIcon.vue";
-import RestaurantIcon from "../assets/restaurantIcon.vue";
+import "../assets/icons.svg";
 import userIcon from "../assets/userIcon.vue";
 import museumIcon from "../assets/museumIcon.vue";
 import parkIcon from "../assets/parkIcon.vue";
+import RestaurantIcon from "../assets/restaurantIcon.vue";
+import cafeIcon from "../assets/cafeIcon.vue";
 
 export default {
-  components: { userIcon, museumIcon, CafeIcon, RestaurantIcon, parkIcon },
+  components: { userIcon, museumIcon, cafeIcon, RestaurantIcon, parkIcon },
   name: "Topper",
   data: function () {
     return {
@@ -163,12 +196,23 @@ export default {
       loggedOut: true,
       showAttractions: false,
       showLargeBackground: false,
+      selectedAttraction: null,
+      sliderValue: 0,
     };
   },
   props: {
     onClick: { type: Function },
   },
   methods: {
+    logout: function () {
+      this.loggedOut = !this.loggedOut;
+      this.loggedIn = !this.loggedIn;
+    },
+    login: function () {
+      this.loggedIn = !this.loggedIn;
+      this.loggedOut = !this.loggedOut;
+    },
+
     showDropdown: function () {
       this.showMenu = !this.showMenu;
     },
@@ -185,49 +229,56 @@ export default {
         this.showLargeBackground = true;
       }
     },
-    logout: function () {
-      this.loggedOut = !this.loggedOut;
-      this.loggedIn = !this.loggedIn;
-    },
-    login: function () {
-      this.loggedIn = !this.loggedIn;
-      this.loggedOut = !this.loggedOut;
-    },
 
-  // gets the miles value from the slider
+    // gets the miles value from the slider
     rangeValue: function () {
       var miles = document.getElementById("myRange").value;
-      var slider=document.getElementById("myRange");
-      slider.addEventListener("input", (document.getElementById("milesFromPin").innerHTML=miles));
-  },
+      var slider = document.getElementById("myRange");
+      slider.addEventListener(
+        "input",
+        (document.getElementById("milesFromPin").innerHTML = miles)
+      );
+    },
 
-  
-}
+    selectAttractionType: function (attractionType) {
+      this.selectedAttraction = attractionType;
+    },
+    updateSliderValue: function () {},
+  },
 };
 </script>
 
 <style scoped>
-cafe-icon{
-  border:red 3px solid;
-}
 .attractionTypeContainer {
   text-align: center;
   width: 400px;
   opacity: 1;
+  transition: background-color 0.3s;
+  cursor: pointer;
 }
-
 
 .attractionIcon {
   height: 30px;
   justify-content: center;
   opacity: 0.3;
   fill: #cfe7ca;
-  
 }
-.attractionIcon:hover{
+
+.attractionTypeContainer:hover .attractionIcon,
+.attractionTypeContainer:hover .attractionButton {
+  opacity: 1;
+}
+.attractionTypeContainer.selected .attractionIcon,
+.attractionTypeContainer.selected .attractionButton {
+  fill: #00fff0;
+  color: #00fff0;
   opacity: 1;
 }
 
+.slider::-webkit-slider-runnable-track {
+  background: #132f44;
+  border-radius: 20px;
+}
 
 #milesCounter {
   color: var(--menu-bar-mint-50, rgba(207, 231, 202, 0.5));
@@ -244,44 +295,34 @@ cafe-icon{
   margin-left: -190px;
   margin-top: 170px;
 }
-/* .slideContainer {
-} */
+
 .slider {
-  -webkit-appearance:none;
-  appearance: none; 
+  -webkit-appearance: none;
+  appearance: none;
   width: 100%;
+  height: 10px;
   cursor: pointer;
   outline: none;
   overflow: hidden;
-  border-radius: 16px;
-  height: 15px; 
-
+  height: 15px;
 }
-
-/* Mouse-over effects */
-
 
 /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
 .slider::-webkit-slider-thumb {
-  -webkit-appearance: none; /* Override default look */
+  -webkit-appearance: none;
   appearance: none;
-  width: 15px; /* Set a specific slider handle width */
-  height: 15px; /* Slider handle height */
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
-  background: #adff00; /* Green background */
-  cursor: pointer; /* Cursor on hover */
+  background: #adff00;
+  cursor: pointer;
   opacity: 1;
-
 }
-.slider::-webkit-slider-runnable-track{
+.slider::-webkit-slider-runnable-track {
   background: #132f44;
-  
   border-radius: 20%;
-
-
 }
-.slider::-webkit-slider-runnable-track:hover{
-
+.slider::-webkit-slider-runnable-track:hover {
   box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.1) inset;
 }
 
@@ -304,9 +345,7 @@ cafe-icon{
   margin-left: -190px;
   margin-top: 230px;
   margin-bottom: 0px;
- 
 }
-
 
 .attractionButton {
   color: #cfe7ca;
@@ -317,7 +356,7 @@ cafe-icon{
   letter-spacing: 1.8px;
   background: transparent;
   border: none;
-  opacity:0.5;
+  opacity: 0.5;
 }
 
 #p {
@@ -336,23 +375,6 @@ cafe-icon{
   color: #cfe7ca;
 }
 
-/* #filterGo {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-} */
-
-/* #filter {
-  flex: 8;
-  padding-left: 26px;
-}
-#go {
-  flex: 0;
-  padding-right: 26px;
-} */
-/* form{
-  display: flex;
-} */
 #searchBar {
   margin: auto;
   margin-top: 120px;
@@ -367,6 +389,14 @@ input {
   max-width: 400px;
   bottom: 0px;
   border: none;
+  outline: none;
+  color: #adff00;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 1.8px;
 }
 
 ::placeholder {

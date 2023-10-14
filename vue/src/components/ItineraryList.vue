@@ -3,10 +3,12 @@
     <table v-if="failureMessage == ''" id="itineraryList">
       <tr>
         <th class="longInput">trip</th>
+        <th class="shortInput">date</th>
+        <th class="shortInput">stops</th>
         <th class="longInput">starting location</th>
         <th class="longInput">ending location</th>
-        <th class="shortInput">stops</th>
-        <th class="shortInput">date</th>
+        <th class="shortInput">driving time</th>
+
       </tr>
       <tr
         class="itinerariesList"
