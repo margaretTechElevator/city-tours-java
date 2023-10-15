@@ -88,6 +88,7 @@ export default {
 </script>
 
 <style scoped>
+
 .emailPasswordAddress{
   margin-top: 30px;
 }
@@ -96,7 +97,7 @@ export default {
   justify-content: space-between;
 }
 hr {
-  width: 400px;
+  width: 330px;
   border-top: 1px solid rgba(207, 231, 202, 0.5);
   border-bottom: transparent;
   border-right: transparent;
@@ -134,7 +135,7 @@ hr {
 #myAccountBoundingBox {
   display: flex;
   flex-direction: column;
-  width: 420px;
+  width: 330px;
   margin: auto;
   margin-top: 160px;
 }
@@ -143,7 +144,7 @@ hr {
 #myAccountAddPhotoArea {
   display: flex;
   justify-content: center;
-  margin-top: 30px;
+  margin-top: 40px;
 }
 #myAccountIcon {
   border-radius: 80px;

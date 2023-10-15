@@ -8,7 +8,7 @@ import MyToursPage from '../views/MyToursPage.vue'
 import PlanNewTourPage from '../views/PlanNewTourPage.vue'
 import Account from '../views/Account.vue'
 import ForgotPassword from '../views/ForgotPassword.vue'
-import EditLogin from '../views/EditLogin.vue'
+
 
 
 Vue.use(Router)
@@ -90,14 +90,7 @@ const router = new Router({
         requiresAuth: false
       }
     },
-    {
-      path: "/editLogin",
-      name: "EditLogin",
-      component: EditLogin,
-      meta: {
-        requiresAuth: false
-      }
-    }
+    
   ]
 })
 

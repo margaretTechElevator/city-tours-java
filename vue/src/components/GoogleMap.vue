@@ -11,8 +11,9 @@
           placeholder="starting address"
           type="input"
           class="input-text"
-          id="startingAddress"
         />
+        <!-- id="startingAddress" -->
+        
         <input
           v-model="radiusInput"
           placeholder="search radius"
