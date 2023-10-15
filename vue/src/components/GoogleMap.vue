@@ -433,7 +433,7 @@ input {
   line-height: 20px; /* 166.667% */
   letter-spacing: 1.8px;
   width: 90%;
-  background-color: rgb(19, 66, 104);
+  background-color: rgb(26, 51, 71);
   margin-top: 20px;
   border-radius: 20px;
   box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.3) inset;
