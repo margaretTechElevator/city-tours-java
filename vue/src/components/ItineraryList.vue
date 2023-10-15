@@ -60,7 +60,6 @@ import ItineraryService from '../services/ItineraryService'
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     border-collapse: collapse;
     width: 100%;
-    margin-top:10px;
     background-color: #fffefe;
   }
 

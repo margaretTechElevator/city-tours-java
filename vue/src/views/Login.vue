@@ -154,8 +154,9 @@
     margin-top:50px;
     margin-left: auto;
     margin-right:auto;
+    min-width: 300px;
     width: 30%;
     background-color: rgb(255, 255, 255);
-    padding: 50px;
+    padding: 16px;
   }
 </style>

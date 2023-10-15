@@ -2,7 +2,7 @@
   <section class="top-nav">
     <div>
       <div id="cityToursLogo">
-        <h1 id="city">City Tours</h1>
+        <h1 id="city">pingo</h1>
         <h3 id="daytrip">plan the perfect daytrip</h3>
       </div>
     </div>

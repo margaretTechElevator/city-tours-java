@@ -59,7 +59,8 @@ const router = new Router({
       name: "MyToursPage",
       component: MyToursPage,
       meta: {
-        requiresAuth: true
+        // requiresAuth: true
+        requiresAuth: false
       }
     },
     {

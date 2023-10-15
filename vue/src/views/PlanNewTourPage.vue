@@ -2,12 +2,12 @@
   <body>
     <div id="back">
       <Navigation />
-      <div v-if="landing" id="tagline">
+      <!-- <div v-if="landing" id="tagline">
         <div>your city,</div>
         <div>your adventure,</div>
         <div>perfectly planned.</div>
-      </div>
-      <google-map />
+      </div> -->
+      <google-map id="map"/>
       <ItineraryList />
       <Route/>
     </div>
@@ -37,7 +37,8 @@
 </script>
 
 <style>
-  #back { 
+
+  /* #back { 
     background-image: url("https://i.ibb.co/TKxNQrR/ny-Opacity.png");
   }
 
@@ -52,5 +53,5 @@
     color: rgb(1, 37, 105);
     padding-top: 0px;
     padding-top: 20px;
-  }
+  } */
 </style>
