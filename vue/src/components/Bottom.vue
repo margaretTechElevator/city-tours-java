@@ -17,7 +17,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #Bottom{
     border: 3px solid pink;
     z-index: 80;

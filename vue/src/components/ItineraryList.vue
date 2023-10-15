@@ -55,9 +55,9 @@ import ItineraryService from '../services/ItineraryService'
   };
 </script>
 
-<style>
-  #itineraryList {
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+<style scoped>
+  /* #itineraryList {
+
     border-collapse: collapse;
     width: 100%;
     background-color: #fffefe;
@@ -84,5 +84,5 @@ import ItineraryService from '../services/ItineraryService'
     color: white;
     text-align: center;
     text-shadow: 2px 2px 5px rgba(15, 12, 6, 0.164);
-  }
+  } */
 </style>

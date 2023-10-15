@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <body>
     <div>
     <h1>my account view page</h1>
@@ -14,12 +14,11 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 h1 {
   color: yellow;
-  font-weight: 900;
   width: 500px;
   height: 300px;
   border: pink solid 3px;
 }
-</style>
+</style> -->

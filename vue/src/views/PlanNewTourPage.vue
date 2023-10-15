@@ -2,7 +2,7 @@
   <body>
     <div id="back">
       <Navigation />
-      <google-map id="map"/>
+      <google-map/>
       <ItineraryList />
       <Route/>
     </div>
