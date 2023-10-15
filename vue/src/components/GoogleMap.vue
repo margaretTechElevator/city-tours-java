@@ -351,6 +351,9 @@ export default {
 </script>
   
 <style scoped>
+#cityTourRoute{
+  margin-top: 50px;
+}
   input {
     width: 300px;
     margin-top: 0px;
@@ -387,10 +390,11 @@ export default {
   } 
 
   #mapElement {
+    display: flex;
     margin: auto;
     text-align: center;
     margin-top: 0px;
-    padding-top: 0px;
+    padding-top: 20px;
     box-shadow: 1px 1px 10px rgba(130, 114, 110, 0.17);
     background-color: white;
   }
@@ -406,25 +410,29 @@ export default {
   }
 
   #searchArea {
-
+    grid-area: inputs;
     margin: auto;
     width: 50%;
-    height: 150px;
+    height: 250px;
     background-color: rgb(255, 255, 255);
     padding-bottom: 40px;
+    z-index: 50;
   }
 
   #map {
-
+    grid-area: map;
     width: 500px;
     height: 400px;
-
+    padding: 25px;
     margin: auto;
-   
+    margin-top: 20px;
     text-align: center;
+    z-index:0;
   }
 
-
+  #panel {
+    grid-area: route;
+  }
 
   .input-text {
     width: 300px;
@@ -438,11 +446,28 @@ export default {
     background-color: rgba(158, 158, 158, 0.248);
   }
 
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+    "startingAddress startingAddress startingAddress startingAddress"
+    "radius radius radius radius"
+    ". whatToSearch whatToSearch ."
+    "types types types types"
+    ". letsGo letsGo .";
+  }
 
+  #startingAddress {
+    grid-area: startingAddress;
+  }
 
+  #radius {
+    grid-area: radius;
+  }
 
   #whatToSearch {
-
+    grid-area: whatToSearch;
     padding-top: 20px;
     padding-bottom: 15px;
     color: #6b1717;
@@ -454,11 +479,16 @@ export default {
     width: 100%;
   }
 
-
+  #attractionTypeCheckboxesGroup {
+    grid-area: types;
+  }
+  
   .attractionTypeCheckboxes {
     display: inline-block;
     padding: 3%;
   }
 
-
+  #letsGo {
+    grid-area: letsGo;
+  }
 </style>

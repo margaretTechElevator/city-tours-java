@@ -1,11 +1,10 @@
 <template>
   <section class="top-nav">
-    <div>
-      <div id="cityToursLogo">
-        <h1 id="city">pingo</h1>
-        <h3 id="daytrip">plan the perfect daytrip</h3>
+
+      <div id="pingoLogo">
+        <h1>pingo</h1>
       </div>
-    </div>
+  
     <input id="menu-toggle" type="checkbox" />
     <label class="menu-button-container" for="menu-toggle">
       <div class="menu-button"></div>
@@ -22,12 +21,16 @@
     
     
 <script>
+import OrelagaOne from '../assets/fonts/OrelagaOne-Regular.ttf'
   export default {
     name: "Navigation",
   };
 </script>
     
-<style>
+<style scoped>
+#pingoLogo{
+  font-family: OrelagaOnes;
+}
   a { 
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
       color:#06445b;
@@ -84,6 +87,7 @@
     list-style-type: none;
     margin: 0;
     padding: 0;
+    z-index: 100;
   }
 
   .menu > li {
