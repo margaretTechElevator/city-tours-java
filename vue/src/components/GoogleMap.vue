@@ -1,6 +1,6 @@
 <template>
   <body>
-    <div>
+    <div id="searchContainer">
       <div id="searchBackground">
         <div id="searchArea">
           <input
@@ -30,6 +30,7 @@
               :value="type"
               v-model="selectedTypes"
               :id="`${type}-id`"
+              class="checkboxes"
             />
             <label :for="`${type}-id`">{{ type }}</label>
           </div>
@@ -37,6 +38,10 @@
         <div id="letsGoContainer">
         <button v-on:click="search" id="letsGo">let's go!</button>
       </div>
+
+
+
+
       </div>
     </div>
 
@@ -357,6 +362,10 @@ export default {
 </script>
   
 <style scoped>
+  /* move the search area up and down from the logo */
+#searchContainer{
+  padding-top:70px;
+}
 #searchBackground {
   background: linear-gradient(
     180deg,
@@ -366,9 +375,20 @@ export default {
     #183c55 75.52%,
     #194f77 97.92%
   );
+ 
   border-radius:  0 0 20px 20px;
+}
 
 
+#searchArea {
+padding-top:0px;
+position: relative;
+height: 100%;
+width: 100%;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: flex-start;
 }
 #letsGo {
   font-family: OrelegaOne;
@@ -378,13 +398,13 @@ export default {
   border-radius: 20px;
   font-size: 24px;
   margin-right: 16px;
-  margin-bottom: 10px;;
+  margin-bottom: 20px;;
   height: 30px;
   box-shadow: 1px 1px 10px rgba(5, 5, 5, 0.186);
   padding-left: 20px;
   padding-right:20px;
   padding-top: 5px;
-  padding-bottom:5px;
+  padding-bottom:30px;
   
 }
 #letsGoContainer{
@@ -405,15 +425,7 @@ body {
   position: relative;
   z-index: 0;
 }
-#searchArea {
-  position: relative;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-}
+
 
 input {
   width: 300px;
@@ -438,18 +450,18 @@ input {
 
 #panel {
 }
-
+#radius{
+  margin-top: 20px;
+}
 .input-text {
   color: #ADFF00;
   font-family: Inter;
   font-size: 14px;
   font-style: normal;
-  font-weight: 900;
-  line-height: 20px; /* 166.667% */
   letter-spacing: 1.8px;
   width: 90%;
   background-color: rgb(26, 51, 71);
-  margin-top: 20px;
+ 
   border-radius: 20px;
   box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.3) inset;
   outline: none;
@@ -469,7 +481,10 @@ input {
   text-shadow: 1px 1px 10px rgba(130, 114, 110, 0.5);
   width: 100%;
 }
+.checkboxes{
+  border-radius: 50%;
 
+}
 .attractionTypeCheckboxes {
   font-family: Inter;
   font-size: 12px;

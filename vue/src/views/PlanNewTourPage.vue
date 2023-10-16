@@ -1,8 +1,12 @@
 <template>
   <body>
     <div id="back">
+     
       <Navigation />
+      <div class="mapContainer">
       <google-map/>
+    </div>
+    
       <ItineraryList />
       <Route/>
     </div>
@@ -31,6 +35,24 @@
   }
 </script>
 
-<style scoped>
 
+<style scoped>
+body{
+  background-color: #182935;
+}
+/* #mapBehindNav{
+  position: relative;
+  z-index: 0;
+} */
+Navigation{
+  position: relative;
+  z-index: 1;
+}
+google-map{
+  position: relative;
+  z-index: 0;
+}
+#mapContainer{
+  margin-top: 110px;
+}
 </style>

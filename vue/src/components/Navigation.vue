@@ -1,6 +1,6 @@
 <template>
   <section class="navContainer">
-    <div>
+    <div class="logo-container">
       <p id="pingoLogo">pingo</p>
     </div>
 
@@ -26,11 +26,12 @@ export default {
 </script>
     
 <style scoped>
-li a{
-  margin-left: px;
+.logo-container{
+  display: flex;
+  align-items: center;
 }
-#login{
 
+#login{
   border-radius: 20px 20px 0 0;
 }
 #logout{
@@ -38,6 +39,7 @@ li a{
 }
 
 #pingoLogo {
+  padding-left:26px;
   font-family: OrelegaOne;
   font-size: 48px;
 
@@ -57,6 +59,7 @@ li a{
 
 }
 
+
 a{
   text-decoration: none;
   color:#CFE7CA;
@@ -68,6 +71,7 @@ a:hover {
   font-size: 13px;
 }
 
+
 .navContainer {
   font-family: Inter;
   font-size: 12px;
@@ -77,9 +81,13 @@ a:hover {
   align-items: center;
   justify-content: space-between;
   background-color: #182935;
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  height: 50px;
-  padding: 16px;
+  /* background-color: gray; */
+  height: 40px;
+  padding-top: 16px;
+  padding-bottom:16px;
+  position: absolute;
+  width: 100%;
+  border-radius: 0 0 20px 20px;;
 }
 
 .menu {
@@ -94,23 +102,60 @@ a:hover {
 }
 
 .menu > li {
-  margin: 0.5rem 0;
+ 
   overflow: hidden;
+
+}
+
+#menu-toggle {
+  display: none;
+  z-index:2;
+  position:absolute;
+  right:15px;
 }
 
 .menu-button-container {
-  display: none;
+  display: block;
   height: 100%;
   width: 30px;
   cursor: pointer;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  top: 0px;
+  right: 26px;
+}
+.menu-button {
+  
+  background-color: var(--menu-bar-mint-50, rgba(207, 231, 202, 0.50));
+  height: 4px;
+  width: 30px;
+  transition: transform 400ms cubic-bezier(0.23, 1, 0.32, 1);
+  border-radius: 2px;
+}
+#menu-toggle:checked + .menu-button-container .menu-button::before {
+  margin-top: 0;
+  transform: rotate(45deg); /* Rotate the top bar */
 }
 
-#menu-toggle {
-  display: none;
+#menu-toggle:checked + .menu-button-container .menu-button::after {
+  margin-top: 0;
+  transform: rotate(-45deg); /* Rotate the bottom bar */
 }
+
+.menu {
+  display: none;
+  position: fixed;
+  top: 40px; /* Position 10px beneath the menu button */
+  right: 26px; /* Position 16px from the right of the screen */
+
+}
+
+#menu-toggle:checked ~ .menu {
+  display: block; /* Show the menu when the checkbox is checked */
+}
+
 
 .menu-button,
 .menu-button::before,
@@ -149,17 +194,20 @@ a:hover {
   transform: rotate(-405deg);
 }
 
-@media (max-width: 700px) {
+@media (max-width: 1700px) {
   .menu-button-container {
     display: flex;
+ 
   }
 
   .menu {
     position: absolute;
     top: 0;
-    margin-top: 50px;
-    left: 0;
+    margin-top: 70px;
+    right: 26px;
     flex-direction: column;
+    min-width: 100px;
+    max-width: 260px;
     width: 100%;
     align-items: end;
    
@@ -175,22 +223,16 @@ a:hover {
   }
 
   #menu-toggle:checked ~ .menu li {
-    border: 1px solid #ffffff00;
-    height: 1.5em;
-    padding: 0.5em;
+    height: 2em;
+    padding-top:20px;
+    padding-bottom: 10px;
     transition: height 400ms cubic-bezier(0.23, 1, 0.32, 1);
-    background-color: var(--menu-bar-mint-50, rgba(26, 46, 63, 0.8));
+    background-color: var(--menu-bar-mint-50, rgba(26, 46, 63, 0.9));
    
   }
-
-  .menu > li {
-    justify-content: right;
-    width: 30%;
-    color: white;
-  }
-
-  .menu > li:not(:last-child) {
-    border-bottom: 1px solid #444;
-  }
 }
+li {
+  vertical-align: super; /* Adjust as needed */
+}
+
 </style>
