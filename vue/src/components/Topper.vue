@@ -177,8 +177,6 @@
 </template>
 
 <script>
-import "../assets/icons.svg";
-
 import CafeIcon from "../assets/cafeIcon.vue";
 import RestaurantIcon from "../assets/restaurantIcon.vue";
 import userIcon from "../assets/userIcon.vue";
