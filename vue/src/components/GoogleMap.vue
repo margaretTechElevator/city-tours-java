@@ -34,7 +34,9 @@
             <label :for="`${type}-id`">{{ type }}</label>
           </div>
         </div>
+        <div id="letsGoContainer">
         <button v-on:click="search" id="letsGo">let's go!</button>
+      </div>
       </div>
     </div>
 
@@ -365,16 +367,29 @@ export default {
     #194f77 97.92%
   );
   border-radius:  0 0 20px 20px;
+
+
 }
 #letsGo {
+  font-family: OrelegaOne;
   background-color: transparent;
   border: none;
   color: #adff00;
   border-radius: 20px;
-  font-size: 1rem;
-  margin-right: 50px;
+  font-size: 24px;
+  margin-right: 16px;
+  margin-bottom: 10px;;
+  height: 30px;
   box-shadow: 1px 1px 10px rgba(5, 5, 5, 0.186);
+  padding-left: 20px;
+  padding-right:20px;
+  padding-top: 5px;
+  padding-bottom:5px;
   
+}
+#letsGoContainer{
+  display: flex;
+  justify-content: flex-end;
 }
 body {
   margin: 0;

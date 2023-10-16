@@ -27,9 +27,10 @@ export default {
     
 <style scoped>
 li a{
-  margin-left: 16px;
+  margin-left: px;
 }
 #login{
+
   border-radius: 20px 20px 0 0;
 }
 #logout{
@@ -83,15 +84,17 @@ a:hover {
 
 .menu {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   list-style-type: none;
   margin: 0;
   padding: 0;
   z-index: 100;
+  align-items: center;
+  text-align: center;
 }
 
 .menu > li {
-  margin: 0 1rem;
+  margin: 0.5rem 0;
   overflow: hidden;
 }
 
