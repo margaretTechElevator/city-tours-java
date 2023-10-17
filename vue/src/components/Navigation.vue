@@ -26,6 +26,8 @@ export default {
 </script>
     
 <style scoped>
+
+
 .logo-container{
   display: flex;
   align-items: center;
@@ -52,14 +54,10 @@ export default {
     transition: mask-position 2s ease,-webkit-mask-position 2s ease;
 }
 #pingoLogo:hover{
-
     -webkit-mask-position: 120%;
     mask-position: 120%;
     opacity: 1;
-
 }
-
-
 a{
   text-decoration: none;
   color:#CFE7CA;
@@ -85,9 +83,10 @@ a:hover {
   height: 40px;
   padding-top: 16px;
   padding-bottom:16px;
-  position: absolute;
+  /* position: absolute; */
   width: 100%;
   border-radius: 0 0 20px 20px;;
+  
 }
 
 .menu {
@@ -125,6 +124,7 @@ a:hover {
   position: absolute;
   top: 0px;
   right: 26px;
+  z-index: 101;
 }
 .menu-button {
   
@@ -147,7 +147,7 @@ a:hover {
 .menu {
   display: none;
   position: fixed;
-  top: 40px; /* Position 10px beneath the menu button */
+  top: 40px; 
   right: 26px; /* Position 16px from the right of the screen */
 
 }
@@ -196,8 +196,7 @@ a:hover {
 
 @media (max-width: 1700px) {
   .menu-button-container {
-    display: flex;
- 
+    margin-top:36px;
   }
 
   .menu {

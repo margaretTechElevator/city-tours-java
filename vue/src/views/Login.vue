@@ -86,6 +86,7 @@
 </script>
 
 <style scoped>
+ 
   body {
     background-image: url("https://i.ibb.co/GWwykcL/chi.png");
   }
@@ -159,4 +160,6 @@
     background-color: rgb(255, 255, 255);
     padding: 16px;
   }
+
+  
 </style>

@@ -364,7 +364,7 @@ export default {
 <style scoped>
   /* move the search area up and down from the logo */
 #searchContainer{
-  padding-top:70px;
+  padding-top:20px;
 }
 #searchBackground {
   background: linear-gradient(
@@ -410,6 +410,7 @@ align-items: flex-start;
 #letsGoContainer{
   display: flex;
   justify-content: flex-end;
+  z-index: 1;
 }
 body {
   margin: 0;
@@ -495,7 +496,8 @@ input {
   color: var(--menu-bar-mint-50, rgba(207, 231, 202, 0.5));
   display: flex;
   align-items: center;
-  padding: 3%;
+  padding-left:10px;
+  padding-right:10px;
   margin-top: 20px;
   flex-direction: column;
 }
