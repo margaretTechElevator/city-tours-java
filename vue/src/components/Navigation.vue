@@ -1,7 +1,7 @@
 <template>
   <section class="navContainer">
     <div class="logo-container">
-      <p id="pingoLogo">pingo</p>
+      <div id="pingoLogo">pingo</div>
     </div>
 
     <input id="menu-toggle" type="checkbox" />
@@ -31,6 +31,7 @@ export default {
 .logo-container{
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 #login{
@@ -41,12 +42,12 @@ export default {
 }
 
 #pingoLogo {
-  padding-left:26px;
+ 
   font-family: OrelegaOne;
   font-size: 48px;
 
-  -webkit-mask-image: linear-gradient(45deg,#000 25%,rgba(0,0,0,.2) 50%,#000 75%);
-    mask-image: linear-gradient(45deg,#000 25%,rgba(0,0,0,.2) 50%,#000 75%);
+  -webkit-mask-image: linear-gradient(45deg,#ff0101 25%,rgba(255, 255, 255, 0.2) 50%,#ff0303 75%);
+    mask-image: linear-gradient(45deg,#ff0000 25%,rgba(255, 255, 255, 0.2) 50%,#ff0000 75%);
     -webkit-mask-size: 800%;
     mask-size: 800%;
     -webkit-mask-position: 0;
@@ -77,7 +78,7 @@ a:hover {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   background-color: #182935;
   /* background-color: gray; */
   height: 40px;
@@ -202,7 +203,8 @@ a:hover {
   .menu {
     position: absolute;
     top: 0;
-    margin-top: 70px;
+      /* move the dropdown up and down */
+    margin-top: 80px;
     right: 26px;
     flex-direction: column;
     min-width: 100px;

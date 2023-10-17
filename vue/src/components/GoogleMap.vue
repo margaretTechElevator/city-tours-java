@@ -403,7 +403,7 @@ align-items: flex-start;
   box-shadow: 1px 1px 10px rgba(5, 5, 5, 0.186);
   padding-left: 20px;
   padding-right:20px;
-  padding-top: 5px;
+  padding-top: 20px;
   padding-bottom:30px;
   
 }
@@ -457,7 +457,7 @@ input {
 .input-text {
   color: #ADFF00;
   font-family: Inter;
-  font-size: 14px;
+  font-size: 12px;
   font-style: normal;
   letter-spacing: 1.8px;
   width: 90%;
@@ -471,17 +471,7 @@ input {
   max-width: 500px;
 }
 
-#whatToSearch {
-  padding-top: 20px;
-  padding-bottom: 15px;
-  color: #cfe7ca;
-  font-weight: 900;
-  font-size: 1.5rem;
-  line-height: 0;
-  padding-top: 30px;
-  text-shadow: 1px 1px 10px rgba(130, 114, 110, 0.5);
-  width: 100%;
-}
+
 .checkboxes{
   border-radius: 50%;
 
@@ -496,7 +486,6 @@ input {
   color: var(--menu-bar-mint-50, rgba(207, 231, 202, 0.5));
   display: flex;
   align-items: center;
-  padding-left:10px;
   padding-right:10px;
   margin-top: 20px;
   flex-direction: column;
@@ -504,9 +493,11 @@ input {
 
 #attractionTypeCheckboxesGroup {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   margin-left: auto;
   margin-right: auto;
   max-width: 500px;
+  padding-left: 16px;
+  padding-right: 16px;
 }
 </style>
