@@ -37,16 +37,14 @@
 
 
 <style scoped>
-body{
-  background-color: #182935;
-}
+
 /* #mapBehindNav{
   position: relative;
   z-index: 0;
 } */
 Navigation{
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 google-map{
   position: relative;

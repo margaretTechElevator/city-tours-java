@@ -2,14 +2,27 @@
   <body>
     <div id="searchContainer">
       <div id="searchBackground">
-        <div id="searchArea">
+        <div id="startingFromArea" >
           <input
             v-model="currentInput"
             placeholder="starting from?"
             type="input"
             class="input-text"
             id="startingAddress"
+            @click="toggleMenu"
+
           />
+          <!-- <input
+            v-model="radiusInput"
+            placeholder="search radius in miles"
+            type="input"
+            class="input-text"
+            id="radius"
+          /> -->
+        </div>
+      </div>
+      <div id="toggleSearchMenu" v-show="menuVisible">
+        <div id="radiusArea">
           <input
             v-model="radiusInput"
             placeholder="search radius in miles"
@@ -36,12 +49,8 @@
           </div>
         </div>
         <div id="letsGoContainer">
-        <button v-on:click="search" id="letsGo">let's go!</button>
-      </div>
-
-
-
-
+          <button v-on:click="search" id="letsGo">let's go!</button>
+        </div>
       </div>
     </div>
 
@@ -102,11 +111,17 @@ export default {
       searchResultLandmarks: [],
       landmarks: [],
       location: {},
+      menuVisible: false,
     };
   },
 
   methods: {
-    // This function is called during load, but can also be called to reset the map
+    // toggle search area
+
+    toggleMenu() {
+      this.menuVisible = !this.menuVisible; // Toggle the menu visibility
+    },
+
     initMap() {
       this.map = new window.google.maps.Map(document.getElementById("map"), {
         center: this.mapCenter,
@@ -362,11 +377,11 @@ export default {
 </script>
   
 <style scoped>
-  /* move the search area up and down from the logo */
-#searchContainer{
-  padding-top:20px;
+/* move the search area up and down from the logo */
+#searchContainer {
+  padding-top: 20px;
 }
-#searchBackground {
+#toggleSearchMenu{
   background: linear-gradient(
     180deg,
     #182935 0%,
@@ -375,21 +390,39 @@ export default {
     #183c55 75.52%,
     #194f77 97.92%
   );
- 
-  border-radius:  0 0 20px 20px;
+  border-radius: 0 0 20px 20px;
+  box-shadow: -1px 5px 5px rgba(5, 5, 0, 0.4);
+  z-index:1;
+  position: relative;
+}
+#searchBackground {
+  border-radius: 0 0 20px 20px;
+  z-index: 2;
+  position: relative;
+  
+}
+
+#startingFromArea {
+  padding-bottom: 26px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: #182935;
+  border-radius: 0 0 20px 20px;
+}
+#radiusArea {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 
-#searchArea {
-padding-top:0px;
-position: relative;
-height: 100%;
-width: 100%;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: flex-start;
-}
 #letsGo {
   font-family: OrelegaOne;
   background-color: transparent;
@@ -398,35 +431,31 @@ align-items: flex-start;
   border-radius: 20px;
   font-size: 24px;
   margin-right: 16px;
-  margin-bottom: 20px;;
+  margin-bottom: 20px;
   height: 30px;
-  box-shadow: 1px 1px 10px rgba(5, 5, 5, 0.186);
+
   padding-left: 20px;
-  padding-right:20px;
-  padding-top: 20px;
-  padding-bottom:30px;
-  
+  padding-right: 20px;
+  padding-top: 6px;
+  padding-bottom: 30px;
 }
-#letsGoContainer{
+#letsGoContainer {
   display: flex;
   justify-content: flex-end;
-  z-index: 1;
 }
 body {
   margin: 0;
-}
-#map {
-  border: 3px red solid;
+  z-index: -100;
 }
 
 #map {
   width: 100%;
   height: 500px;
-  margin-top: 0px;
+  margin-top: -20px;
   position: relative;
   z-index: 0;
+ 
 }
-
 
 input {
   width: 300px;
@@ -451,18 +480,16 @@ input {
 
 #panel {
 }
-#radius{
-  margin-top: 20px;
-}
+
 .input-text {
-  color: #ADFF00;
+  color: #adff00;
   font-family: Inter;
   font-size: 12px;
   font-style: normal;
   letter-spacing: 1.8px;
   width: 90%;
   background-color: rgb(26, 51, 71);
- 
+
   border-radius: 20px;
   box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.3) inset;
   outline: none;
@@ -471,10 +498,7 @@ input {
   max-width: 500px;
 }
 
-
-.checkboxes{
-  border-radius: 50%;
-
+.checkboxes {
 }
 .attractionTypeCheckboxes {
   font-family: Inter;
@@ -486,7 +510,7 @@ input {
   color: var(--menu-bar-mint-50, rgba(207, 231, 202, 0.5));
   display: flex;
   align-items: center;
-  padding-right:10px;
+  padding-right: 10px;
   margin-top: 20px;
   flex-direction: column;
 }
@@ -499,5 +523,11 @@ input {
   max-width: 500px;
   padding-left: 16px;
   padding-right: 16px;
+}
+#attractionTypeCheckboxesGroup input {
+  /* opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0; */
 }
 </style>

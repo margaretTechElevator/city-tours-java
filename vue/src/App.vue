@@ -11,7 +11,7 @@
 </script>
 <style scoped>
 body{
-
+  background-color: #182935;
   margin:0;
   padding:0;
 }
