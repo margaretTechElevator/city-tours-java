@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table v-if="failureMessage == ''" id="itineraryList">
+    <table v-if="failureMessage == '' && this.isLoggedIn && this.itineraries.length !== 0" id="itineraryList">
       <tr>
         <th>city</th>
         <th>date</th>
@@ -16,7 +16,9 @@
         <td>{{ itinerary["landmarks"].length }}</td>
       </tr>
     </table>
-    <p v-else>{{ failureMessage }}</p>
+    <p v-else-if="!this.isLoggedIn">Once you log in, you can see your existing itineraries here!</p>
+    <p v-else-if="failureMessage != ''">{{ failureMessage }}</p>
+    <p v-else>You haven't saved any itineraries yet.</p>
   </div>
 </template>
 
@@ -38,14 +40,21 @@ import ItineraryService from '../services/ItineraryService'
         itineraries: [],
       };
     },
+    computed: {
+      isLoggedIn() {
+        return this.$store.state.token !== "";
+      }
+    },
     methods: {
       getAllItineraries() {
-        ItineraryService.getAllItineraries().then((response) => {
-          this.itineraries =response;
-        })
-        .catch((error) => {
-          this.failureMessage = `Our apologies! ${error.response}`;
-        })
+        if (this.isLoggedIn) {
+          ItineraryService.getAllItineraries().then((response) => {
+            this.itineraries =response;
+          })
+          .catch((error) => {
+            this.failureMessage = `Our apologies! ${error.response}`;
+          })
+        }
       },
     },
 
