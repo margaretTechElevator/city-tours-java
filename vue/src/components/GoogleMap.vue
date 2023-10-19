@@ -289,8 +289,10 @@ export default {
             }
           }
         }
+       
       );
       //till here
+      this.toggleMenu();
     },
     addToItinerary(event) {
       const addedLocationId = event.target.value;
