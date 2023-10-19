@@ -1,90 +1,93 @@
 <template>
   <body>
-    <div id="searchContainer">
-      <div id="searchBackground">
-        <div id="startingFromArea" >
-          <input
-            v-model="currentInput"
-            placeholder="starting from?"
-            type="input"
-            class="input-text"
-            id="startingAddress"
-            @click="toggleMenu"
-
-          />
-          <!-- <input
+    <div class="container">
+      <div id="searchContainer">
+        <div id="searchBackground">
+          <div id="startingFromArea">
+            <input
+              v-model="currentInput"
+              placeholder="starting from?"
+              type="input"
+              class="input-text"
+              id="startingAddress"
+              @click="toggleMenu"
+            />
+            <!-- <input
             v-model="radiusInput"
             placeholder="search radius in miles"
             type="input"
             class="input-text"
             id="radius"
           /> -->
-        </div>
-      </div>
-      <div id="toggleSearchMenu" v-show="menuVisible">
-        <div id="radiusArea">
-          <input
-            v-model="radiusInput"
-            placeholder="search radius in miles"
-            type="input"
-            class="input-text"
-            id="radius"
-          />
-        </div>
-        <!-- <div id="whatToSearch">things to do</div> -->
-        <div id="attractionTypeCheckboxesGroup">
-          <div
-            v-for="type in attractionTypes"
-            :key="type"
-            class="attractionTypeCheckboxes"
-          >
-            <input
-              type="checkbox"
-              :value="type"
-              v-model="selectedTypes"
-              :id="`${type}-id`"
-              class="checkboxes"
-            />
-            <label :for="`${type}-id`">{{ type }}</label>
           </div>
         </div>
-        <div id="letsGoContainer">
-          <button v-on:click="search" id="letsGo">let's go!</button>
+        <div id="toggleSearchMenu" v-show="menuVisible">
+          <div id="radiusArea">
+            <input
+              v-model="radiusInput"
+              placeholder="search radius in miles"
+              type="input"
+              class="input-text"
+              id="radius"
+            />
+          </div>
+          <!-- <div id="whatToSearch">things to do</div> -->
+          <div id="attractionTypeCheckboxesGroup">
+            <div
+              v-for="type in attractionTypes"
+              :key="type"
+              class="attractionTypeCheckboxes"
+            >
+              <input
+                type="checkbox"
+                :value="type"
+                v-model="selectedTypes"
+                :id="`${type}-id`"
+                class="checkboxes"
+              />
+              <label :for="`${type}-id`">{{ type }}</label>
+            </div>
+          </div>
+          <div id="letsGoContainer">
+            <button v-on:click="search" id="letsGo">let's go!</button>
+          </div>
         </div>
       </div>
+
+      <!--Google Maps will render map here-->
+      <div id="map"></div>
+
+      <!-- MOVED TO ROUTE.VUE -->
+
+      <div>
+        <p>Current Locations:</p>
+        <button v-on:click="generateRoute">Generate Route</button><br /><br />
+      </div>
+
+      <div
+        id="currentList"
+        v-for="(landmark, index) of landmarks"
+        v-bind:key="index"
+      >
+        <input class="current-inputs" v-model="landmark.name" />
+        <button
+          v-on:click.prevent="landmark.showDetails = !landmark.showDetails"
+        >
+          Details
+        </button>
+        <button v-on:click="removeFromItinerary(index)">Remove</button>
+        <LandmarkInfo
+          v-bind:name="landmark.name"
+          v-bind:address="landmark.address"
+          v-bind:photos="landmark.photos"
+          v-bind:phoneNumber="landmark.phoneNumber"
+          v-bind:website="landmark.website"
+          v-show="landmark.showDetails"
+        />
+      </div>
+      <!--Google Maps will render directions here-->
+      <div id="panel"></div>
     </div>
-
-    <!--Google Maps will render map here-->
-    <div id="map"></div>
-
-    <!-- MOVED TO ROUTE.VUE -->
-
-    <div>
-      <p>Current Locations:</p>
-      <button v-on:click="generateRoute">Generate Route</button><br /><br />
-    </div>
-
-    <div
-      id="currentList"
-      v-for="(landmark, index) of landmarks"
-      v-bind:key="index"
-    >
-      <input class="current-inputs" v-model="landmark.name" />
-      <button v-on:click.prevent="landmark.showDetails = !landmark.showDetails">
-        Details
-      </button>
-      <button v-on:click="removeFromItinerary(index)">Remove</button>
-      <LandmarkInfo
-        v-bind:name="landmark.name"
-        v-bind:address="landmark.address"
-        v-bind:photos="landmark.photos"
-        v-bind:phoneNumber="landmark.phoneNumber"
-        v-bind:website="landmark.website"
-        v-show="landmark.showDetails"
-      />
-    </div>
-    <!--Google Maps will render directions here-->
-    <div id="panel"></div>
   </body>
 </template>
   
@@ -120,6 +123,16 @@ export default {
 
     toggleMenu() {
       this.menuVisible = !this.menuVisible; // Toggle the menu visibility
+
+      // Select the startingFromArea element by its ID
+      const startingFromArea = document.getElementById("startingFromArea");
+
+      // Check the value of menuVisible and modify the border radius accordingly
+      if (this.menuVisible) {
+        startingFromArea.style.borderRadius = "20px 20px 0 0";
+      } else {
+        startingFromArea.style.borderRadius = "20px"; // Restore the original border radius
+      }
     },
 
     initMap() {
@@ -289,7 +302,6 @@ export default {
             }
           }
         }
-       
       );
       //till here
       this.toggleMenu();
@@ -383,7 +395,7 @@ export default {
 #searchContainer {
   padding-top: 20px;
 }
-#toggleSearchMenu{
+#toggleSearchMenu {
   background: linear-gradient(
     180deg,
     #182935 0%,
@@ -394,14 +406,13 @@ export default {
   );
   border-radius: 0 0 20px 20px;
   box-shadow: -1px 5px 5px rgba(5, 5, 0, 0.4);
-  z-index:1;
+  z-index: 1;
   position: relative;
 }
 #searchBackground {
   border-radius: 0 0 20px 20px;
   z-index: 2;
   position: relative;
-  
 }
 
 #startingFromArea {
@@ -423,7 +434,6 @@ export default {
   justify-content: center;
   align-items: flex-start;
 }
-
 
 #letsGo {
   font-family: OrelegaOne;
@@ -449,14 +459,16 @@ body {
   margin: 0;
   z-index: -100;
 }
-
+.container {
+  /* position: relative; */
+}
 #map {
+  bottom: 100px;
   width: 100%;
   height: 500px;
   margin-top: -20px;
-  position: relative;
+  position: absolute;
   z-index: 0;
- 
 }
 
 input {
@@ -478,9 +490,6 @@ input {
   letter-spacing: 1.8px;
 
   background: transparent;
-}
-
-#panel {
 }
 
 .input-text {
