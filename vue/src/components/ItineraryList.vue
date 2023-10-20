@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="itinerary">
     <table v-if="failureMessage == ''" id="itineraryList">
       <tr>
         <th>city</th>
@@ -56,33 +56,18 @@ import ItineraryService from '../services/ItineraryService'
 </script>
 
 <style scoped>
-  /* #itineraryList {
+/* #itinerary{
+  background: linear-gradient(
+    0deg,
+    #182935 0%,
+    #182c3a 36.46%,
+    #183143 54.69%,
+    #183c55 75.52%,
+    #194f77 97.92%
+  );
+  border-radius: 20px 20px 0 0 ;
+  box-shadow: 5px -1px 5px rgba(5, 5, 0, 0.4);
 
-    border-collapse: collapse;
-    width: 100%;
-    background-color: #fffefe;
-  }
-
-  #itineraryList td, #itineraryList th {
-    padding: 4px;
-    text-align: center;
-  }
-
-  #itineraryList tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-
-  #itineraryList tr:hover {
-    background-color: #ddd;
-  }
-  
-  #itineraryList th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: #ffab3d;
-    color: white;
-    text-align: center;
-    text-shadow: 2px 2px 5px rgba(15, 12, 6, 0.164);
-  } */
+} */
+ 
 </style>

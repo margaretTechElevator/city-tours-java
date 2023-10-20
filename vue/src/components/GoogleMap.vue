@@ -1,6 +1,6 @@
 <template>
   <body>
-    <div class="container">
+    <div id="mapAreaWithDirections">
       <div id="searchContainer">
         <div id="searchBackground">
           <div id="startingFromArea">
@@ -59,7 +59,7 @@
 
       <!-- MOVED TO ROUTE.VUE -->
 
-      <div>
+      <div id="routeButton">
         <p>Current Locations:</p>
         <button v-on:click="generateRoute">Generate Route</button><br /><br />
       </div>
@@ -70,12 +70,18 @@
         v-bind:key="index"
       >
         <input class="current-inputs" v-model="landmark.name" />
-        <button
-          v-on:click.prevent="landmark.showDetails = !landmark.showDetails"
-        >
+        <div id="landmarkPhoto">
+          <img src="../assets/samplePhoto.jpg"/>
+        </div>
+
+        <button v-on:click.prevent="landmark.showDetails = !landmark.showDetails">
           Details
         </button>
-        <button v-on:click="removeFromItinerary(index)">Remove</button>
+        
+        <button v-on:click="removeFromItinerary(index)">
+          Remove
+        </button>
+
         <LandmarkInfo
           v-bind:name="landmark.name"
           v-bind:address="landmark.address"
@@ -129,9 +135,11 @@ export default {
 
       // Check the value of menuVisible and modify the border radius accordingly
       if (this.menuVisible) {
-        startingFromArea.style.borderRadius = "20px 20px 0 0";
+        startingFromArea.style.borderRadius = "0";
       } else {
-        startingFromArea.style.borderRadius = "20px"; // Restore the original border radius
+        // Restore the original border radius
+        startingFromArea.style.borderRadius = " 0 0 20px 20px"; 
+      
       }
     },
 
@@ -245,7 +253,7 @@ export default {
                   ) {
                     // Create an info window
                     const infoWindow = new window.google.maps.InfoWindow({
-                      content: `<h3>${searchResults[i].name}</h3><p>${searchResults[i].vicinity}</p><button id="routeButton${placeId}" value="${placeId}">Add to Route</button>`,
+                      content: `<h3>${searchResults[i].name}</h3><p>${searchResults[i].vicinity}</p><button id="routeButton${placeId}" value="${placeId}">+</button>`,
                     });
 
                     // Create map marker
@@ -391,6 +399,10 @@ export default {
 </script>
   
 <style scoped>
+#routeButton{
+  display: none;
+}
+
 /* move the search area up and down from the logo */
 #searchContainer {
   padding-top: 20px;
@@ -459,13 +471,28 @@ body {
   margin: 0;
   z-index: -100;
 }
-.container {
-  /* position: relative; */
+#currentList{
+  width:100%;
+  border: 3px yellow solid;
+  position: absolute;
+  top: 600px;
+  z-index: 50;
+  height: 100%;
+  background: linear-gradient(
+    0deg,
+    #182935 0%,
+    #182c3a 36.46%,
+    #183143 54.69%,
+    #183c55 75.52%,
+    #194f77 97.92%
+  );
+  border-radius: 20px 20px 0 0 ;
+  box-shadow: 5px -1px 5px rgba(5, 5, 0, 0.4);
 }
 #map {
-  bottom: 100px;
+  top: 120px;
   width: 100%;
-  height: 500px;
+  height: 700px;
   margin-top: -20px;
   position: absolute;
   z-index: 0;

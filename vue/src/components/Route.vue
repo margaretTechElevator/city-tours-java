@@ -26,6 +26,19 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+#cityTourRoute{
+  background: linear-gradient(
+    0deg,
+    #182935 0%,
+    #182c3a 36.46%,
+    #183143 54.69%,
+    #183c55 75.52%,
+    #194f77 97.92%
+  );
+  border-radius: 20px 20px 0 0 ;
+  box-shadow: 5px -1px 5px rgba(5, 5, 0, 0.4);
+
+}
 
 </style>
