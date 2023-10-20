@@ -69,16 +69,18 @@
         v-for="(landmark, index) of landmarks"
         v-bind:key="index"
       >
-        <input class="current-inputs" v-model="landmark.name" />
-        <div id="landmarkPhoto">
-          <img src="../assets/samplePhoto.jpg"/>
+
+      <div id="locationAdded">
+        <textarea id="landmarkName" class="current-inputs" v-model="landmark.name"></textarea> 
+        <div >
+          <img src="../assets/samplePhoto.jpg" id="landmarkPhoto"/>
         </div>
 
-        <button v-on:click.prevent="landmark.showDetails = !landmark.showDetails">
+        <button id="detailsButton" v-on:click.prevent="landmark.showDetails = !landmark.showDetails">
           Details
         </button>
         
-        <button v-on:click="removeFromItinerary(index)">
+        <button id="removeButton" v-on:click="removeFromItinerary(index)">
           Remove
         </button>
 
@@ -90,6 +92,7 @@
           v-bind:website="landmark.website"
           v-show="landmark.showDetails"
         />
+      </div>
       </div>
       <!--Google Maps will render directions here-->
       <div id="panel"></div>
@@ -567,5 +570,43 @@ input {
   cursor: pointer;
   height: 0;
   width: 0; */
+}
+
+/* pop up route area */
+
+#locationAdded{
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+#landmarkName{
+  font-family: OrelegaOne;
+  font-size: 24px;
+  color: rgba(207, 231, 202);
+  background-color: transparent;
+  text-decoration: none;
+  resize: none;
+  text-transform: lowercase;
+  text-align: center;
+
+
+
+}
+#landmarkPhoto{
+  
+  position: absolute;
+  border-radius: 50%;
+  height: 60px;
+  box-shadow: 5px -1px 5px rgba(5, 5, 0, 0.4);
+  
+}
+#detailsButton{
+
+}
+#removeButton{
+
+}
+.currentInput{
+  text-decoration: none;
 }
 </style>
