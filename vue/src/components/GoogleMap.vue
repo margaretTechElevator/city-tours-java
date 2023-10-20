@@ -94,7 +94,7 @@
             </button>
 
             <button id="removeButton" v-on:click="removeFromItinerary(index)">
-              Remove
+              -
             </button>
 
             <LandmarkInfo
@@ -598,23 +598,24 @@ input {
 
 /* pop up route area */
 #locationPopUp {
-  width: 100px;
-  height: 100px;
+  width: 60%;
+  max-width:300px;
+  height: 140px;
   border: red solid 4px;
   z-index: 200;
   position: relative;
-  left: 26px;
+  margin:auto;
+  padding: 8px;
 }
 #landmarkPhoto {
+  margin: auto;
   position: absolute;
   border-radius: 50%;
   height: 70px;
+  width: 70px;
   box-shadow: 5px -1px 5px rgba(5, 5, 0, 0.4);
   cursor: pointer;
 }
-/* #landmarkPhoto+ #locationPopUp{
-  display: block;
-} */
 
 #landmarkName {
   font-family: OrelegaOne;
@@ -625,11 +626,28 @@ input {
   resize: none;
   text-transform: lowercase;
   text-align: center;
+  border: none;
 }
 
 #detailsButton {
+  text-align: center;
+  border: none;
 }
 #removeButton {
+  position: relative;
+  left: 15px;
+  text-align: center;
+  border-radius: 50%;
+  height: 30;
+  background-color: rgba(207, 231, 202);
+  font-family: Inter;
+  font-weight: 900;
+  font-size: 48;
+  border: none;
+
+}
+#removeButton:hover {
+  background-color: #adff00;
 }
 .currentInput {
   text-decoration: none;

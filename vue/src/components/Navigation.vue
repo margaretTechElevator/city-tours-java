@@ -116,15 +116,16 @@ a:hover {
 
 .menu-button-container {
   display: block;
-  height: 100%;
-  width: 30px;
+  height: 50px;
+  width: 50px;
+  
   cursor: pointer;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   position: absolute;
   top: 0px;
-  right: 26px;
+  right: 16px;
   z-index: 101;
 }
 .menu-button {
@@ -197,7 +198,8 @@ a:hover {
 
 @media (max-width: 1700px) {
   .menu-button-container {
-    margin-top:36px;
+    margin-top:16px;
+    padding-top: 20px;
   }
 
   .menu {
