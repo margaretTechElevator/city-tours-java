@@ -69,30 +69,44 @@
         v-for="(landmark, index) of landmarks"
         v-bind:key="index"
       >
-
-      <div id="locationAdded">
-        <textarea id="landmarkName" class="current-inputs" v-model="landmark.name"></textarea> 
-        <div >
-          <img src="../assets/samplePhoto.jpg" id="landmarkPhoto"/>
+        <!-- landmark photo -->
+        <div>
+          <img
+            src="../assets/samplePhoto.jpg"
+            id="landmarkPhoto"
+            @click="toggleLocationDetails"
+          />
         </div>
 
-        <button id="detailsButton" v-on:click.prevent="landmark.showDetails = !landmark.showDetails">
-          Details
-        </button>
-        
-        <button id="removeButton" v-on:click="removeFromItinerary(index)">
-          Remove
-        </button>
+        <div id="locationPopUp" v-show="showLocationDetails">
+          <div id="locationAdded">
+            <textarea
+              id="landmarkName"
+              class="current-inputs"
+              v-model="landmark.name"
+            ></textarea>
 
-        <LandmarkInfo
-          v-bind:name="landmark.name"
-          v-bind:address="landmark.address"
-          v-bind:photos="landmark.photos"
-          v-bind:phoneNumber="landmark.phoneNumber"
-          v-bind:website="landmark.website"
-          v-show="landmark.showDetails"
-        />
-      </div>
+            <button
+              id="detailsButton"
+              v-on:click.prevent="landmark.showDetails = !landmark.showDetails"
+            >
+              Details
+            </button>
+
+            <button id="removeButton" v-on:click="removeFromItinerary(index)">
+              Remove
+            </button>
+
+            <LandmarkInfo
+              v-bind:name="landmark.name"
+              v-bind:address="landmark.address"
+              v-bind:photos="landmark.photos"
+              v-bind:phoneNumber="landmark.phoneNumber"
+              v-bind:website="landmark.website"
+              v-show="landmark.showDetails"
+            />
+          </div>
+        </div>
       </div>
       <!--Google Maps will render directions here-->
       <div id="panel"></div>
@@ -124,25 +138,35 @@ export default {
       landmarks: [],
       location: {},
       menuVisible: false,
+      showLocationDetails: false,
     };
   },
 
   methods: {
+    // toggle location details
+    toggleLocationDetails() {
+      this.showLocationDetails = !this.showLocationDetails;
+      const locationPopUp = document.getElementById("locationPopUp");
+      if (this.showLocationDetails) {
+        locationPopUp.style.display = "block"; // Show the locationPopUp
+      } else {
+        locationPopUp.style.display = "none"; // Hide the locationPopUp
+      }
+    },
+
     // toggle search area
 
     toggleMenu() {
-      this.menuVisible = !this.menuVisible; // Toggle the menu visibility
-
-      // Select the startingFromArea element by its ID
+      // Toggle the menu visibility
+      this.menuVisible = !this.menuVisible;
+      // toggle the size of the dropdown
       const startingFromArea = document.getElementById("startingFromArea");
-
       // Check the value of menuVisible and modify the border radius accordingly
       if (this.menuVisible) {
         startingFromArea.style.borderRadius = "0";
       } else {
         // Restore the original border radius
-        startingFromArea.style.borderRadius = " 0 0 20px 20px"; 
-      
+        startingFromArea.style.borderRadius = " 0 0 20px 20px";
       }
     },
 
@@ -402,7 +426,7 @@ export default {
 </script>
   
 <style scoped>
-#routeButton{
+#routeButton {
   display: none;
 }
 
@@ -474,8 +498,8 @@ body {
   margin: 0;
   z-index: -100;
 }
-#currentList{
-  width:100%;
+#currentList {
+  width: 100%;
   border: 3px yellow solid;
   position: absolute;
   top: 600px;
@@ -489,7 +513,7 @@ body {
     #183c55 75.52%,
     #194f77 97.92%
   );
-  border-radius: 20px 20px 0 0 ;
+  border-radius: 20px 20px 0 0;
   box-shadow: 5px -1px 5px rgba(5, 5, 0, 0.4);
 }
 #map {
@@ -573,13 +597,26 @@ input {
 }
 
 /* pop up route area */
-
-#locationAdded{
-  display: flex;
-  flex-direction: column;
+#locationPopUp {
+  width: 100px;
+  height: 100px;
+  border: red solid 4px;
+  z-index: 200;
   position: relative;
+  left: 26px;
 }
-#landmarkName{
+#landmarkPhoto {
+  position: absolute;
+  border-radius: 50%;
+  height: 70px;
+  box-shadow: 5px -1px 5px rgba(5, 5, 0, 0.4);
+  cursor: pointer;
+}
+/* #landmarkPhoto+ #locationPopUp{
+  display: block;
+} */
+
+#landmarkName {
   font-family: OrelegaOne;
   font-size: 24px;
   color: rgba(207, 231, 202);
@@ -588,25 +625,13 @@ input {
   resize: none;
   text-transform: lowercase;
   text-align: center;
-
-
-
 }
-#landmarkPhoto{
-  
-  position: absolute;
-  border-radius: 50%;
-  height: 60px;
-  box-shadow: 5px -1px 5px rgba(5, 5, 0, 0.4);
-  
-}
-#detailsButton{
 
+#detailsButton {
 }
-#removeButton{
-
+#removeButton {
 }
-.currentInput{
+.currentInput {
   text-decoration: none;
 }
 </style>
