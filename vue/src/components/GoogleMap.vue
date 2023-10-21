@@ -81,6 +81,7 @@
             v-bind:src="landmark.photos"
             id="landmarkPhoto"
             @click="toggleLocationDetails"
+            v-on:click.prevent="landmark.showDetails = !landmark.showDetails"
           />
         </div>
 
@@ -92,12 +93,12 @@
               v-model="landmark.name"
             ></textarea>
 
-            <button
+            <!-- <button
               id="detailsButton"
               v-on:click.prevent="landmark.showDetails = !landmark.showDetails"
             >
               Details
-            </button>
+            </button> -->
 
             <button id="removeButton" v-on:click="removeFromItinerary(index)">
               -
@@ -464,12 +465,17 @@ export default {
   padding-bottom: 26px;
   height: 100%;
   width: 100%;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   background-color: #182935;
   border-radius: 0 0 20px 20px;
+}
+#startingAddress{
+  max-width: 600px;
+  width: 90%;
 }
 #radiusArea {
   height: 100%;
@@ -563,6 +569,7 @@ input {
   font-style: normal;
   letter-spacing: 1.8px;
   width: 90%;
+  max-width: 600px;
   background-color: rgb(26, 51, 71);
 
   border-radius: 20px;
@@ -570,7 +577,7 @@ input {
   outline: none;
   border: none;
   height: 30px;
-  max-width: 500px;
+  
 }
 
 .checkboxes {
@@ -612,7 +619,7 @@ textarea{
 /*bottom route area */
 #locationPopUp {
   width: 80%;
-  max-width:500px;
+  max-width:840px;
   height: 60%;
   border: red solid 4px;
   z-index: 200;
