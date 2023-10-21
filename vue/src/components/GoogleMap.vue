@@ -64,18 +64,21 @@
         <button v-on:click="generateRoute">Generate Route</button><br /><br />
       </div>
 
-      <div id="tripTitle">my new trip</div>
+      
 
       <div
         id="currentList"
         v-for="(landmark, index) of landmarks"
         v-bind:key="index"
       >
+        <div id="tripTitle">
+          <input   placeholder="my new trip" class="input-text"/>
+        </div>
         <!-- landmark photo -->
         <div>
           <!-- src="../assets/samplePhoto.jpg" -->
           <img
-            src=""
+            v-bind:src="landmark.photos"
             id="landmarkPhoto"
             @click="toggleLocationDetails"
           />
@@ -501,11 +504,15 @@ body {
   margin: 0;
   z-index: -100;
 }
+/* locations details
+top: 180px; */
+
+
 #currentList {
   width: 100%;
   border: 3px yellow solid;
   position: absolute;
-  top: 550px;
+  top: 90%;
   z-index: 50;
   height: 100%;
   background: linear-gradient(
@@ -522,7 +529,7 @@ body {
 #map {
   top: 120px;
   width: 100%;
-  height: 700px;
+  height: 100%;
   margin-top: -20px;
   position: absolute;
   z-index: 0;
@@ -598,27 +605,34 @@ input {
   height: 0;
   width: 0; */
 }
+textarea{
+  resize: none;
+}
 
 /*bottom route area */
 #locationPopUp {
-  width: 60%;
-  max-width:300px;
-  height: 140px;
+  width: 80%;
+  max-width:500px;
+  height: 60%;
   border: red solid 4px;
   z-index: 200;
   position: relative;
   margin:auto;
   padding: 8px;
+  top: 140px;
 }
 #tripTitle{
-  font-family: OrelegaOne;
+  /* font-family: OrelegaOne;
   font-size: 24px;
-  color: rgba(207, 231, 202);
+  color: var(--menu-bar-mint-50, rgba(207, 231, 202, 0.5)); */
   z-index: 300;
-  top: 420px;
+  top: 20px;
   position: relative;
   width: 100%;
   text-align: center;
+  height: 60px;
+  justify-content: center;
+  border-radius: 0 0 20px 20px;
 
 }
 #landmarkPhoto {
@@ -629,7 +643,7 @@ input {
   width: 70px;
   box-shadow: 5px -1px 5px rgba(5, 5, 0, 0.4);
   cursor: pointer;
-  top: 60px;
+  top: 80px;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -640,10 +654,11 @@ input {
   color: rgba(207, 231, 202);
   background-color: transparent;
   text-decoration: none;
-  resize: none;
+  /* resize: none; */
   text-transform: lowercase;
   text-align: center;
   border: none;
+  width: 100%;
 }
 
 #detailsButton {
