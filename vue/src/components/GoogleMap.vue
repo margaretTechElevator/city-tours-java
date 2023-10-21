@@ -64,15 +64,17 @@
         <button v-on:click="generateRoute">Generate Route</button><br /><br />
       </div>
 
-      
-
       <div
         id="currentList"
         v-for="(landmark, index) of landmarks"
         v-bind:key="index"
       >
-        <div id="tripTitle">
-          <input   placeholder="my new trip" class="input-text"/>
+        <div id="tripTitle" @click="toggleTripDetails">
+          <input
+            placeholder="my new trip"
+            class="input-text"
+            @click="showTripDetails"
+          />
         </div>
         <!-- landmark photo -->
         <div>
@@ -146,18 +148,30 @@ export default {
       location: {},
       menuVisible: false,
       showLocationDetails: false,
+      showTripDetails: false,
     };
   },
 
   methods: {
+    //toggle up trip details
+    toggleTripDetails() {
+      this.showTripDetails = !this.showTripDetails;
+      const tripPopUp = document.getElementById("currentList");
+      if (this.showTripDetails) {
+        tripPopUp.style.top = "90%";
+      } else {
+        tripPopUp.style.top = "30%";
+      }
+    },
+
     // toggle location details
     toggleLocationDetails() {
       this.showLocationDetails = !this.showLocationDetails;
       const locationPopUp = document.getElementById("locationPopUp");
       if (this.showLocationDetails) {
-        locationPopUp.style.display = "block"; // Show the locationPopUp
+        locationPopUp.style.display = "block";
       } else {
-        locationPopUp.style.display = "none"; // Hide the locationPopUp
+        locationPopUp.style.display = "none";
       }
     },
 
@@ -287,7 +301,8 @@ export default {
                   ) {
                     // Create an info window
                     const infoWindow = new window.google.maps.InfoWindow({
-                      content: `<h3>${searchResults[i].name}</h3><p>${searchResults[i].vicinity}</p><button id="routeButton${placeId}" value="${placeId}">+</button>`,
+                      content: `<h3>${searchResults[i].name}</h3><p>${searchResults[i].vicinity}</p>
+                      <button id="routeButton${placeId}" value="${placeId}">+</button>`,
                     });
 
                     // Create map marker
@@ -473,7 +488,7 @@ export default {
   background-color: #182935;
   border-radius: 0 0 20px 20px;
 }
-#startingAddress{
+#startingAddress {
   max-width: 600px;
   width: 90%;
 }
@@ -512,7 +527,6 @@ body {
 }
 /* locations details
 top: 180px; */
-
 
 #currentList {
   width: 100%;
@@ -577,7 +591,6 @@ input {
   outline: none;
   border: none;
   height: 30px;
-  
 }
 
 .checkboxes {
@@ -612,35 +625,34 @@ input {
   height: 0;
   width: 0; */
 }
-textarea{
+textarea {
   resize: none;
 }
 
 /*bottom route area */
 #locationPopUp {
   width: 80%;
-  max-width:840px;
+  max-width: 840px;
   height: 60%;
   border: red solid 4px;
   z-index: 200;
   position: relative;
-  margin:auto;
+  margin: auto;
   padding: 8px;
   top: 140px;
 }
-#tripTitle{
+#tripTitle {
   /* font-family: OrelegaOne;
   font-size: 24px;
   color: var(--menu-bar-mint-50, rgba(207, 231, 202, 0.5)); */
   z-index: 300;
-  top: 20px;
+  padding-top: 20px;
   position: relative;
   width: 100%;
   text-align: center;
-  height: 60px;
+  height: 30px;
   justify-content: center;
   border-radius: 0 0 20px 20px;
-
 }
 #landmarkPhoto {
   margin: auto;
@@ -683,7 +695,6 @@ textarea{
   font-weight: 900;
   font-size: 48;
   border: none;
-
 }
 #removeButton:hover {
   background-color: #adff00;
