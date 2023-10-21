@@ -64,6 +64,8 @@
         <button v-on:click="generateRoute">Generate Route</button><br /><br />
       </div>
 
+      <div id="tripTitle">my new trip</div>
+
       <div
         id="currentList"
         v-for="(landmark, index) of landmarks"
@@ -71,8 +73,9 @@
       >
         <!-- landmark photo -->
         <div>
+          <!-- src="../assets/samplePhoto.jpg" -->
           <img
-            src="../assets/samplePhoto.jpg"
+            src=""
             id="landmarkPhoto"
             @click="toggleLocationDetails"
           />
@@ -502,7 +505,7 @@ body {
   width: 100%;
   border: 3px yellow solid;
   position: absolute;
-  top: 600px;
+  top: 550px;
   z-index: 50;
   height: 100%;
   background: linear-gradient(
@@ -596,7 +599,7 @@ input {
   width: 0; */
 }
 
-/* pop up route area */
+/*bottom route area */
 #locationPopUp {
   width: 60%;
   max-width:300px;
@@ -607,6 +610,17 @@ input {
   margin:auto;
   padding: 8px;
 }
+#tripTitle{
+  font-family: OrelegaOne;
+  font-size: 24px;
+  color: rgba(207, 231, 202);
+  z-index: 300;
+  top: 420px;
+  position: relative;
+  width: 100%;
+  text-align: center;
+
+}
 #landmarkPhoto {
   margin: auto;
   position: absolute;
@@ -615,6 +629,9 @@ input {
   width: 70px;
   box-shadow: 5px -1px 5px rgba(5, 5, 0, 0.4);
   cursor: pointer;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 #landmarkName {
