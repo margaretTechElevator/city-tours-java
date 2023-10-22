@@ -613,14 +613,14 @@ textarea {
 #locationCard {
   width: 100%;
   min-width: 300px;
-  height: 200px;
-  border: green;
+  max-width: 500px;
+  height: 160px;
   z-index: 200;
   position: relative;
   margin: auto;
-  top: 80px;
+  top: 40px;
   justify-content: center;
-  display: flex;
+  /* display: flex; */
 }
 
 
@@ -671,17 +671,18 @@ textarea {
 #removeButton {
   width: 30px;
   height: 30px;
-  position: relative;
-  bottom: 10px;
-  left: 455px;
+  min-width: 30px;
+  min-height: 30px;
+  position: absolute;
   text-align: center;
   border-radius: 50%;
-  height: 30;
   background-color: rgba(207, 231, 202);
   font-family: Inter;
   font-weight: 900;
   font-size: 48;
   border: none;
+  bottom: 0px;
+  left: 26px
 }
 #removeButton:hover {
   background-color: #adff00;
