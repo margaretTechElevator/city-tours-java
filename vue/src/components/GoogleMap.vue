@@ -68,6 +68,7 @@
         id="currentList"
         v-for="(landmark, index) of landmarks"
         v-bind:key="index"
+        v-on:click.prevent="landmark.showDetails = !landmark.showDetails"
       >
         <!-- trip title -->
         <div id="tripTitle" @click="toggleTripDetails">
@@ -78,26 +79,13 @@
           />
         </div>
 
-
         <div id="locationCard" v-show="showLocationDetails">
-          <div id="locationAdded">
-            <textarea
-              id="landmarkName"
-              class="current-inputs"
-              v-model="landmark.name"
-            ></textarea>
+         
 
-            <button
-              id="detailsButton"
-              v-on:click.prevent="landmark.showDetails = !landmark.showDetails"
-            >
-              Details
-            </button>
-
-            <button id="removeButton" v-on:click="removeFromItinerary(index)">
-              -
-            </button>
-
+              <button id="removeButton" v-on:click="removeFromItinerary(index)">
+                -
+              </button>
+           
             <LandmarkInfo
               v-bind:name="landmark.name"
               v-bind:address="landmark.address"
@@ -106,7 +94,7 @@
               v-bind:website="landmark.website"
               v-show="landmark.showDetails"
             />
-          </div>
+          
         </div>
       </div>
       <!--Google Maps will render directions here-->
@@ -154,8 +142,6 @@ export default {
       } else {
         tripDetails.style.top = "30%";
       }
-
-
     },
 
     // toggle location details
@@ -625,16 +611,19 @@ textarea {
 
 /*bottom route area */
 #locationCard {
-  width: 80%;
-  max-width: 840px;
-  height: 60%;
-  border: green solid 4px;
+  width: 100%;
+  min-width: 300px;
+  height: 200px;
+  border: green;
   z-index: 200;
   position: relative;
   margin: auto;
-  padding: 8px;
-  top: 140px;
+  top: 80px;
+  justify-content: center;
+  display: flex;
 }
+
+
 #tripTitle {
   /* font-family: OrelegaOne;
   font-size: 24px;
@@ -678,9 +667,13 @@ textarea {
   text-align: center;
   border: none;
 }
+
 #removeButton {
+  width: 30px;
+  height: 30px;
   position: relative;
-  left: 15px;
+  bottom: 10px;
+  left: 455px;
   text-align: center;
   border-radius: 50%;
   height: 30;
