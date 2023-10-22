@@ -69,6 +69,7 @@
         v-for="(landmark, index) of landmarks"
         v-bind:key="index"
       >
+        <!-- trip title -->
         <div id="tripTitle" @click="toggleTripDetails">
           <input
             placeholder="my new trip"
@@ -76,18 +77,9 @@
             @click="showTripDetails"
           />
         </div>
-        <!-- landmark photo -->
-        <div>
-          <!-- src="../assets/samplePhoto.jpg" -->
-          <img
-            v-bind:src="landmark.photos"
-            id="landmarkPhoto"
-            @click="toggleLocationDetails"
-            v-on:click.prevent="landmark.showDetails = !landmark.showDetails"
-          />
-        </div>
 
-        <div id="locationPopUp" v-show="showLocationDetails">
+
+        <div id="locationCard" v-show="showLocationDetails">
           <div id="locationAdded">
             <textarea
               id="landmarkName"
@@ -95,12 +87,12 @@
               v-model="landmark.name"
             ></textarea>
 
-            <!-- <button
+            <button
               id="detailsButton"
               v-on:click.prevent="landmark.showDetails = !landmark.showDetails"
             >
               Details
-            </button> -->
+            </button>
 
             <button id="removeButton" v-on:click="removeFromItinerary(index)">
               -
@@ -147,33 +139,35 @@ export default {
       landmarks: [],
       location: {},
       menuVisible: false,
-      showLocationDetails: false,
-      showTripDetails: false,
+      showLocationDetails: true,
+      showTripDetails: true,
     };
   },
 
   methods: {
-    //toggle up trip details
+    //toggle up trip details when you click on the trip name input
     toggleTripDetails() {
       this.showTripDetails = !this.showTripDetails;
-      const tripPopUp = document.getElementById("currentList");
+      const tripDetails = document.getElementById("currentList");
       if (this.showTripDetails) {
-        tripPopUp.style.top = "90%";
+        tripDetails.style.top = "90%";
       } else {
-        tripPopUp.style.top = "30%";
+        tripDetails.style.top = "30%";
       }
+
+
     },
 
     // toggle location details
-    toggleLocationDetails() {
-      this.showLocationDetails = !this.showLocationDetails;
-      const locationPopUp = document.getElementById("locationPopUp");
-      if (this.showLocationDetails) {
-        locationPopUp.style.display = "block";
-      } else {
-        locationPopUp.style.display = "none";
-      }
-    },
+    // toggleLocationDetails() {
+    //   this.showLocationDetails = !this.showLocationDetails;
+    //   const locationCard = document.getElementById("locationCard");
+    //   if (this.showLocationDetails) {
+    //     locationCard.style.display = "block";
+    //   } else {
+    //     locationCard.style.display = "none";
+    //   }
+    // },
 
     // toggle search area
 
@@ -194,9 +188,9 @@ export default {
     initMap() {
       this.map = new window.google.maps.Map(document.getElementById("map"), {
         center: this.mapCenter,
-        zoom: 14,
-        maxZoom: 20,
-        minZoom: 3,
+        zoom: 13,
+        // maxZoom: 24,
+        // minZoom: 8,
         streetViewControl: true,
         mapTypeControl: false,
         fullscreenControl: false,
@@ -256,7 +250,7 @@ export default {
 
         // Set the map center to the new coordinates and zoom in
         this.map.setCenter(coordinates);
-        this.map.setZoom(15);
+        this.map.setZoom(19);
 
         // this.currentInput = "";
       } catch (error) {
@@ -630,11 +624,11 @@ textarea {
 }
 
 /*bottom route area */
-#locationPopUp {
+#locationCard {
   width: 80%;
   max-width: 840px;
   height: 60%;
-  border: red solid 4px;
+  border: green solid 4px;
   z-index: 200;
   position: relative;
   margin: auto;
