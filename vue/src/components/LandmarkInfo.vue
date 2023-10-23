@@ -19,6 +19,7 @@
         <a id="website" v-show="website" v-bind:href="website"
           ><website-icon></website-icon
         ></a>
+        <star-icon id="stars"></star-icon>
       </div>
     </div>
   </div>
@@ -27,10 +28,11 @@
 <script>
 import callIcon from "../assets/callIcon.vue"
 import RemoveIcon from "../assets/removeIcon.vue";
+import StarIcon from '../assets/starIcon.vue';
 import websiteIcon from "../assets/websiteIcon.vue";
 
 export default {
-  components: { websiteIcon, RemoveIcon, callIcon},
+  components: { websiteIcon, RemoveIcon, callIcon, StarIcon},
   name: "LandmarkInfo",
   props: {
     name: String,
@@ -113,6 +115,12 @@ export default {
 }
 #call:hover{
     opacity:100%
+}
+#stars{
+    opacity: 50%;
+}
+#stars:hover{
+    opacity:100%;
 }
 #locPhoto {
   border-radius: 50%;

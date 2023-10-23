@@ -9,11 +9,13 @@
       <div class="menu-button"></div>
     </label>
     <ul class="menu">
-      <li id="login"><a href="Login" >login</a></li>
-      <li><a href="/">home</a></li>
+      <li id="newTour"><a href="PlanNewTourPage">new tour</a></li>
+    
+      <!-- <li><a href="/">home</a></li> -->
       <li><a href="MyToursPage">my tours</a></li>
-      <li><a href="PlanNewTourPage">new tour</a></li>
-      <li id="logout"><a href="Logout" >logout</a></li>
+      <li id="loginLogout">login/logout</li>
+      <!-- <li id="login"><a href="Login" >login</a></li>
+      <li id="logout"><a href="Logout" >logout</a></li> -->
     </ul>
   </section>
 </template>
@@ -33,11 +35,16 @@ export default {
   align-items: center;
   justify-content: center;
 }
-
-#login{
+#newTour{
   border-radius: 20px 20px 0 0;
 }
+#login{
+ 
+}
 #logout{
+  border-radius:  0 0 20px 20px;
+}
+#loginLogout{
   border-radius:  0 0 20px 20px;
 }
 

@@ -22,14 +22,14 @@ const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
-    {
-      path: '/',
-      name: 'Home',
-      component: PlanNewTourPage,
-      meta: {
-        requiresAuth: true
-      }
-    },
+    // {
+    //   path: '/',
+    //   name: 'Home',
+    //   component: PlanNewTourPage,
+    //   meta: {
+    //     requiresAuth: true
+    //   }
+    // },
     {
       path: "/login",
       name: "Login",
