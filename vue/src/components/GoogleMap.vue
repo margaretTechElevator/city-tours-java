@@ -280,9 +280,39 @@ export default {
                     status === window.google.maps.places.PlacesServiceStatus.OK
                   ) {
                     // Create an info window
+                    //styling inline MOVE LATER
                     const infoWindow = new window.google.maps.InfoWindow({
-                      content: `<h3>${searchResults[i].name}</h3><p>${searchResults[i].vicinity}</p>
-                      <button id="routeButton${placeId}" value="${placeId}">+</button>`,
+                      content: `<div class="locationPopContainer">
+
+
+                        <div class="locationTitle" 
+                      style="
+                      font-family: Inter; 
+                      font-size: 14px;
+                      letter-spacing: 1.2px; 
+                      color: #194F77;
+                      font-weight: 900;">
+
+                      ${searchResults[i].name}</div>
+                      <p 
+                      style="
+                      font-family:Inter; 
+                      font-size:10px; 
+                      opacity: 70%;
+                      letter-spacing: 1.2px; ">
+                      ${searchResults[i].vicinity}</p>
+
+                      <button class="addButton"id="routeButton${placeId}" value="${placeId}"
+                      style="
+                      background-color: #194F77;
+                      border-radius: 50%;
+                      width: 20px;
+                      height: 20px;
+                      font-color: #FFFFFF;
+                      text-align: center;
+                      ">+</button>
+                      </div>`
+                      ,
                     });
 
                     // Create map marker
@@ -688,5 +718,14 @@ textarea {
 }
 .currentInput {
   text-decoration: none;
+}
+
+/* location pop up styling */
+#locationTitle{
+  color: red;
+  border: pink solid 3px;
+}
+.addButton{
+  border-radius: 50%;
 }
 </style>

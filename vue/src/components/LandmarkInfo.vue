@@ -14,12 +14,16 @@
         <p id="phone" v-show="phoneNumber">{{ phoneNumber }}</p>
       </div>
       <div id="icons">
-        <call-icon id="call"></call-icon>
         <remove-icon id="remove"></remove-icon>
+        <call-icon id="call"></call-icon>
         <a id="website" v-show="website" v-bind:href="website"
           ><website-icon></website-icon
         ></a>
-        <star-icon id="stars"></star-icon>
+        <div>
+            {{ ratings }}
+            <star-icon id="stars"></star-icon>
+        </div>
+        
       </div>
     </div>
   </div>
