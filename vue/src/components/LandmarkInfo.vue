@@ -1,9 +1,8 @@
 <template>
   <div class="locationInfo">
     <div id="name">
-       
-          {{ name }}
-        </div>
+      {{ name }}
+    </div>
     <div id="photoAndInfo">
       <img id="locPhoto" v-bind:src="photos[0].getUrl()" />
       <!-- <aside v-for="attribution in photos[0].html_attributions" v-bind:key="attribution.id">
@@ -13,21 +12,25 @@
       <div class="contact-details" id="textContainer">
         <p id="address">{{ address }}</p>
         <p id="phone" v-show="phoneNumber">{{ phoneNumber }}</p>
-        
-        
       </div>
-      <a id="website" v-show="website" v-bind:href="website"
-      ><website-icon></website-icon></a
-        >
+      <div id="icons">
+        <call-icon id="call"></call-icon>
+        <remove-icon id="remove"></remove-icon>
+        <a id="website" v-show="website" v-bind:href="website"
+          ><website-icon></website-icon
+        ></a>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import websiteIcon from '../assets/websiteIcon.vue';
+import callIcon from "../assets/callIcon.vue"
+import RemoveIcon from "../assets/removeIcon.vue";
+import websiteIcon from "../assets/websiteIcon.vue";
 
 export default {
-  components: { websiteIcon },
+  components: { websiteIcon, RemoveIcon, callIcon},
   name: "LandmarkInfo",
   props: {
     name: String,
@@ -60,14 +63,13 @@ export default {
 
 <style scoped>
 #photoAndInfo {
-
   display: flex;
   justify-content: space-between;
 }
 #name {
-  color: #adff00;
+  color: rgba(207, 231, 202);
   font-family: Inter;
-  font-size: 16px;
+  font-size: 14px;
   letter-spacing: 1.2px;
   background-color: transparent;
   text-decoration: none;
@@ -79,21 +81,39 @@ export default {
   max-width: 460px; */
   position: relative;
   top: 0px;
-  left:26px;
+  left: 26px;
   overflow-wrap: break-word;
+}
+#icons {
+  width: 80%;
+  height: 20px;
+  position: relative;
+  top: 100px;
+  display: flex;
+  justify-content: space-between;
+  left: 26px;
+}
+#website {
+  opacity: 50%;
 
+}
+#website:hover {
+  opacity: 100%;
+}
+#remove {
+  opacity: 50%;
+
+}
+#remove:hover {
+  opacity: 100%;
+}
+#call{
+  opacity: 50%;
  
 }
-#website{
-    position: absolute;
-    right: 96px;
-    opacity: 50%;
-    top: 120px;
+#call:hover{
+    opacity:100%
 }
-#website:hover{
-    opacity: 100%;
-}
-
 #locPhoto {
   border-radius: 50%;
   height: 70px;
@@ -105,15 +125,14 @@ export default {
   position: absolute;
 }
 .locationInfo {
-/* width:  80%; */
-max-width: 500px;
-min-width: 200px;
-
+  width: 80%;
+  max-width: 500px;
+  min-width: 200px;
 }
 .contact-details {
   color: var(--menu-bar-mint-50, rgba(207, 231, 202, 0.5));
   font-family: Inter;
-  font-size: 12px;
+  font-size: 11px;
   font-style: normal;
   font-weight: 400;
   line-height: 16px; /* 166.667% */
@@ -122,16 +141,14 @@ min-width: 200px;
   text-align: left;
   /* width: 360px; */
   min-width: 200px;
-    position: absolute;
-    left:26px;
-
-}  
-#textContainer{
-    flex:1;
-    margin-right: 110px;
+  position: absolute;
+  left: 26px;
 }
-#address{
-    width: 100%;
-
-} 
+#textContainer {
+  flex: 1;
+  margin-right: 110px;
+}
+#address {
+  width: 100%;
+}
 </style>

@@ -82,9 +82,9 @@
         <div id="locationCard" v-show="showLocationDetails">
          
 
-              <button id="removeButton" v-on:click="removeFromItinerary(index)">
+              <!-- <button id="removeButton" v-on:click="removeFromItinerary(index)">
                 -
-              </button>
+              </button> -->
            
             <LandmarkInfo
               v-bind:name="landmark.name"
@@ -510,7 +510,6 @@ top: 180px; */
 
 #currentList {
   width: 100%;
-  border: 3px yellow solid;
   position: absolute;
   top: 90%;
   z-index: 50;
