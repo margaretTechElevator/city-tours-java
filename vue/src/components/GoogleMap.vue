@@ -21,7 +21,7 @@
           /> -->
           </div>
         </div>
-        <div id="toggleSearchMenu" v-show="menuVisible">
+        <div id="toggleSearchMenu" v-show="menuVisible" @mouseleave='hideSearchMenu'>
           <div id="radiusArea">
             <input
               v-model="radiusInput"
@@ -157,10 +157,13 @@ export default {
 
     // toggle search area
 
-    toggleMenu() {
+    toggleMenu($event) {
+      // Define HTML block that is selected to open menu
+      const searchContainer = document.getElementById("startingAddress");
+
       // Toggle the menu visibility
-      this.menuVisible = !this.menuVisible;
-      // toggle the size of the dropdown
+      this.menuVisible = $event.target == searchContainer;
+      
       const startingFromArea = document.getElementById("startingFromArea");
       // Check the value of menuVisible and modify the border radius accordingly
       if (this.menuVisible) {
@@ -168,6 +171,12 @@ export default {
       } else {
         // Restore the original border radius
         startingFromArea.style.borderRadius = " 0 0 20px 20px";
+      }
+    },
+
+    hideSearchMenu() {
+      if (!document.getElementById("radius").value) {
+        this.menuVisible = event.target != document.getElementById("toggleSearchMenu")
       }
     },
 
@@ -371,7 +380,7 @@ export default {
         }
       );
       //till here
-      this.toggleMenu();
+      this.menuVisible = false;
     },
     addToItinerary(event) {
       const addedLocationId = event.target.value;
