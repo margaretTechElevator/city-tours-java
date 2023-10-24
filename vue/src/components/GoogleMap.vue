@@ -1,5 +1,5 @@
 <template>
-  <body @click="(event)=>{toggleMenu(event);}">
+  <body @click="[toggleMenu($event), toggleTripDetails($event)]">
     <div id="mapAreaWithDirections">
       <div id="searchContainer">
         <div id="searchBackground">
@@ -66,20 +66,21 @@
 
       <div
         id="currentList"
-        v-for="(landmark, index) of landmarks"
-        v-bind:key="index"
-        v-on:click.prevent="landmark.showDetails = !landmark.showDetails"
+        v-show="landmarks.length != 0"
       >
         <!-- trip title -->
-        <div id="tripTitle" @click="toggleTripDetails">
+        <div id="tripTitle">
           <input
             placeholder="my new trip"
             class="input-text"
-            @click="showTripDetails"
+            
           />
         </div>
 
-        <div id="locationCard" v-show="showLocationDetails">
+        <div class="location-card" 
+        v-for="(landmark, index) of landmarks"
+        v-bind:key="index"
+        >
          
 
               <!-- <button id="removeButton" v-on:click="removeFromItinerary(index)">
@@ -127,15 +128,17 @@ export default {
       landmarks: [],
       location: {},
       menuVisible: false,
-      showLocationDetails: true,
       showTripDetails: true,
     };
   },
 
   methods: {
-    //toggle up trip details when you click on the trip name input
-    toggleTripDetails() {
-      this.showTripDetails = !this.showTripDetails;
+    //toggle up trip details when you click on the trip footer
+    toggleTripDetails($event) {
+
+      this.showTripDetails = !$event.target.closest('#currentList');
+
+
       const tripDetails = document.getElementById("currentList");
       if (this.showTripDetails) {
         tripDetails.style.top = "90%";
@@ -155,7 +158,6 @@ export default {
     //   }
     // },
 
-    // toggle search area
 
     toggleMenu($event) {
 
@@ -169,16 +171,6 @@ export default {
       } else {
         // Restore the original border radius
         startingFromArea.style.borderRadius = " 0 0 20px 20px";
-      }
-    },
-
-    test(){
-      console.log("test")
-    },
-
-    hideSearchMenu() {
-      if (!document.getElementById("radius").value) {
-        this.menuVisible = event.target != document.getElementById("toggleSearchMenu")
       }
     },
 
@@ -368,7 +360,7 @@ export default {
                       rating: landmark.rating,
                       phoneNumber: landmark.formatted_phone_number,
                       website: landmark.website,
-                      showDetails: false,
+                      showDetails: true,
                       // marker: marker,
                       // infoWindow: infoWindow
                     };
@@ -650,7 +642,7 @@ textarea {
 }
 
 /*bottom route area */
-#locationCard {
+.location-card {
   width: 100%;
   min-width: 300px;
   max-width: 500px;
