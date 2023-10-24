@@ -1,5 +1,5 @@
 <template>
-  <body>
+  <body @click="(event)=>{toggleMenu(event);}">
     <div id="mapAreaWithDirections">
       <div id="searchContainer">
         <div id="searchBackground">
@@ -21,7 +21,7 @@
           /> -->
           </div>
         </div>
-        <div id="toggleSearchMenu" v-show="menuVisible" @mouseleave='hideSearchMenu'>
+        <div id="toggleSearchMenu" v-show="menuVisible" >
           <div id="radiusArea">
             <input
               v-model="radiusInput"
@@ -158,11 +158,9 @@ export default {
     // toggle search area
 
     toggleMenu($event) {
-      // Define HTML block that is selected to open menu
-      const searchContainer = document.getElementById("startingAddress");
 
       // Toggle the menu visibility
-      this.menuVisible = $event.target == searchContainer;
+      this.menuVisible = $event.target.closest("#searchContainer");     
       
       const startingFromArea = document.getElementById("startingFromArea");
       // Check the value of menuVisible and modify the border radius accordingly
@@ -172,6 +170,10 @@ export default {
         // Restore the original border radius
         startingFromArea.style.borderRadius = " 0 0 20px 20px";
       }
+    },
+
+    test(){
+      console.log("test")
     },
 
     hideSearchMenu() {
