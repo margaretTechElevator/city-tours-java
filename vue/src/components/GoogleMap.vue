@@ -175,11 +175,13 @@ export default {
       const request = {
         location: this.mapslocation,
         radius: this.radiusInput, //search within 50000 meters
-        type: type,
+        type: this.type,
       };
 
 
       //make the Places API request
+      for( const type of this.selectedTypes){
+        request.type = type;
       placesService.nearbySearch(
         request,                      //our request object
         (searchResults, status) => {        //our function that handles the promise object we are sent back
@@ -203,12 +205,19 @@ export default {
                         `<h3>${searchResults[i].name}</h3><p>${searchResults[i].vicinity}</p><button id="routeButton${placeId}" value="${placeId}">Add to Route</button>`,
                     });
 
+                    
+                    //debugging purpose
+                    console.log(searchResults[i].name);
+
                     // Create map marker
                     const marker = new window.google.maps.Marker({
                       position: searchResults[i].geometry.location,
                       map: this.map,
                       title: searchResults[i].name,
+                      
                     });
+
+                    
 
                     // Add click event listener to marker to show info window
                     marker.addListener("click", () => {
@@ -253,7 +262,7 @@ export default {
           }
         }
       );
-      //till here
+      }
     },
     addToItinerary(event) {
       const addedLocationId = event.target.value
