@@ -1,29 +1,39 @@
 <template>
-  <div>
+  <div id="mapElement">
     <div id="grid-container">
       <!--Google Maps will render map here-->
       <div id="map"></div>
 
       <div id="searchArea" class="grid">
-        <input 
-          v-model="currentInput" 
-          placeholder="starting address" 
-          type="input" 
-          class="inputStartingMiles"
-          id="startingAddress" 
+        <input
+          v-model="currentInput"
+          placeholder="starting address"
+          type="input"
+          class="input-text"
+          id="startingAddress"
         />
-        <input v-model="radiusInput" 
-          placeholder="search radius in miles" 
-          type="input" 
-          class="inputStartingMiles"
-          id="milesFrom" 
+        <input
+          v-model="radiusInput"
+          placeholder="search radius"
+          type="input"
+          class="input-text"
+          id="radius"
         />
-        <p></p>
-        <span id="whatToSearch">things to do</span>
-
-        <div v-for="type in attractionTypes" :key="type">
-          <input type="checkbox" :value="type" v-model="selectedTypes" />
-          {{ type }}
+        <div id="whatToSearch">things to do</div>
+        <div id="attractionTypeCheckboxesGroup">
+          <div
+            v-for="type in attractionTypes" 
+            :key="type"
+            class="attractionTypeCheckboxes"
+          >
+            <input 
+              type="checkbox" 
+              :value="type" 
+              v-model="selectedTypes"
+              :id="`${type}-id`"
+            />
+            <label :for="`${type}-id`">{{ type }}</label>
+          </div>
         </div>
 
         <button v-on:click="search" id="letsGo">let's go!</button>
@@ -64,6 +74,8 @@
   
 <script>
 import LandmarkInfo from './LandmarkInfo.vue'
+import {loadedGoogleMapsAPI} from '@/main'
+
 export default {
   name: "Map",
   components: { LandmarkInfo },
@@ -340,132 +352,146 @@ export default {
     },
   },
   mounted() {
-    this.initMap();
+    loadedGoogleMapsAPI.then( () => {
+      this.initMap()
+    })
   },
 };
 </script>
   
-<style>
-input {
-  width: 300px;
-  margin-top: 0px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  width: 50%;
-  box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.36);
-  border: rgb(203, 203, 203) 0.5px solid;
-  background-color: rgba(158, 158, 158, 0.248);
-}
+<style scoped>
+  input {
+    width: 300px;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 50%;
+    box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.36);
+    border: rgb(203, 203, 203) 0.5px solid;
+    background-color: rgba(158, 158, 158, 0.248);
+  }
 
-#grid-container {
-  padding-bottom: 20px;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-areas:
-    "inputs "
-    "map "
-    "directions ";
-}
+  button {
+    background-color: rgb(236, 191, 93);
+    border: none;
+    text-align: center;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    color: #6b1717;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+    font-weight: 900;
+    font-size: 1rem;
+    line-height: 1;
+    box-shadow: 1px 1px 10px rgba(130, 114, 110, 0.186);
+  }
+  
+  ::placeholder {
+    color: #e0a788e0;
+    font-weight: 900;
+    letter-spacing: 0.15rem;
+    font-size: 0.75rem;
+    background: transparent;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  } 
 
-#map {
-  grid-area: map;
-  width: 500px;
-  height: 400px;
-  padding: 25px;
-  margin: 25px;
+  #mapElement {
+    margin: auto;
+    text-align: center;
+    margin-top: 0px;
+    padding-top: 20px;
+    box-shadow: 1px 1px 10px rgba(130, 114, 110, 0.17);
+    background-color: white;
+  }
 
-}
+  #grid-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "inputs "
+      "map "
+      "route ";
+    padding-bottom: 20px;
+  }
 
-#panel {
-  grid-area: directions;
-}
+  #searchArea {
+    grid-area: inputs;
+    margin: auto;
+    width: 50%;
+    height: 150px;
+    background-color: rgb(255, 255, 255);
+    padding-bottom: 40px;
+  }
 
-#searchArea {
-  /* border: rgb(28, 153, 11) 3px solid; */
-  margin: auto;
-  width: 50%;
-  grid-area: inputs;
-  background-color: rgb(255, 255, 255);
-  padding-bottom: 40px;
-  ;
+  #map {
+    grid-area: map;
+    width: 500px;
+    height: 400px;
+    padding: 25px;
+    margin: auto;
+    margin-top: 20px;
+    text-align: center;
+  }
 
-}
+  #panel {
+    grid-area: route;
+  }
 
-.inputStartingMiles {
-  width: 300px;
-  margin-top: 10px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  width: 100%;
-  box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.36);
-  border: rgb(203, 203, 203) 0.5px solid;
-  background-color: rgba(158, 158, 158, 0.248);
+  .input-text {
+    width: 300px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 100%;
+    box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.36);
+    border: rgb(203, 203, 203) 0.5px solid;
+    background-color: rgba(158, 158, 158, 0.248);
+  }
 
-}
-
-Please help get these in a horizontal row
-.grid {
-  display: grid;
-  grid-template-columns: 500px 100px 100px 100px;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-  grid-template-areas:
-    "startingAddress startingAddress startingAddress startingAddress",
-    "milesFrom milesFrom milesFrom milesFrom",
-    " . whatToSearch whatToSearch .",
-    "radio radio radio radio",
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+    "startingAddress startingAddress startingAddress startingAddress"
+    "radius radius radius radius"
+    ". whatToSearch whatToSearch ."
+    "types types types types"
     ". letsGo letsGo .";
+  }
 
-}
+  #startingAddress {
+    grid-area: startingAddress;
+  }
 
-#milesFrom {
-  grid-area: milesFrom;
-}
+  #radius {
+    grid-area: radius;
+  }
 
-#startingAddress {
-  grid-area: startingAddress;
-}
+  #whatToSearch {
+    grid-area: whatToSearch;
+    padding-top: 20px;
+    padding-bottom: 15px;
+    color: #6b1717;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+    font-weight: 900;
+    font-size: 1.5rem;
+    line-height: 0;
+    text-shadow: 1px 1px 10px rgba(130, 114, 110, 0.5);
+    width: 100%;
+  }
 
-#whatToSearch {
-  grid-area: whatToSearch;
-  text-align: center;
-  padding-top: 20px;
-  padding-bottom: 15px;
-  color: #6b1717;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  font-weight: 900;
-  font-size: 1.5rem;
-  line-height: 0;
-  text-shadow: 1px 1px 10px rgba(130, 114, 110, 0.5);
-}
+  #attractionTypeCheckboxesGroup {
+    grid-area: types;
+  }
+  
+  .attractionTypeCheckboxes {
+    display: inline-block;
+    padding: 3%;
+  }
 
-#letsGo {
-  grid-area: letsGo;
-
-}
-
-button {
-  background-color: rgb(236, 191, 93);
-  border: none;
-  text-align: center;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  color: #6b1717;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  font-weight: 900;
-  font-size: 1rem;
-  line-height: 1;
-  box-shadow: 1px 1px 10px rgba(130, 114, 110, 0.186);
-
-}
-
-::placeholder {
-  color: #e0a788e0;
-  font-weight: 900;
-  letter-spacing: 0.15rem;
-  font-size: 0.75rem;
-  background: transparent;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-}
+  #letsGo {
+    grid-area: letsGo;
+  }
 </style>
