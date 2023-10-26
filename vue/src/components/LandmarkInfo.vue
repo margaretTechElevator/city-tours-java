@@ -1,9 +1,9 @@
 <template>
   <div class="locationInfo">
-    <div id="name">
+    <div id="name" >
       {{ name }}
     </div>
-    <div id="photoAndInfo">
+    <div id="photoAndInfo" >
       <img id="locPhoto" v-bind:src="photos[0].getUrl()" />
       <!-- <aside v-for="attribution in photos[0].html_attributions" v-bind:key="attribution.id">
                 Photo Credit: <span v-html="attribution"></span><br>
@@ -14,7 +14,9 @@
         <p id="phone" v-show="phoneNumber">{{ phoneNumber }}</p>
       </div>
       <div id="icons">
+        <div id="removeButtonContainer" @click="removeClick">
         <remove-icon id="remove"></remove-icon>
+      </div>
         <call-icon id="call"></call-icon>
         <a id="website" v-show="website" v-bind:href="website"
           ><website-icon></website-icon
@@ -55,6 +57,7 @@ export default {
     ratings: Object,
     website: String,
   },
+
   methods: {
     defaultUrl() {
       return [
@@ -63,6 +66,11 @@ export default {
         },
       ];
     },
+    //the remove button was clicked
+    removeClick(){
+
+      this.$emit("removeClick", this.placeId)
+    }
   },
 };
 </script>
@@ -109,6 +117,10 @@ export default {
 #remove {
   opacity: 50%;
 
+}
+#removeButtonContainer{
+  width: 50px;
+  height:50px;
 }
 #remove:hover {
   opacity: 100%;

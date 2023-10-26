@@ -21,7 +21,7 @@
           /> -->
           </div>
         </div>
-        <div id="toggleSearchMenu" v-show="menuVisible" >
+        <div id="toggleSearchMenu" v-show="menuVisible">
           <div id="radiusArea">
             <input
               v-model="radiusInput"
@@ -64,38 +64,30 @@
         <button v-on:click="generateRoute">Generate Route</button><br /><br />
       </div>
 
-      <div
-        id="currentList"
-        v-show="landmarks.length != 0"
-      >
+      <div id="currentList" v-show="landmarks.length != 0">
         <!-- trip title -->
         <div id="tripTitle">
-          <input
-            placeholder="my new trip"
-            class="input-text"
-            
-          />
+          <input placeholder="my new trip" class="input-text" />
         </div>
 
-        <div class="location-card" 
-        v-for="(landmark, index) of landmarks"
-        v-bind:key="index"
+        <div
+          class="location-card"
+          v-for="(landmark, index) of landmarks"
+          v-bind:key="index"
         >
-         
-
-              <!-- <button id="removeButton" v-on:click="removeFromItinerary(index)">
+          <!-- <button id="removeButton" v-on:click="removeFromItinerary(index)">
                 -
               </button> -->
-           
-            <LandmarkInfo
-              v-bind:name="landmark.name"
-              v-bind:address="landmark.address"
-              v-bind:photos="landmark.photos"
-              v-bind:phoneNumber="landmark.phoneNumber"
-              v-bind:website="landmark.website"
-              v-show="landmark.showDetails"
-            />
-          
+
+          <LandmarkInfo
+            v-bind:name="landmark.name"
+            v-bind:address="landmark.address"
+            v-bind:photos="landmark.photos"
+            v-bind:phoneNumber="landmark.phoneNumber"
+            v-bind:website="landmark.website"
+            v-show="landmark.showDetails"
+            v-on:removeClick="removeFromItinerary"
+          />
         </div>
       </div>
       <!--Google Maps will render directions here-->
@@ -135,9 +127,7 @@ export default {
   methods: {
     //toggle up trip details when you click on the trip footer
     toggleTripDetails($event) {
-
-      this.showTripDetails = !$event.target.closest('#currentList');
-
+      this.showTripDetails = !$event.target.closest("#currentList");
 
       const tripDetails = document.getElementById("currentList");
       if (this.showTripDetails) {
@@ -158,12 +148,10 @@ export default {
     //   }
     // },
 
-
     toggleMenu($event) {
-
       // Toggle the menu visibility
-      this.menuVisible = $event.target.closest("#searchContainer");     
-      
+      this.menuVisible = $event.target.closest("#searchContainer");
+
       const startingFromArea = document.getElementById("startingFromArea");
       // Check the value of menuVisible and modify the border radius accordingly
       if (this.menuVisible) {
@@ -314,8 +302,7 @@ export default {
                       font-color: #FFFFFF;
                       text-align: center;
                       ">+</button>
-                      </div>`
-                      ,
+                      </div>`,
                     });
 
                     // Create map marker
@@ -388,15 +375,22 @@ export default {
       }
     },
     // This function is called to remove a location
-    removeFromItinerary(index) {
-      if (this.landmarks.length == 2) {
-        window.alert("A start and end location must be present");
-        return;
-      }
+    // removeFromItinerary(index) {
+    //   if (this.landmarks.length == 2) {
+    //     window.alert("A start and end location must be present");
+    //     return;
+    //   }
 
-      this.landmarks.splice(index, 1);
+    //   this.landmarks.splice(index, 1);
+    // },
+
+    removeFromItinerary(placeId) {
+      console.log("we got here")
+      const filteredLandmarks = this.landmarks.filter((landmark) => {
+        landmark.placeId !== placeId;
+      });
+      this.landmarks = filteredLandmarks;
     },
-
     // This function calls the Google Maps API, renders the route
     // and retrieves the directions
     generateRoute() {
@@ -655,7 +649,6 @@ textarea {
   /* display: flex; */
 }
 
-
 #tripTitle {
   /* font-family: OrelegaOne;
   font-size: 24px;
@@ -714,7 +707,7 @@ textarea {
   font-size: 48;
   border: none;
   bottom: 0px;
-  left: 26px
+  left: 26px;
 }
 #removeButton:hover {
   background-color: #adff00;
@@ -724,11 +717,11 @@ textarea {
 }
 
 /* location pop up styling */
-#locationTitle{
+#locationTitle {
   color: red;
   border: pink solid 3px;
 }
-.addButton{
+.addButton {
   border-radius: 50%;
 }
 </style>
