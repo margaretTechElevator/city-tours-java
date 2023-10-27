@@ -49,7 +49,7 @@
 </template>
 
 <script>
-  import authService from "../services/AuthService";
+  import authService from '../services/AuthService.js'
   import Navigation from '../components/Navigation.vue'
 
   export default {
