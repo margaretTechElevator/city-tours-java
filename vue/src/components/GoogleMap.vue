@@ -49,7 +49,7 @@
             </div>
           </div>
           <div id="letsGoContainer">
-            <button v-on:click="search" id="letsGo">let's go!</button>
+            <button v-on:click="search" id="letsGo">go!</button>
           </div>
         </div>
       </div>
@@ -125,6 +125,12 @@ export default {
   },
 
   methods: {
+    handleGoToMap(coordinates) {
+      // Check if coordinates are valid
+      if (coordinates && coordinates.lat && coordinates.lng) {
+        this.map.setCenter(coordinates);
+      }
+    },
     //toggle up trip details when you click on the trip footer
     toggleTripDetails($event) {
       this.showTripDetails = !$event.target.closest("#currentList");
@@ -274,8 +280,6 @@ export default {
                     //styling inline MOVE LATER
                     const infoWindow = new window.google.maps.InfoWindow({
                       content: `<div class="locationPopContainer">
-
-
                         <div class="locationTitle" 
                       style="
                       font-family: Inter; 
@@ -295,13 +299,19 @@ export default {
 
                       <button class="addButton"id="routeButton${placeId}" value="${placeId}"
                       style="
-                      background-color: #194F77;
+                      border: none;
+                      background-color: #4C92C5;
                       border-radius: 50%;
                       width: 20px;
                       height: 20px;
-                      font-color: #FFFFFF;
+                      color: #FFFFFF;
                       text-align: center;
-                      ">+</button>
+                      line-height: 95%;
+                      position: relative;
+                      "
+                      onmouseover="this.style.backgroundColor='#194F77';"
+                      onmouseout="this.style.backgroundColor='#4C92C5';"
+                      >+</button>
                       </div>`,
                     });
 
@@ -385,7 +395,7 @@ export default {
     // },
 
     removeFromItinerary(placeId) {
-      console.log("we got here")
+      console.log("we got here");
       const filteredLandmarks = this.landmarks.filter((landmark) => {
         landmark.placeId !== placeId;
       });
@@ -638,7 +648,7 @@ textarea {
 /*bottom route area */
 .location-card {
   border-radius: 20px;
-  background-color:#182935;
+  background-color: #182935;
   padding-top: 16px;
   margin-bottom: 20px;
   width: 90%;
