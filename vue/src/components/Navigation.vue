@@ -203,7 +203,7 @@ a:hover {
   transform: rotate(-405deg);
 }
 
-@media (max-width: 1700px) {
+@media (max-width: 2700px) {
   .menu-button-container {
     margin-top:16px;
     padding-top: 20px;

@@ -5,19 +5,20 @@
     </div>
     <div id="photoAndInfo" >
       <img id="locPhoto" v-bind:src="photos[0].getUrl()" />
-      <!-- <aside v-for="attribution in photos[0].html_attributions" v-bind:key="attribution.id">
-                Photo Credit: <span v-html="attribution"></span><br>
-            </aside> -->
 
       <div class="contact-details" id="textContainer">
         <p id="address">{{ address }}</p>
-        <p id="phone" v-show="phoneNumber">{{ phoneNumber }}</p>
       </div>
       <div id="icons">
         <div id="removeButtonContainer" @click="removeClick">
         <remove-icon id="remove"></remove-icon>
       </div>
-        <call-icon id="call"></call-icon>
+      <div id="location" @click="goToMap">
+        <location-icon></location-icon>
+      </div>
+      <div @click="makePhoneCall">
+        <call-icon id="call" ></call-icon>
+      </div>
         <a id="website" v-show="website" v-bind:href="website"
           ><website-icon></website-icon
         ></a>
@@ -36,9 +37,10 @@ import callIcon from "../assets/callIcon.vue"
 import RemoveIcon from "../assets/removeIcon.vue";
 import StarIcon from '../assets/starIcon.vue';
 import websiteIcon from "../assets/websiteIcon.vue";
+import locationIcon from "../assets/locationIcon.vue";
 
 export default {
-  components: { websiteIcon, RemoveIcon, callIcon, StarIcon},
+  components: { websiteIcon, RemoveIcon, callIcon, StarIcon, locationIcon},
   name: "LandmarkInfo",
   props: {
     name: String,
@@ -70,12 +72,27 @@ export default {
     removeClick(){
 
       this.$emit("removeClick", this.placeId)
+    },
+    //when clicking on the call icon, call the number
+    //not sure if this works yet on a phone
+    makePhoneCall() {
+    if (this.phoneNumber) {
+      window.location.href = `tel:${this.phoneNumber}`;
     }
   },
-};
+  goToMap(){
+    //method to go to the map location and to minimize currentList
+    
+  }
+},
+
+}
 </script>
 
 <style scoped>
+location-icon{  
+  border: 3px pink solid;
+}
 #photoAndInfo {
   display: flex;
   justify-content: space-between;
@@ -114,13 +131,19 @@ export default {
 #website:hover {
   opacity: 100%;
 }
+#location {
+  opacity: 50%;
+}
+#location:hover{
+  opacity: 100%;
+}
 #remove {
   opacity: 50%;
 
 }
 #removeButtonContainer{
-  width: 50px;
-  height:50px;
+  /* width: 50px;
+  height:50px; */
 }
 #remove:hover {
   opacity: 100%;
@@ -173,6 +196,6 @@ export default {
   margin-right: 110px;
 }
 #address {
-  width: 100%;
+  width: 90%;
 }
 </style>

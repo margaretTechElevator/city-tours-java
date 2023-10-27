@@ -637,13 +637,18 @@ textarea {
 
 /*bottom route area */
 .location-card {
-  width: 100%;
+  border-radius: 20px;
+  background-color:#182935;
+  padding-top: 16px;
+  margin-bottom: 20px;
+  width: 90%;
   min-width: 300px;
   max-width: 500px;
   height: 160px;
   z-index: 200;
   position: relative;
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
   top: 40px;
   justify-content: center;
   /* display: flex; */
