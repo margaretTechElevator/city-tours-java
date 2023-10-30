@@ -66,8 +66,11 @@
 
       <div id="currentList" v-show="landmarks.length != 0">
         <!-- trip title -->
-        <div id="tripTitle">
-          <input placeholder="my new trip" class="input-text" />
+        <div id="tripTitleContainer">
+            <input placeholder="my new trip"  id="tripInputField"/>
+            <button type="#" id="checkButton">
+              <check-icon class="check-icon"></check-icon>
+            </button>
         </div>
 
         <div
@@ -99,10 +102,11 @@
 <script>
 import LandmarkInfo from "./LandmarkInfo.vue";
 import { loadedGoogleMapsAPI } from "@/main";
+import checkIcon from "../assets/checkIcon.vue";
 
 export default {
   name: "Map",
-  components: { LandmarkInfo },
+  components: { LandmarkInfo, checkIcon },
   data() {
     return {
       map: null,
@@ -142,17 +146,6 @@ export default {
         tripDetails.style.top = "30%";
       }
     },
-
-    // toggle location details
-    // toggleLocationDetails() {
-    //   this.showLocationDetails = !this.showLocationDetails;
-    //   const locationCard = document.getElementById("locationCard");
-    //   if (this.showLocationDetails) {
-    //     locationCard.style.display = "block";
-    //   } else {
-    //     locationCard.style.display = "none";
-    //   }
-    // },
 
     toggleMenu($event) {
       // Toggle the menu visibility
@@ -505,10 +498,10 @@ export default {
   background-color: #182935;
   border-radius: 0 0 20px 20px;
 }
-#startingAddress {
+/* #startingAddress {
   max-width: 600px;
   width: 90%;
-}
+} */
 #radiusArea {
   height: 100%;
   width: 100%;
@@ -524,7 +517,7 @@ export default {
   border: none;
   color: #adff00;
   border-radius: 20px;
-  font-size: 24px;
+  font-size: 30px;
   margin-right: 16px;
   margin-bottom: 20px;
   height: 30px;
@@ -571,14 +564,7 @@ top: 180px; */
   z-index: 0;
 }
 
-input {
-  width: 300px;
-  margin-top: 0px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  width: 50%;
-}
+
 
 ::placeholder {
   color: var(--menu-bar-mint-50, rgba(207, 231, 202, 0.5));
@@ -593,6 +579,10 @@ input {
 }
 
 .input-text {
+  margin-top: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
   color: #adff00;
   font-family: Inter;
   font-size: 12px;
@@ -601,7 +591,6 @@ input {
   width: 90%;
   max-width: 600px;
   background-color: rgb(26, 51, 71);
-
   border-radius: 20px;
   box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.3) inset;
   outline: none;
@@ -663,20 +652,65 @@ textarea {
   justify-content: center;
   /* display: flex; */
 }
+/* #titleContainer{
+  width: 90%;
+  max-width: 600px;
+  position: relative;
+} */
+#tripInputField{
+  width: 90%;
+  margin-top: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  color: #adff00;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  letter-spacing: 1.8px;
+  max-width: 600px;
+  background-color: rgb(26, 51, 71);
+  border-radius: 20px;
+  box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.3) inset;
+  outline: none;
+  border: none;
+  height: 30px;
+}
 
-#tripTitle {
-  /* font-family: OrelegaOne;
-  font-size: 24px;
-  color: var(--menu-bar-mint-50, rgba(207, 231, 202, 0.5)); */
+#tripTitleContainer {
   z-index: 300;
   padding-top: 20px;
-  position: relative;
-  width: 100%;
   text-align: center;
-  height: 30px;
-  justify-content: center;
-  border-radius: 0 0 20px 20px;
+  position: relative;
+  max-width: 600px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+
 }
+
+#checkButton {
+  position: absolute;
+  top: 25px;
+  width: 50px;
+  border-radius: 50%;
+  border: none;
+  background: none;
+  right: 26px;
+  opacity: 50%;
+}
+#checkButton:hover{
+  opacity: 100%;
+}
+
+
+/* .check-icon{
+  position: absolute;
+  top:50%;
+  right: 5px;
+  transform: translateY(-50%);
+  cursor: pointer;
+} */
 #landmarkPhoto {
   margin: auto;
   position: absolute;
