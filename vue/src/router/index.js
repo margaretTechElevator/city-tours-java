@@ -27,7 +27,7 @@ const router = new Router({
       name: 'Home',
       component: PlanNewTourPage,
       meta: {
-        requiresAuth: true
+        requiresAuth: false
       }
     },
     {
