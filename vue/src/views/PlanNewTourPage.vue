@@ -40,17 +40,7 @@ export default {
 
 
 <style scoped>
-/* .bottom{
-  display: flex;
-  flex-direction: column;
-  align-content: space-between;
-} */
 
-/* Navigation {
-  position: relative;
-  z-index: 2;
-  border: pink solid 3px;
-} */
 google-map {
   position: relative;
   z-index: 0;

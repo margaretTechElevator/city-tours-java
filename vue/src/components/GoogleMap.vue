@@ -12,15 +12,9 @@
               id="startingAddress"
               @click="toggleMenu"
             />
-            <!-- <input
-            v-model="radiusInput"
-            placeholder="search radius in miles"
-            type="input"
-            class="input-text"
-            id="radius"
-          /> -->
           </div>
         </div>
+
         <div id="toggleSearchMenu" v-show="menuVisible">
           <div id="radiusArea">
             <input
@@ -78,9 +72,6 @@
           v-for="(landmark, index) of landmarks"
           v-bind:key="index"
         >
-          <!-- <button id="removeButton" v-on:click="removeFromItinerary(index)">
-                -
-              </button> -->
 
           <LandmarkInfo
             v-bind:name="landmark.name"
@@ -769,10 +760,10 @@ textarea {
 }
 
 /* location pop up styling */
-#locationTitle {
+/* #locationTitle {
   color: red;
   border: pink solid 3px;
-}
+} */
 .addButton {
   border-radius: 50%;
 }
